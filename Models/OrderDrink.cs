@@ -9,4 +9,5 @@ public class OrderDrink
 
     public Drink Drink { get; set; }
     public Order Order { get; set; }
+    public Guid? ComboItemId { get; set; }
 }
