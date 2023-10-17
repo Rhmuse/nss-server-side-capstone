@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace KrustyKrab.Models;
 
 public class OrderSide
@@ -7,6 +9,8 @@ public class OrderSide
     public Guid OrderId { get; set; }
     public int Quantity { get; set; }
     public Guid ComboItemId { get; set; }
-    public Side Side { get; set; }
-    public Order Order { get; set; }
+    [NotMapped]
+    public Side? Side { get; set; }
+    [NotMapped]
+    public Order? Order { get; set; }
 }

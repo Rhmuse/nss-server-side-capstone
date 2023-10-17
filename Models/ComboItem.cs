@@ -5,4 +5,5 @@ public class ComboItem
     public Guid Id { get; set; }
     public Guid ComboId { get; set; }
     public Guid ItemId { get; set; }
+    public Guid OrderId { get; set; }
 }

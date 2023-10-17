@@ -19,7 +19,6 @@ public class KrustyKrabDbContext : IdentityDbContext<IdentityUser>
     public DbSet<Drink> Drinks { get; set; }
     public DbSet<OrderType> OrderTypes { get; set; }
     public DbSet<Combo> Combos { get; set; }
-    public DbSet<Registration> Registrations { get; set; }
     public DbSet<ComboItem> ComboItems { get; set; }
 
     public KrustyKrabDbContext(DbContextOptions<KrustyKrabDbContext> context, IConfiguration config) : base(context)
@@ -44,6 +43,8 @@ public class KrustyKrabDbContext : IdentityDbContext<IdentityUser>
         Guid doubleKrabbyPattyComboId = Guid.NewGuid();
         // Burgers
         Guid firstBurgerId = Guid.NewGuid();
+        Guid firstComboBurgerId = Guid.NewGuid();
+        Guid secondComboBurgerId = Guid.NewGuid();
         // Drinks
         Guid drKelpId = Guid.NewGuid();
         Guid dietDrKelpId = Guid.NewGuid();
@@ -121,16 +122,38 @@ public class KrustyKrabDbContext : IdentityDbContext<IdentityUser>
         modelBuilder.Entity<Burger>().HasData(new Burger[]
         {
             new Burger{ Id = firstBurgerId, Quantity = 1, OrderId = firstOrderId },
+            new Burger{ Id = firstComboBurgerId, Quantity = 1 },
+            new Burger{ Id = secondComboBurgerId, Quantity = 1 }
         });
 
         modelBuilder.Entity<Combo>().HasData(new Combo[]
         {
-            new Combo{ Id = krabbyPattyComboId,  Name = "krabby patty combo", Discount = -1.00F },
-            new Combo{ Id = doubleKrabbyPattyComboId,  Name = "double krabby patty combo", Discount = -1.250F },
+            new Combo{ Id = krabbyPattyComboId,  Name = "krabby patty combo", Discount = -1.00F, BurgerId = firstComboBurgerId },
+            new Combo{ Id = doubleKrabbyPattyComboId,  Name = "double krabby patty combo", Discount = -1.25F, BurgerId = secondComboBurgerId },
         });
 
         modelBuilder.Entity<BurgerTopping>().HasData(new BurgerTopping[]
         {
+            new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = secondComboBurgerId, ToppingId = secretSauceId },
+            new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = secondComboBurgerId, ToppingId = lettuceId },
+            new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = secondComboBurgerId, ToppingId = tomatoId },
+            new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = secondComboBurgerId, ToppingId = pickleId },
+            new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = secondComboBurgerId, ToppingId = onionId },
+            new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = secondComboBurgerId, ToppingId = pattyId },
+            new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = secondComboBurgerId, ToppingId = pattyId },
+            new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = secondComboBurgerId, ToppingId = ketchupId },
+            new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = secondComboBurgerId, ToppingId = mustardId },
+            new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = secondComboBurgerId, ToppingId = bunId },
+            new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstComboBurgerId, ToppingId = secretSauceId },
+            new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstComboBurgerId, ToppingId = lettuceId },
+            new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstComboBurgerId, ToppingId = tomatoId },
+            new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstComboBurgerId, ToppingId = pickleId },
+            new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstComboBurgerId, ToppingId = onionId },
+            new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstComboBurgerId, ToppingId = pattyId },
+            new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstComboBurgerId, ToppingId = ketchupId },
+            new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstComboBurgerId, ToppingId = mustardId },
+            new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstComboBurgerId, ToppingId = bunId },
+            new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstBurgerId, ToppingId = secretSauceId },
             new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstBurgerId, ToppingId = lettuceId },
             new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstBurgerId, ToppingId = tomatoId },
             new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstBurgerId, ToppingId = pickleId },
@@ -139,7 +162,7 @@ public class KrustyKrabDbContext : IdentityDbContext<IdentityUser>
             new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstBurgerId, ToppingId = pattyId },
             new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstBurgerId, ToppingId = ketchupId },
             new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstBurgerId, ToppingId = mustardId },
-            new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstBurgerId, ToppingId = secretSauceId },
+            new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstBurgerId, ToppingId = bunId },
         });
 
         modelBuilder.Entity<Drink>().HasData(new Drink[]
@@ -149,7 +172,7 @@ public class KrustyKrabDbContext : IdentityDbContext<IdentityUser>
             new Drink{ Id = redTidepId, Name = "red tide", Price = 1.00F },
             new Drink{ Id = kelpShakeId, Name = "kelp shake", Price = 1.50F },
             new Drink{ Id = seafoamSodaId, Name = "seafoam soda", Price = 1.00F },
-            new Drink{ Id = waterId, Name = "water", Price = 0.10F },
+            new Drink{ Id = waterId, Name = "water", Price = 0.10F }
         });
 
         modelBuilder.Entity<Order>().HasData(new Order[]
@@ -200,9 +223,9 @@ public class KrustyKrabDbContext : IdentityDbContext<IdentityUser>
 
         modelBuilder.Entity<ComboItem>().HasData(new ComboItem[]
         {
-           new ComboItem{ Id = Guid.NewGuid(), ComboId = firstOrderId, ItemId = firstBurgerId},
-           new ComboItem{ Id = Guid.NewGuid(), ComboId = firstOrderId, ItemId = orderSideId},
-           new ComboItem{ Id = Guid.NewGuid(), ComboId = firstOrderId, ItemId = orderDrinkId},
+           new ComboItem{ Id = Guid.NewGuid(), ComboId = doubleKrabbyPattyComboId, ItemId = firstBurgerId, OrderId = firstOrderId },
+           new ComboItem{ Id = Guid.NewGuid(), ComboId = doubleKrabbyPattyComboId, ItemId = orderSideId, OrderId = firstOrderId },
+           new ComboItem{ Id = Guid.NewGuid(), ComboId = doubleKrabbyPattyComboId, ItemId = orderDrinkId,  OrderId = firstOrderId }
         });
     }
 }

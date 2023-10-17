@@ -7,11 +7,10 @@ public class Order
     public Guid CustomerId { get; set; }
     public Guid EmployeeId { get; set; }
     public DateTime OrderTime { get; set; }
-
-    public OrderType OrderType { get; set; }
-    public UserProfile Customer { get; set; }
-    public UserProfile Employee { get; set; }
-    public List<Burger> Burgers { get; set; }
-    public List<OrderDrink> Drinks { get; set; }
-    public List<OrderSide> Sides { get; set; }
+    public OrderType? OrderType { get; set; }
+    public UserProfile? Customer { get; set; }
+    public UserProfile? Employee { get; set; }
+    public List<Burger>? Burgers { get; set; }
+    public List<OrderDrink>? Drinks { get; set; }
+    public List<OrderSide>? Sides { get; set; }
 }
