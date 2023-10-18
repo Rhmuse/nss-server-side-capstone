@@ -1,14 +1,13 @@
 import { Route, Routes } from 'react-router-dom';
 import { AuthorizedRoute } from '../auth/AuthorizedRoute';
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import OrderSummary from '../pos/OrderSummary';
 import PreviousOrdersList from '../pos/PreviousOrdersList';
 import LoggedInUserDetails from '../pos/LoggedInUserDetails';
 import MainPosView from '../pos/MainPosView';
+import { logout } from '../../managers/authManager';
 
-import "./EmployeeView.css";
-
-const EmployeeView = ({ loggedInUser }) => {
+const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
     return (
         <Routes>
             <Route path="/">
@@ -17,8 +16,8 @@ const EmployeeView = ({ loggedInUser }) => {
                     element={
                         <AuthorizedRoute loggedInUser={loggedInUser}>
                             <Container>
-                                <Row id="mainRow">
-                                    <Col lg md sm xl="2" id="orderSummaryCol">
+                                <Row>
+                                    <Col lg md sm xl="2" >
                                         <Row>
                                             <OrderSummary />
                                         </Row>
@@ -26,9 +25,21 @@ const EmployeeView = ({ loggedInUser }) => {
                                             <PreviousOrdersList />
                                         </Row>
                                     </Col>
-                                    <Col id="mainViewCol">
-                                        <Row>
-                                            <LoggedInUserDetails />
+                                    <Col>
+                                        <Row style={{ display: "flex", flexDirection: "row", alignItems: "center", width: "95%", justifyContent: "space-between" }}>
+                                            <Button
+                                                style={{ width: "10%", height: "50%" }}
+                                                color="primary"
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    logout().then(() => {
+                                                        setLoggedInUser(null);
+                                                    });
+                                                }}
+                                            >
+                                                Logout
+                                            </Button>
+                                            <LoggedInUserDetails loggedInUser={loggedInUser} />
                                         </Row>
                                         <Row>
                                             <MainPosView />
