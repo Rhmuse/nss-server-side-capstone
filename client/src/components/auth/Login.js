@@ -28,7 +28,6 @@ export default function Login({ setLoggedInUser }) {
         <Form.Group>
           <Form.Label>Email</Form.Label>
           <Form.Control
-            invalid={failedLogin}
             type="text"
             value={email}
             onChange={(e) => {
@@ -40,7 +39,6 @@ export default function Login({ setLoggedInUser }) {
         <Form.Group>
           <FormLabel>Password</FormLabel>
           <Form.Control
-            invalid={failedLogin}
             type="password"
             value={password}
             onChange={(e) => {
@@ -48,7 +46,6 @@ export default function Login({ setLoggedInUser }) {
               setPassword(e.target.value);
             }}
           />
-          <Form.Control.Feedback type='invalid'>Login failed.</Form.Control.Feedback>
         </Form.Group>
 
 

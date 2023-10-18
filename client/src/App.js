@@ -3,7 +3,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { tryGetLoggedInUser } from "./managers/authManager";
 import { Spinner } from "react-bootstrap";
-import ApplicationViews from "./components/ApplicationViews";
+import ApplicationViews from "./components/views/ApplicationViews";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState();
