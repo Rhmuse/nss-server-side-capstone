@@ -5,7 +5,7 @@ import { Button, Nav, Navbar } from 'react-bootstrap';
 export default function NavBar({ loggedInUser, setLoggedInUser }) {
   return (
     <div>
-      <Navbar color="light" light fixed="true" expand="lg">
+      <Navbar fixed="true" expand="lg">
         <Navbar.Brand className="mr-auto" tag={RRNavLink} to="/">
           <img
             src=""

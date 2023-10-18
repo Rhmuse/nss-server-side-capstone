@@ -1,30 +1,17 @@
-import { Route, Routes } from "react-router-dom";
-import { AuthorizedRoute } from "./auth/AuthorizedRoute";
-import Login from "./auth/Login";
-import Register from "./auth/Register";
+import EmployeeView from './EmployeeView';
+import CustomerView from './CustomerView';
+import NavBar from './NavBar';
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
+  if (loggedInUser?.roles?.includes("Employee") || loggedInUser?.roles?.includes("Admin")) {
+    return (
+      <EmployeeView loggedInUser={loggedInUser} />
+    )
+  }
   return (
-    <Routes>
-      <Route path="/">
-        <Route
-          index
-          element={
-            <AuthorizedRoute loggedInUser={loggedInUser}>
-              <>asdfsa</>
-            </AuthorizedRoute>
-          }
-        />
-        <Route
-          path="login"
-          element={<Login setLoggedInUser={setLoggedInUser} />}
-        />
-        <Route
-          path="register"
-          element={<Register setLoggedInUser={setLoggedInUser} />}
-        />
-      </Route>
-      <Route path="*" element={<p>Whoops, nothing here...</p>} />
-    </Routes>
+    <>
+      <NavBar loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
+      <CustomerView loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
+    </>
   );
 }

@@ -33,11 +33,13 @@ public class KrustyKrabDbContext : IdentityDbContext<IdentityUser>
         // Userprofile
         Guid patrickUPId = Guid.NewGuid();
         Guid squidwardUPId = Guid.NewGuid();
-        // IdentiyUser 
+        // IdentityUser 
         string spongebobId = Guid.NewGuid().ToString();
         string mrkrabsId = Guid.NewGuid().ToString();
         string squidwardId = Guid.NewGuid().ToString();
         string patrickId = Guid.NewGuid().ToString();
+        // IdentityRole
+        string employeeIRId = Guid.NewGuid().ToString();
         // Combos
         Guid krabbyPattyComboId = Guid.NewGuid();
         Guid doubleKrabbyPattyComboId = Guid.NewGuid();
@@ -82,8 +84,6 @@ public class KrustyKrabDbContext : IdentityDbContext<IdentityUser>
         #endregion
 
         base.OnModelCreating(modelBuilder);
-
-        string employeeIRId = Guid.NewGuid().ToString();
 
         modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole[]
         {
