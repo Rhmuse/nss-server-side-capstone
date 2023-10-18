@@ -1,6 +1,6 @@
 import EmployeeView from './EmployeeView';
 import CustomerView from './CustomerView';
-import NavBar from './NavBar';
+import NavBar from '../NavBar';
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   if (loggedInUser?.roles?.includes("Employee") || loggedInUser?.roles?.includes("Admin")) {

@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
-import Login from './auth/Login';
-import Register from './auth/Register';
+import Login from '../auth/Login';
+import Register from '../auth/Register';
 
 const CustomerView = ({ loggedInUser, setLoggedInUser }) => {
     return (

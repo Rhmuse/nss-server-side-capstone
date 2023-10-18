@@ -44,7 +44,7 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
         ) : (
           <Nav navbar>
             <Nav.Item>
-              <Nav.Link tag={RRNavLink} to="/login">
+              <Nav.Link as={RRNavLink} to="/login">
                 <Button color="primary">Login</Button>
               </Nav.Link>
             </Nav.Item>
