@@ -1,11 +1,13 @@
 import { Route, Routes } from 'react-router-dom';
 import { AuthorizedRoute } from '../auth/AuthorizedRoute';
-import { Button, Col, Container, Ratio, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import OrderSummary from '../pos/OrderSummary';
 import PreviousOrdersList from '../pos/PreviousOrdersList';
 import LoggedInUserDetails from '../pos/LoggedInUserDetails';
 import MainPosView from '../pos/MainPosView';
 import { logout } from '../../managers/authManager';
+
+import "./EmployeeView.css";
 
 const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
     return (
@@ -26,9 +28,8 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                                         </Row>
                                     </Col>
                                     <Col>
-                                        <Row style={{ display: "flex", flexDirection: "row", alignItems: "center", width: "95%", justifyContent: "space-between", height: "5.5rem" }}>
+                                        <Row id='userDetailsRow'>
                                             <Button
-                                                style={{ width: "10%", height: "50%" }}
                                                 color="primary"
                                                 onClick={(e) => {
                                                     e.preventDefault();

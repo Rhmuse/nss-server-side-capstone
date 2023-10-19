@@ -1,0 +1,16 @@
+#userDetailsRow {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	width: 95%;
+	justify-content: space-between;
+	height: 5.5rem;
+	margin-top: 0.25rem;
+}
+
+#userDetailsRow button {
+	width: 15%;
+	height: 60%;
+	margin-bottom: 1rem;
+	margin-left: 2rem;
+}
