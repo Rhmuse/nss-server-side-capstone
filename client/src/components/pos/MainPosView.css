@@ -27,6 +27,7 @@
 
 #sizeCol {
 	margin-left: 1rem;
+	margin-right: 1rem;
 }
 
 #sizeCol button {
@@ -34,6 +35,17 @@
 	padding: 0.5rem;
 	width: 5rem;
 	height: 5rem;
+}
+
+#drinksRow {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+#drinksRow button {
+	width: 6rem;
+	height: 6rem;
 }
 
 #utilityCol {
