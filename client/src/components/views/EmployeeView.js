@@ -7,6 +7,8 @@ import LoggedInUserDetails from '../pos/LoggedInUserDetails';
 import MainPosView from '../pos/MainPosView';
 import { logout } from '../../managers/authManager';
 
+import "./EmployeeView.css";
+
 const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
     return (
         <Routes>
@@ -15,7 +17,7 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                     index
                     element={
                         <AuthorizedRoute loggedInUser={loggedInUser}>
-                            <Container>
+                            <Container >
                                 <Row>
                                     <Col lg md sm xl="2" >
                                         <Row>
@@ -26,9 +28,8 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                                         </Row>
                                     </Col>
                                     <Col>
-                                        <Row style={{ display: "flex", flexDirection: "row", alignItems: "center", width: "95%", justifyContent: "space-between" }}>
+                                        <Row id='userDetailsRow'>
                                             <Button
-                                                style={{ width: "10%", height: "50%" }}
                                                 color="primary"
                                                 onClick={(e) => {
                                                     e.preventDefault();
