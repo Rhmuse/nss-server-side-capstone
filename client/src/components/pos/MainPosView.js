@@ -4,18 +4,25 @@ import { getAllDrinks } from "../../managers/drinksManager";
 import "./MainPosView.css";
 import { useEffect, useState } from 'react';
 import Utility from '../../utility';
+import { getAllSides } from '../../managers/sidesManager';
 
 const utility = new Utility();
 
 const MainPosView = () => {
     const [drinks, setDrinks] = useState([]);
+    const [sides, setSides] = useState([]);
 
     useEffect(() => {
         loadDrinks();
+        loadSides();
     }, [])
 
     const loadDrinks = () => {
         getAllDrinks().then(setDrinks);
+    }
+
+    const loadSides = () => {
+        getAllSides().then(setSides);
     }
 
 
@@ -54,7 +61,15 @@ const MainPosView = () => {
                             })
                         }
                     </Row>
-                    <Row></Row>
+                    <Row id='sidesRow'>
+                        {
+                            sides.map(s => {
+                                return (
+                                    <Button key={`side-${s.id}`}>{utility.capitalizeEveryFirstLetter(s.name)}</Button>
+                                )
+                            })
+                        }
+                    </Row>
                 </Col>
                 <Col md lg="2" id="utilityCol">
                     <Row><Button>Here/ToGo</Button></Row>
