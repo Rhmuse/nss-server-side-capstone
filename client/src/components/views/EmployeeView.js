@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { AuthorizedRoute } from '../auth/AuthorizedRoute';
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Ratio, Row } from "react-bootstrap";
 import OrderSummary from '../pos/OrderSummary';
 import PreviousOrdersList from '../pos/PreviousOrdersList';
 import LoggedInUserDetails from '../pos/LoggedInUserDetails';
@@ -15,7 +15,7 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                     index
                     element={
                         <AuthorizedRoute loggedInUser={loggedInUser}>
-                            <Container>
+                            <Container >
                                 <Row>
                                     <Col lg md sm xl="2" >
                                         <Row>
@@ -26,7 +26,7 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                                         </Row>
                                     </Col>
                                     <Col>
-                                        <Row style={{ display: "flex", flexDirection: "row", alignItems: "center", width: "95%", justifyContent: "space-between" }}>
+                                        <Row style={{ display: "flex", flexDirection: "row", alignItems: "center", width: "95%", justifyContent: "space-between", height: "5.5rem" }}>
                                             <Button
                                                 style={{ width: "10%", height: "50%" }}
                                                 color="primary"

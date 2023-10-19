@@ -1,0 +1,75 @@
+#mainPosViewContainer {
+	border: rgba(0, 0, 0, 0.471) solid 0.5px;
+}
+
+#numbersRow .col {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin-top: 1rem;
+}
+
+#numbersRow .col button {
+	margin: 0.25rem;
+	padding: 1rem 1.5rem;
+}
+
+#categoriesRow .col {
+	display: flex;
+	justify-content: space-evenly;
+	flex-wrap: wrap;
+}
+
+#categoriesRow .col button {
+	margin: 1rem;
+	padding: 1.5rem 3.5rem;
+}
+
+#sizeCol {
+	margin-left: 1rem;
+}
+
+#sizeCol button {
+	margin: 0.5rem;
+	padding: 0.5rem;
+	width: 5rem;
+	height: 5rem;
+}
+
+#utilityCol {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+
+#utilityCol .row {
+	margin: 0.5rem;
+	margin-bottom: 2rem;
+}
+
+#utilityCol .row button {
+	padding: 1rem 0.5rem;
+}
+
+#bottomRow {
+	margin: 0;
+}
+
+#modDeleteCol {
+	margin: 0rem;
+}
+
+#modDeleteCol button {
+	margin: 0.5rem;
+	padding: 1rem;
+}
+
+#completeCol {
+	display: flex;
+	justify-content: flex-end;
+	padding: 1rem;
+}
+
+#completeCol button {
+	padding: 0.5rem 0.5rem;
+}
