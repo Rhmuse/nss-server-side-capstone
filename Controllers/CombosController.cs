@@ -17,7 +17,7 @@ public class CombosController : ControllerBase
     [HttpGet]
     public IActionResult Get()
     {
-        var combos = _dbContext.Combos.OrderBy(c => c.Name);
+        var combos = _dbContext.Combos;
         return Ok(combos);
     }
 }
