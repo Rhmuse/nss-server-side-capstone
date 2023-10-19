@@ -5,16 +5,19 @@ import "./MainPosView.css";
 import { useEffect, useState } from 'react';
 import Utility from '../../utility';
 import { getAllSides } from '../../managers/sidesManager';
+import { getAllCombos } from '../../managers/combosManager';
 
 const utility = new Utility();
 
 const MainPosView = () => {
     const [drinks, setDrinks] = useState([]);
     const [sides, setSides] = useState([]);
+    const [combos, setCombos] = useState([]);
 
     useEffect(() => {
         loadDrinks();
         loadSides();
+        loadCombos();
     }, [])
 
     const loadDrinks = () => {
@@ -23,6 +26,10 @@ const MainPosView = () => {
 
     const loadSides = () => {
         getAllSides().then(setSides);
+    }
+
+    const loadCombos = () => {
+        getAllCombos().then(setCombos);
     }
 
 
@@ -51,7 +58,18 @@ const MainPosView = () => {
                     <Row><Button>M</Button></Row>
                     <Row><Button>L</Button></Row>
                 </Col>
-                <Col>
+                <Col id="itemCol">
+                    <Row id="combosAndBurgersRow">
+                        <Button>Krabby Patty</Button>
+                        <Button>Double Krabby Patty</Button>
+                        {
+                            combos.map(c => {
+                                return (
+                                    <Button key={`combos-${c.id}`}>{utility.capitalizeEveryFirstLetter(c.name)}</Button>
+                                )
+                            })
+                        }
+                    </Row>
                     <Row id="drinksRow">
                         {
                             drinks.map(d => {

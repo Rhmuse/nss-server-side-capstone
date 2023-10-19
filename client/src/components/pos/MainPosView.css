@@ -27,6 +27,8 @@
 	padding: 1.5rem 3.5rem;
 }
 
+/* Third Row */
+
 #sizeCol {
 	margin-left: 1rem;
 	margin-right: 1rem;
@@ -39,6 +41,12 @@
 	height: 5rem;
 }
 
+#itemCol .row button {
+	width: 5.5rem;
+	height: 5.5rem;
+	font-size: 0.85rem;
+}
+
 #drinksRow {
 	display: flex;
 	flex-direction: row;
@@ -46,9 +54,11 @@
 	margin: 0.5rem 0.25rem;
 }
 
-#drinksRow button {
-	width: 6rem;
-	height: 6rem;
+#combosAndBurgersRow {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	margin: 0.5rem 0.25rem;
 }
 
 #sidesRow {
@@ -56,11 +66,6 @@
 	flex-direction: row;
 	justify-content: space-between;
 	margin: 0.5rem 0.25rem;
-}
-
-#sidesRow button {
-	width: 6rem;
-	height: 6rem;
 }
 
 #utilityCol {
@@ -78,7 +83,7 @@
 	padding: 1rem 0.5rem;
 }
 
-/* Third Row */
+/* Fourth Row */
 #bottomRow {
 	margin: 0;
 }
