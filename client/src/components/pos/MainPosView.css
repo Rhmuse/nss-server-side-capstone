@@ -12,7 +12,8 @@
 
 #numbersRow .col button {
 	margin: 0.25rem;
-	padding: 1rem 1.5rem;
+	padding: 1rem 1.6rem;
+	font-size: 1.2rem;
 }
 
 /* Second Row */
@@ -30,6 +31,9 @@
 /* Third Row */
 
 #sizeCol {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
 	margin-left: 1rem;
 	margin-right: 1rem;
 }
@@ -42,8 +46,8 @@
 }
 
 #itemCol .row button {
-	width: 5.5rem;
-	height: 5.5rem;
+	width: 6.5rem;
+	height: 6.5rem;
 	font-size: 0.85rem;
 }
 
@@ -80,7 +84,7 @@
 }
 
 #utilityCol .row button {
-	padding: 1rem 0.5rem;
+	padding: 1.5rem 0.5rem;
 }
 
 /* Fourth Row */
@@ -104,5 +108,36 @@
 }
 
 #completeCol button {
-	padding: 0.5rem 0.5rem;
+	padding: 0.5rem 2rem;
+}
+
+/* CSS */
+button {
+	appearance: none;
+	background-color: #ffffff;
+	border-radius: 40em !important;
+	border-style: none !important;
+	box-shadow: #adcfff -4px -4px 7px 1px inset;
+	box-sizing: border-box;
+	color: #000000;
+	cursor: pointer;
+	display: inline-block;
+	font-family: -apple-system, sans-serif;
+	font-size: 1.2rem;
+	font-weight: 700;
+	letter-spacing: -0.24px;
+	margin: 0;
+	outline: none;
+	padding: 1rem 1.3rem;
+	quotes: auto;
+	text-align: center !important;
+	text-decoration: none;
+	transition: all 0.15s !important;
+	user-select: none !important;
+	-webkit-user-select: none !important;
+	touch-action: manipulation;
+}
+
+button:active {
+	transform: scale(0.94);
 }

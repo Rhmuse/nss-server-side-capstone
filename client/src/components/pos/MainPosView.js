@@ -47,11 +47,6 @@ const MainPosView = () => {
                 <Col><Button>8</Button></Col>
                 <Col><Button>9</Button></Col>
             </Row>
-            <Row id="categoriesRow">
-                <Col><Button>Main</Button></Col>
-                <Col><Button>Sides</Button></Col>
-                <Col><Button>Drinks</Button></Col>
-            </Row>
             <Row id="centerRow">
                 <Col id="sizeCol" md lg="1">
                     <Row><Button>S</Button></Row>
