@@ -14,5 +14,10 @@ public class SidesController : ControllerBase
         _dbContext = context;
     }
 
-
+    [HttpGet]
+    public IActionResult Get()
+    {
+        var sides = _dbContext.Sides.OrderBy(s => s.Name);
+        return Ok(sides);
+    }
 }
