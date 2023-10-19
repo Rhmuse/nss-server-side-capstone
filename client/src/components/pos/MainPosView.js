@@ -1,8 +1,24 @@
 import { Button, Col, Row } from 'react-bootstrap';
+import { getAllDrinks } from "../../managers/drinksManager";
 
 import "./MainPosView.css";
+import { useEffect, useState } from 'react';
+import Utility from '../../utility';
+
+const utility = new Utility();
 
 const MainPosView = () => {
+    const [drinks, setDrinks] = useState([]);
+
+    useEffect(() => {
+        loadDrinks();
+    }, [])
+
+    const loadDrinks = () => {
+        getAllDrinks().then(setDrinks);
+    }
+
+
     return (
         <div id="mainPosViewContainer">
             <Row id='numbersRow'>
@@ -23,13 +39,21 @@ const MainPosView = () => {
                 <Col><Button>Drinks</Button></Col>
             </Row>
             <Row id="centerRow">
-                <Col id="sizeCol" md lg="2">
+                <Col id="sizeCol" md lg="1">
                     <Row><Button>S</Button></Row>
                     <Row><Button>M</Button></Row>
                     <Row><Button>L</Button></Row>
                 </Col>
                 <Col>
-                    <Row></Row>
+                    <Row id="drinksRow">
+                        {
+                            drinks.map(d => {
+                                return (
+                                    <Button key={`drink-${d.id}`}>{utility.capitalizeEveryFirstLetter(d.name)}</Button>
+                                )
+                            })
+                        }
+                    </Row>
                     <Row></Row>
                 </Col>
                 <Col md lg="2" id="utilityCol">
