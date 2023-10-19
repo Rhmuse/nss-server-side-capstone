@@ -2,6 +2,7 @@
 	border: rgba(0, 0, 0, 0.471) solid 0.5px;
 }
 
+/* First Row */
 #numbersRow .col {
 	display: flex;
 	justify-content: center;
@@ -14,6 +15,7 @@
 	padding: 1rem 1.5rem;
 }
 
+/* Second Row */
 #categoriesRow .col {
 	display: flex;
 	justify-content: space-evenly;
@@ -41,9 +43,22 @@
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	margin: 0.5rem 0.25rem;
 }
 
 #drinksRow button {
+	width: 6rem;
+	height: 6rem;
+}
+
+#sidesRow {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin: 0.5rem 0.25rem;
+}
+
+#sidesRow button {
 	width: 6rem;
 	height: 6rem;
 }
@@ -63,6 +78,7 @@
 	padding: 1rem 0.5rem;
 }
 
+/* Third Row */
 #bottomRow {
 	margin: 0;
 }
