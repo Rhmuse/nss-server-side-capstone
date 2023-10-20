@@ -1,0 +1,29 @@
+.posButton {
+	appearance: none;
+	background-color: #ffffff;
+	border-radius: 40em !important;
+	border-style: none !important;
+	box-shadow: #adcfff -4px -4px 7px 1px inset;
+	box-sizing: border-box;
+	color: #000000;
+	cursor: pointer;
+	display: inline-block;
+	font-family: -apple-system, sans-serif;
+	font-size: 1.2rem;
+	font-weight: 700;
+	letter-spacing: -0.24px;
+	margin: 0;
+	outline: none;
+	padding: 1rem 1.3rem;
+	quotes: auto;
+	text-align: center !important;
+	text-decoration: none;
+	transition: all 0.15s !important;
+	user-select: none !important;
+	-webkit-user-select: none !important;
+	touch-action: manipulation;
+}
+
+.posButton:active {
+	transform: scale(0.94);
+}

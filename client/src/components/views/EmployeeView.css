@@ -1,11 +1,16 @@
+#orderSummaryRow {
+	height: 75%;
+}
+
 #userDetailsRow {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	width: 95%;
+	width: 100%;
 	justify-content: space-between;
 	height: 5.5rem;
 	margin-top: 0.25rem;
+	border: black solid 1px;
 }
 
 #userDetailsRow button {

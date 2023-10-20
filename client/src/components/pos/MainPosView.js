@@ -6,32 +6,11 @@ import { useEffect, useState } from 'react';
 import Utility from '../../utility';
 import { getAllSides } from '../../managers/sidesManager';
 import { getAllCombos } from '../../managers/combosManager';
+import ItemButton from './buttons/ItemButton';
 
 const utility = new Utility();
 
-const MainPosView = ({ order, setOrder }) => {
-    const [drinks, setDrinks] = useState([]);
-    const [sides, setSides] = useState([]);
-    const [combos, setCombos] = useState([]);
-
-    useEffect(() => {
-        loadDrinks();
-        loadSides();
-        loadCombos();
-    }, [])
-
-    const loadDrinks = () => {
-        getAllDrinks().then(setDrinks);
-    }
-
-    const loadSides = () => {
-        getAllSides().then(setSides);
-    }
-
-    const loadCombos = () => {
-        getAllCombos().then(setCombos);
-    }
-
+const MainPosView = ({ order, setOrder, menuItems }) => {
 
     return (
         <div id="mainPosViewContainer">
@@ -58,7 +37,7 @@ const MainPosView = ({ order, setOrder }) => {
                         <Button>Krabby Patty</Button>
                         <Button>Double Krabby Patty</Button>
                         {
-                            combos.map(c => {
+                            menuItems.combos.map(c => {
                                 return (
                                     <Button key={`combos-${c.id}`}>{utility.capitalizeEveryFirstLetter(c.name)}</Button>
                                 )
@@ -67,18 +46,18 @@ const MainPosView = ({ order, setOrder }) => {
                     </Row>
                     <Row id="drinksRow">
                         {
-                            drinks.map(d => {
+                            menuItems.drinks.map(d => {
                                 return (
-                                    <Button key={`drink-${d.id}`}>{utility.capitalizeEveryFirstLetter(d.name)}</Button>
+                                    <ItemButton key={d.id} item={d} order={order} setOrder={setOrder} type="drink" />
                                 )
                             })
                         }
                     </Row>
                     <Row id='sidesRow'>
                         {
-                            sides.map(s => {
+                            menuItems.sides.map(s => {
                                 return (
-                                    <Button key={`side-${s.id}`}>{utility.capitalizeEveryFirstLetter(s.name)}</Button>
+                                    <ItemButton key={s.id} item={s} order={order} setOrder={setOrder} type="side" />
                                 )
                             })
                         }
