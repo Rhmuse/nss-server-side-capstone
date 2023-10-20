@@ -9,7 +9,7 @@ import { getAllCombos } from '../../managers/combosManager';
 
 const utility = new Utility();
 
-const MainPosView = () => {
+const MainPosView = ({ order, setOrder }) => {
     const [drinks, setDrinks] = useState([]);
     const [sides, setSides] = useState([]);
     const [combos, setCombos] = useState([]);
