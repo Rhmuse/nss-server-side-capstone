@@ -1,0 +1,17 @@
+#orderSummaryContainer {
+	border: 1px solid black;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.orderItem {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.orderSummaryMoneyCol {
+	text-align: end;
+}

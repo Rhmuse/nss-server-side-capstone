@@ -4,7 +4,7 @@ public class Order
 {
     public Guid Id { get; set; }
     public Guid OrderTypeId { get; set; }
-    public Guid CustomerId { get; set; }
+    public Guid? CustomerId { get; set; }
     public Guid EmployeeId { get; set; }
     public DateTime OrderTime { get; set; }
     public OrderType? OrderType { get; set; }
