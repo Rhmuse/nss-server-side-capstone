@@ -15,6 +15,11 @@ import { getAllCombos } from '../../managers/combosManager';
 import { getAllSizes } from '../../managers/sizesManager';
 
 const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
+    const [itemBuilder, setItemBuilder] = useState({
+        quantity: "",
+        sizeId: "",
+    });
+
     const [order, setOrder] = useState({
         order: {
             orderTypeId: "",
@@ -60,7 +65,7 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                                 <Row>
                                     <Col lg md sm xl="3" >
                                         <Row id="orderSummaryRow">
-                                            <OrderSummary menuItems={menuItems} order={order} />
+                                            <OrderSummary menuItems={menuItems} order={order} itemBuilder={itemBuilder} />
                                         </Row>
                                         <Row>
                                             <PreviousOrdersList />

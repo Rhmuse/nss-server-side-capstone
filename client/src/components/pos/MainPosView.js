@@ -2,20 +2,15 @@ import { Button, Col, Row } from 'react-bootstrap';
 import Utility from '../../utility';
 import ItemButton from './buttons/ItemButton';
 import NumberButton from './buttons/NumberButton';
+import SizeButton from './buttons/SizeButton';
 
 import "./MainPosView.css";
-import SizeButton from './buttons/SizeButton';
-import { useState } from 'react';
 
 const numberArr = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
 const utility = new Utility();
 
-const MainPosView = ({ order, setOrder, menuItems }) => {
-    const [itemBuilder, setItemBuilder] = useState({
-        quantity: "",
-        sizeId: "",
-    });
+const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder }) => {
 
     return (
         <div id="mainPosViewContainer">

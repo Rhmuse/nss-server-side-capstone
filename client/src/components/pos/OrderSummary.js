@@ -9,8 +9,9 @@ const TAX = .08;
 
 const utility = new Utility();
 
-const OrderSummary = ({ order, menuItems }) => {
+const OrderSummary = ({ order, menuItems, itemBuilder }) => {
     const [subTotal, setSubTotal] = useState(0);
+    const [orderSummary, setOrderSummary] = useState([]);
     useEffect(() => {
         let subTotal = 0;
         order.drinks.forEach(d => {
@@ -20,17 +21,53 @@ const OrderSummary = ({ order, menuItems }) => {
             subTotal += s.price * s.quantity;
         })
         setSubTotal(subTotal);
+        let orderSummaryCopy = [...orderSummary];
+        order.drinks.forEach(d => {
+            const drinkIndex = orderSummaryCopy.findIndex(i => i.drinkId === d.drinkId);
+            if (drinkIndex < 0) {
+                orderSummaryCopy.push(d);
+            } else {
+                orderSummaryCopy[drinkIndex].quantity = d.quantity;
+            }
+        })
+        order.sides.forEach(s => {
+            const sideIndex = orderSummaryCopy.findIndex(i => i.sideId === s.sideId)
+            if (sideIndex < 0) {
+                orderSummaryCopy.push(s);
+            } else {
+                orderSummaryCopy[sideIndex].quantity = s.quantity;
+            }
+        })
+        setOrderSummary(orderSummaryCopy);
     }, [order])
+
+    useEffect(() => {
+        if (itemBuilder.quantity || itemBuilder.sizeId) {
+
+        }
+    }, [itemBuilder])
     return (
         <Container id="orderSummaryContainer">
             <Row>
                 <h4>Order Summary</h4>
                 <Col>
-                    {order.drinks.map(d => {
+                    {
+                        orderSummary.map(i => {
+                            return (
+                                <Row className='orderItem' key={`orderItem-${i.id}`}>
+                                    <Col sm md lg xl="1">{i.quantity}</Col>
+                                    <Col sm md lg xl="2">{i.sizeId}</Col>
+                                    <Col>{utility.capitalizeEveryFirstLetter(i.name)}</Col>
+                                    <Col className='orderSummaryMoneyCol' sm md lg xl="3">{currency(i.price * i.quantity).format()}</Col>
+                                </Row>
+                            )
+                        })
+                    }
+                    {/* {order.drinks.map(d => {
                         return (
                             <Row className='orderItem' key={`orderItem-${d.id}`}>
                                 <Col sm md lg xl="1">{d.quantity}</Col>
-                                <Col sm md lg xl="2">Med</Col>
+                                <Col sm md lg xl="2">{d.sizeId}</Col>
                                 <Col>{utility.capitalizeEveryFirstLetter(d.name)}</Col>
                                 <Col className='orderSummaryMoneyCol' sm md lg xl="3">{currency(d.price * d.quantity).format()}</Col>
                             </Row>
@@ -40,12 +77,12 @@ const OrderSummary = ({ order, menuItems }) => {
                         return (
                             <Row className='orderItem' key={`orderItem-${s.id}`}>
                                 <Col sm md lg xl="1">{s.quantity}</Col>
-                                <Col sm md lg xl="2">Sml</Col>
+                                <Col sm md lg xl="2">{s.sizeId}</Col>
                                 <Col>{utility.capitalizeEveryFirstLetter(s.name)}</Col>
                                 <Col className='orderSummaryMoneyCol' sm md lg xl="3">{currency(s.price * s.quantity).format()}</Col>
                             </Row>
                         )
-                    })}
+                    })} */}
                 </Col>
             </Row>
             <div id='totalsContainer'>
