@@ -20,6 +20,7 @@ public class KrustyKrabDbContext : IdentityDbContext<IdentityUser>
     public DbSet<OrderType> OrderTypes { get; set; }
     public DbSet<Combo> Combos { get; set; }
     public DbSet<ComboItem> ComboItems { get; set; }
+    public DbSet<Size> Sizes { get; set; }
 
     public KrustyKrabDbContext(DbContextOptions<KrustyKrabDbContext> context, IConfiguration config) : base(context)
     {
@@ -81,6 +82,10 @@ public class KrustyKrabDbContext : IdentityDbContext<IdentityUser>
         Guid pattyId = Guid.NewGuid();
         Guid bunId = Guid.NewGuid();
         Guid cheeseId = Guid.NewGuid();
+        // Sizes
+        Guid smallId = Guid.NewGuid();
+        Guid mediumId = Guid.NewGuid();
+        Guid largeId = Guid.NewGuid();
         #endregion
 
         base.OnModelCreating(modelBuilder);
@@ -182,12 +187,12 @@ public class KrustyKrabDbContext : IdentityDbContext<IdentityUser>
 
         modelBuilder.Entity<OrderDrink>().HasData(new OrderDrink[]
         {
-            new OrderDrink{ Id = orderDrinkId, DrinkId = redTidepId, OrderId = firstOrderId, Quantity = 1 }
+            new OrderDrink{ Id = orderDrinkId, DrinkId = redTidepId, OrderId = firstOrderId, Quantity = 1, SizeId = mediumId }
         });
 
         modelBuilder.Entity<OrderSide>().HasData(new OrderSide[]
         {
-            new OrderSide{ Id = orderSideId, OrderId = firstOrderId, SideId = coralBitsId, Quantity = 1}
+            new OrderSide{ Id = orderSideId, OrderId = firstOrderId, SideId = coralBitsId, Quantity = 1, SizeId = largeId }
         });
 
         modelBuilder.Entity<OrderType>().HasData(new OrderType[]
@@ -226,6 +231,13 @@ public class KrustyKrabDbContext : IdentityDbContext<IdentityUser>
            new ComboItem{ Id = Guid.NewGuid(), ComboId = doubleKrabbyPattyComboId, ItemId = firstBurgerId, OrderId = firstOrderId },
            new ComboItem{ Id = Guid.NewGuid(), ComboId = doubleKrabbyPattyComboId, ItemId = orderSideId, OrderId = firstOrderId },
            new ComboItem{ Id = Guid.NewGuid(), ComboId = doubleKrabbyPattyComboId, ItemId = orderDrinkId,  OrderId = firstOrderId }
+        });
+
+        modelBuilder.Entity<Size>().HasData(new Size[]
+        {
+            new Size{ Id = smallId, Name = "small", ShortHand = "sm"},
+            new Size{ Id = mediumId, Name = "medium", ShortHand = "md"},
+            new Size{ Id = largeId, Name = "large", ShortHand = "lg"}
         });
     }
 }
