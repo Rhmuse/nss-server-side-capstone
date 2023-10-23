@@ -12,8 +12,14 @@ import "./EmployeeView.css";
 import { getAllDrinks } from '../../managers/drinksManager';
 import { getAllSides } from '../../managers/sidesManager';
 import { getAllCombos } from '../../managers/combosManager';
+import { getAllSizes } from '../../managers/sizesManager';
 
 const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
+    const [itemBuilder, setItemBuilder] = useState({
+        quantity: "",
+        sizeId: "",
+    });
+
     const [order, setOrder] = useState({
         order: {
             orderTypeId: "",
@@ -21,7 +27,7 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
         },
         drinks: [],
         burgers: [],
-        sides: []
+        sides: [],
     });
 
     const [menuItems, setMenuItems] = useState(
@@ -29,6 +35,7 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
             drinks: [],
             sides: [],
             combos: [],
+            sizes: [],
         }
     );
 
@@ -38,16 +45,13 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
 
     const loadMenuItems = () => {
         let menuItems = {};
-        getAllDrinks().then((res) => {
-            menuItems.drinks = res;
-            getAllSides().then(res => {
-                menuItems.sides = res;
-                getAllCombos().then(res => {
-                    menuItems.combos = res
-                    setMenuItems(menuItems);
-                });
-            });
-        });
+        Promise.all([getAllDrinks(), getAllSides(), getAllCombos(), getAllSizes()]).then(res => {
+            menuItems.drinks = res[0];
+            menuItems.sides = res[1];
+            menuItems.combos = res[2];
+            menuItems.sizes = res[3];
+            setMenuItems(menuItems);
+        })
     };
 
     return (
@@ -61,7 +65,7 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                                 <Row>
                                     <Col lg md sm xl="3" >
                                         <Row id="orderSummaryRow">
-                                            <OrderSummary menuItems={menuItems} order={order} />
+                                            <OrderSummary menuItems={menuItems} order={order} itemBuilder={itemBuilder} setItemBuilder={setItemBuilder} />
                                         </Row>
                                         <Row>
                                             <PreviousOrdersList />
@@ -83,7 +87,7 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                                             <LoggedInUserDetails loggedInUser={loggedInUser} />
                                         </Row>
                                         <Row>
-                                            <MainPosView menuItems={menuItems} order={order} setOrder={setOrder} />
+                                            <MainPosView menuItems={menuItems} order={order} setOrder={setOrder} setItemBuilder={setItemBuilder} itemBuilder={itemBuilder} />
                                         </Row>
                                     </Col>
                                 </Row>

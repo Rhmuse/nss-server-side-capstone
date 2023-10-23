@@ -9,8 +9,10 @@ const TAX = .08;
 
 const utility = new Utility();
 
-const OrderSummary = ({ order, menuItems }) => {
+const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder }) => {
     const [subTotal, setSubTotal] = useState(0);
+    const [orderSummary, setOrderSummary] = useState([]);
+
     useEffect(() => {
         let subTotal = 0;
         order.drinks.forEach(d => {
@@ -20,32 +22,57 @@ const OrderSummary = ({ order, menuItems }) => {
             subTotal += s.price * s.quantity;
         })
         setSubTotal(subTotal);
+        let orderSummaryCopy = [...orderSummary];
+        order.drinks.forEach(d => {
+            const drinkIndex = orderSummaryCopy.findIndex(i => i.drinkId === d.drinkId && i.sizeId === d.sizeId);
+            if (drinkIndex < 0) {
+                orderSummaryCopy.push(d);
+            } else {
+                orderSummaryCopy[drinkIndex].quantity = d.quantity;
+            }
+        })
+        order.sides.forEach(s => {
+            const sideIndex = orderSummaryCopy.findIndex(i => i.sideId === s.sideId && i.sizeId === s.sizeId);
+            if (sideIndex < 0) {
+                orderSummaryCopy.push(s);
+            } else {
+                orderSummaryCopy[sideIndex].quantity = s.quantity;
+            }
+        })
+        setOrderSummary(orderSummaryCopy);
+        setItemBuilder({ quantity: "", sizeId: "" })
     }, [order])
+
+    const parseSizeId = (guid) => {
+        const size = menuItems.sizes.find(s => s.id === guid);
+        if (size) return size.shortHand.toUpperCase();
+    }
+
     return (
         <Container id="orderSummaryContainer">
             <Row>
                 <h4>Order Summary</h4>
                 <Col>
-                    {order.drinks.map(d => {
-                        return (
-                            <Row className='orderItem' key={`orderItem-${d.id}`}>
-                                <Col sm md lg xl="1">{d.quantity}</Col>
-                                <Col sm md lg xl="2">Med</Col>
-                                <Col>{utility.capitalizeEveryFirstLetter(d.name)}</Col>
-                                <Col className='orderSummaryMoneyCol' sm md lg xl="3">{currency(d.price * d.quantity).format()}</Col>
-                            </Row>
-                        )
-                    })}
-                    {order.sides.map(s => {
-                        return (
-                            <Row className='orderItem' key={`orderItem-${s.id}`}>
-                                <Col sm md lg xl="1">{s.quantity}</Col>
-                                <Col sm md lg xl="2">Sml</Col>
-                                <Col>{utility.capitalizeEveryFirstLetter(s.name)}</Col>
-                                <Col className='orderSummaryMoneyCol' sm md lg xl="3">{currency(s.price * s.quantity).format()}</Col>
-                            </Row>
-                        )
-                    })}
+                    {
+                        orderSummary.map(i => {
+                            return (
+                                <Row className='orderItem' key={`orderItem-${i.sizeId}-${i.name}`}>
+                                    <Col sm md lg xl="1">{i.quantity}</Col>
+                                    <Col sm md lg xl="2">{parseSizeId(i.sizeId)}</Col>
+                                    <Col>{utility.capitalizeEveryFirstLetter(i.name)}</Col>
+                                    <Col className='orderSummaryMoneyCol' sm md lg xl="3">{currency(i.price * i.quantity).format()}</Col>
+                                </Row>
+                            )
+                        })
+                    }
+                    {
+                        <Row className='orderItem'>
+                            <Col sm md lg xl="1">{itemBuilder.quantity}</Col>
+                            <Col sm md lg xl="2">{parseSizeId(itemBuilder.sizeId)}</Col>
+                            <Col></Col>
+                            <Col className='orderSummaryMoneyCol' sm md lg xl="3"></Col>
+                        </Row>
+                    }
                 </Col>
             </Row>
             <div id='totalsContainer'>

@@ -9,6 +9,7 @@ public class OrderSide
     public Guid OrderId { get; set; }
     public int Quantity { get; set; }
     public Guid ComboItemId { get; set; }
+    public Guid SizeId { get; set; }
     [NotMapped]
     public Side? Side { get; set; }
     [NotMapped]

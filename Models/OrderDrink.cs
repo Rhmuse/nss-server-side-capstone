@@ -8,6 +8,7 @@ public class OrderDrink
     public Guid DrinkId { get; set; }
     public Guid OrderId { get; set; }
     public int Quantity { get; set; }
+    public Guid SizeId { get; set; }
     [NotMapped]
     public Drink? Drink { get; set; }
     [NotMapped]

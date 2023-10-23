@@ -1,36 +1,37 @@
 import { Button, Col, Row } from 'react-bootstrap';
-import { getAllDrinks } from "../../managers/drinksManager";
+import Utility from '../../utility';
+import ItemButton from './buttons/ItemButton';
+import NumberButton from './buttons/NumberButton';
+import SizeButton from './buttons/SizeButton';
 
 import "./MainPosView.css";
-import { useEffect, useState } from 'react';
-import Utility from '../../utility';
-import { getAllSides } from '../../managers/sidesManager';
-import { getAllCombos } from '../../managers/combosManager';
-import ItemButton from './buttons/ItemButton';
+
+const numberArr = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
 const utility = new Utility();
 
-const MainPosView = ({ order, setOrder, menuItems }) => {
+const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder }) => {
 
     return (
         <div id="mainPosViewContainer">
             <Row id='numbersRow'>
-                <Col><Button>0</Button></Col>
-                <Col><Button>1</Button></Col>
-                <Col><Button>2</Button></Col>
-                <Col><Button>3</Button></Col>
-                <Col><Button>4</Button></Col>
-                <Col><Button>5</Button></Col>
-                <Col><Button>6</Button></Col>
-                <Col><Button>7</Button></Col>
-                <Col><Button>8</Button></Col>
-                <Col><Button>9</Button></Col>
+                {
+                    numberArr.map(n => {
+                        return (
+                            <Col key={`numberButton-${n}`}><NumberButton value={n} setItemBuilder={setItemBuilder} itemBuilder={itemBuilder} /></Col>
+                        )
+                    })
+                }
             </Row>
             <Row id="centerRow">
                 <Col id="sizeCol" md lg="1">
-                    <Row><Button>S</Button></Row>
-                    <Row><Button>M</Button></Row>
-                    <Row><Button>L</Button></Row>
+                    {
+                        menuItems.sizes.map(s => {
+                            return (
+                                <Row key={`size-${s.id}`}><SizeButton size={s} setItemBuilder={setItemBuilder} itemBuilder={itemBuilder} /></Row>
+                            )
+                        })
+                    }
                 </Col>
                 <Col id="itemCol">
                     <Row id="combosAndBurgersRow">
@@ -39,7 +40,7 @@ const MainPosView = ({ order, setOrder, menuItems }) => {
                         {
                             menuItems.combos.map(c => {
                                 return (
-                                    <Button key={`combos-${c.id}`}>{utility.capitalizeEveryFirstLetter(c.name)}</Button>
+                                    <Button key={`combos-${c.id}`} >{utility.capitalizeEveryFirstLetter(c.name)}</Button>
                                 )
                             })
                         }
@@ -48,7 +49,7 @@ const MainPosView = ({ order, setOrder, menuItems }) => {
                         {
                             menuItems.drinks.map(d => {
                                 return (
-                                    <ItemButton key={d.id} item={d} order={order} setOrder={setOrder} type="drink" />
+                                    <ItemButton key={d.id} item={d} order={order} setOrder={setOrder} type="drink" setItemBuilder={setItemBuilder} itemBuilder={itemBuilder} />
                                 )
                             })
                         }
@@ -57,7 +58,7 @@ const MainPosView = ({ order, setOrder, menuItems }) => {
                         {
                             menuItems.sides.map(s => {
                                 return (
-                                    <ItemButton key={s.id} item={s} order={order} setOrder={setOrder} type="side" />
+                                    <ItemButton key={s.id} item={s} order={order} setOrder={setOrder} type="side" setItemBuilder={setItemBuilder} itemBuilder={itemBuilder} />
                                 )
                             })
                         }
