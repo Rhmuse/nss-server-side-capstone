@@ -65,7 +65,7 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                                 <Row>
                                     <Col lg md sm xl="3" >
                                         <Row id="orderSummaryRow">
-                                            <OrderSummary menuItems={menuItems} order={order} itemBuilder={itemBuilder} />
+                                            <OrderSummary menuItems={menuItems} order={order} itemBuilder={itemBuilder} setItemBuilder={setItemBuilder} />
                                         </Row>
                                         <Row>
                                             <PreviousOrdersList />
@@ -87,7 +87,7 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                                             <LoggedInUserDetails loggedInUser={loggedInUser} />
                                         </Row>
                                         <Row>
-                                            <MainPosView menuItems={menuItems} order={order} setOrder={setOrder} />
+                                            <MainPosView menuItems={menuItems} order={order} setOrder={setOrder} setItemBuilder={setItemBuilder} itemBuilder={itemBuilder} />
                                         </Row>
                                     </Col>
                                 </Row>

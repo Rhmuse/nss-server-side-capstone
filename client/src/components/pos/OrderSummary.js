@@ -9,9 +9,10 @@ const TAX = .08;
 
 const utility = new Utility();
 
-const OrderSummary = ({ order, menuItems, itemBuilder }) => {
+const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder }) => {
     const [subTotal, setSubTotal] = useState(0);
     const [orderSummary, setOrderSummary] = useState([]);
+
     useEffect(() => {
         let subTotal = 0;
         order.drinks.forEach(d => {
@@ -23,7 +24,7 @@ const OrderSummary = ({ order, menuItems, itemBuilder }) => {
         setSubTotal(subTotal);
         let orderSummaryCopy = [...orderSummary];
         order.drinks.forEach(d => {
-            const drinkIndex = orderSummaryCopy.findIndex(i => i.drinkId === d.drinkId);
+            const drinkIndex = orderSummaryCopy.findIndex(i => i.drinkId === d.drinkId && i.sizeId === d.sizeId);
             if (drinkIndex < 0) {
                 orderSummaryCopy.push(d);
             } else {
@@ -31,7 +32,7 @@ const OrderSummary = ({ order, menuItems, itemBuilder }) => {
             }
         })
         order.sides.forEach(s => {
-            const sideIndex = orderSummaryCopy.findIndex(i => i.sideId === s.sideId)
+            const sideIndex = orderSummaryCopy.findIndex(i => i.sideId === s.sideId && i.sizeId === s.sizeId);
             if (sideIndex < 0) {
                 orderSummaryCopy.push(s);
             } else {
@@ -39,13 +40,14 @@ const OrderSummary = ({ order, menuItems, itemBuilder }) => {
             }
         })
         setOrderSummary(orderSummaryCopy);
+        setItemBuilder({ quantity: "", sizeId: "" })
     }, [order])
 
-    useEffect(() => {
-        if (itemBuilder.quantity || itemBuilder.sizeId) {
+    const parseSizeId = (guid) => {
+        const size = menuItems.sizes.find(s => s.id === guid);
+        if (size) return size.shortHand.toUpperCase();
+    }
 
-        }
-    }, [itemBuilder])
     return (
         <Container id="orderSummaryContainer">
             <Row>
@@ -54,35 +56,23 @@ const OrderSummary = ({ order, menuItems, itemBuilder }) => {
                     {
                         orderSummary.map(i => {
                             return (
-                                <Row className='orderItem' key={`orderItem-${i.id}`}>
+                                <Row className='orderItem' key={`orderItem-${i.sizeId}-${i.name}`}>
                                     <Col sm md lg xl="1">{i.quantity}</Col>
-                                    <Col sm md lg xl="2">{i.sizeId}</Col>
+                                    <Col sm md lg xl="2">{parseSizeId(i.sizeId)}</Col>
                                     <Col>{utility.capitalizeEveryFirstLetter(i.name)}</Col>
                                     <Col className='orderSummaryMoneyCol' sm md lg xl="3">{currency(i.price * i.quantity).format()}</Col>
                                 </Row>
                             )
                         })
                     }
-                    {/* {order.drinks.map(d => {
-                        return (
-                            <Row className='orderItem' key={`orderItem-${d.id}`}>
-                                <Col sm md lg xl="1">{d.quantity}</Col>
-                                <Col sm md lg xl="2">{d.sizeId}</Col>
-                                <Col>{utility.capitalizeEveryFirstLetter(d.name)}</Col>
-                                <Col className='orderSummaryMoneyCol' sm md lg xl="3">{currency(d.price * d.quantity).format()}</Col>
-                            </Row>
-                        )
-                    })}
-                    {order.sides.map(s => {
-                        return (
-                            <Row className='orderItem' key={`orderItem-${s.id}`}>
-                                <Col sm md lg xl="1">{s.quantity}</Col>
-                                <Col sm md lg xl="2">{s.sizeId}</Col>
-                                <Col>{utility.capitalizeEveryFirstLetter(s.name)}</Col>
-                                <Col className='orderSummaryMoneyCol' sm md lg xl="3">{currency(s.price * s.quantity).format()}</Col>
-                            </Row>
-                        )
-                    })} */}
+                    {
+                        <Row className='orderItem'>
+                            <Col sm md lg xl="1">{itemBuilder.quantity}</Col>
+                            <Col sm md lg xl="2">{parseSizeId(itemBuilder.sizeId)}</Col>
+                            <Col></Col>
+                            <Col className='orderSummaryMoneyCol' sm md lg xl="3"></Col>
+                        </Row>
+                    }
                 </Col>
             </Row>
             <div id='totalsContainer'>

@@ -4,26 +4,34 @@ import Utility from '../../../utility';
 import "./posButton.css";
 
 const utility = new Utility();
-const ItemButton = ({ item, type, order, setOrder }) => {
+const ItemButton = ({ item, type, order, setOrder, itemBuilder, setItemBuilder }) => {
 
     const handleAddDrink = () => {
         let copy = { ...order };
-        const index = copy.drinks.findIndex(d => d.drinkId === item.id)
+        if (!itemBuilder.sizeId) itemBuilder.sizeId = "40cc063c-7222-49b5-ab71-0297fdf1f86c";
+        const index = copy.drinks.findIndex(d => d.drinkId === item.id && d.sizeId === itemBuilder.sizeId)
         if (index >= 0) {
-            copy.drinks[index].quantity += 1;
+            if (!itemBuilder.quantity) itemBuilder.quantity = 1;
+            copy.drinks[index].quantity = parseInt(copy.drinks[index].quantity) + parseInt(itemBuilder.quantity);
         } else {
-            copy.drinks.push({ drinkId: item.id, quantity: 1, name: item.name, price: item.price })
+            if (!itemBuilder.quantity) itemBuilder.quantity = 1;
+            let newDrink = { drinkId: item.id, quantity: itemBuilder.quantity, name: item.name, price: item.price, sizeId: itemBuilder.sizeId };
+            copy.drinks.push(newDrink);
         }
         setOrder(copy);
     }
 
     const handleAddSide = () => {
         let copy = { ...order };
-        const index = copy.sides.findIndex(s => s.sideId === item.id)
+        if (!itemBuilder.sizeId) itemBuilder.sizeId = "40cc063c-7222-49b5-ab71-0297fdf1f86c";
+        const index = copy.sides.findIndex(s => s.sideId === item.id && s.sizeId === itemBuilder.sizeId)
         if (index >= 0) {
-            copy.sides[index].quantity += 1;
+            if (!itemBuilder.quantity) itemBuilder.quantity = 1;
+            copy.sides[index].quantity = parseInt(copy.sides[index].quantity) + parseInt(itemBuilder.quantity);
         } else {
-            copy.sides.push({ sideId: item.id, quantity: 1, name: item.name, price: item.price })
+            if (!itemBuilder.quantity) itemBuilder.quantity = 1;
+            let newSide = { sideId: item.id, quantity: itemBuilder.quantity, name: item.name, price: item.price, sizeId: itemBuilder.sizeId }
+            copy.sides.push(newSide);
         }
         setOrder(copy);
     }
@@ -57,7 +65,7 @@ const ItemButton = ({ item, type, order, setOrder }) => {
         }
     }
 
-    return <Button className="posButton" onClick={() => { handleAddItem(type, item) }}>{utility.capitalizeEveryFirstLetter(item.name)}</Button>
+    return <Button className="posButton" onClick={() => { handleAddItem(type) }}>{utility.capitalizeEveryFirstLetter(item.name)}</Button>
 }
 
 export default ItemButton;
