@@ -9,9 +9,8 @@ const TAX = .08;
 
 const utility = new Utility();
 
-const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder }) => {
+const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder, setSelectedItem, selectedItem, orderSummary, setOrderSummary }) => {
     const [subTotal, setSubTotal] = useState(0);
-    const [orderSummary, setOrderSummary] = useState([]);
 
     useEffect(() => {
         let subTotal = 0;
@@ -22,7 +21,9 @@ const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder }) => {
             subTotal += s.price * s.quantity;
         })
         setSubTotal(subTotal);
+
         let orderSummaryCopy = [...orderSummary];
+
         order.drinks.forEach(d => {
             const drinkIndex = orderSummaryCopy.findIndex(i => i.drinkId === d.drinkId && i.sizeId === d.sizeId);
             if (drinkIndex < 0) {
@@ -31,6 +32,7 @@ const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder }) => {
                 orderSummaryCopy[drinkIndex].quantity = d.quantity;
             }
         })
+
         order.sides.forEach(s => {
             const sideIndex = orderSummaryCopy.findIndex(i => i.sideId === s.sideId && i.sizeId === s.sizeId);
             if (sideIndex < 0) {
@@ -39,6 +41,7 @@ const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder }) => {
                 orderSummaryCopy[sideIndex].quantity = s.quantity;
             }
         })
+
         order.burgers.forEach(b => {
             const burgerIndex = orderSummaryCopy.findIndex(i => i.id === b.id);
             if (burgerIndex < 0) {
@@ -47,6 +50,7 @@ const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder }) => {
                 orderSummaryCopy[burgerIndex].quantity = b.quantity;
             }
         })
+
         setOrderSummary(orderSummaryCopy);
         setItemBuilder({ quantity: "", sizeId: "" })
     }, [order])
@@ -56,32 +60,77 @@ const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder }) => {
         if (size) return size.shortHand.toUpperCase();
     }
 
+    const handleClick = (e, item) => {
+        e.preventDefault();
+        if (selectedItemMatches(item)) {
+            e.target.className = 'orderItem'
+            setSelectedItem({});
+        } else {
+            e.target.className = 'orderItem selectedItem';
+            setSelectedItem(item)
+        }
+    };
+
+    const selectedItemMatches = (item) => {
+        if (item.drinkId) {
+            if (item.drinkId === selectedItem.drinkId && item.sizeId === selectedItem.sizeId) return true;
+        }
+        if (item.sideId) {
+            if (item.sideId === selectedItem.sideId && item.sizeId === selectedItem.sizeId) return true;
+        }
+        if (item.id) {
+            if (item.id === selectedItem.id) return true;
+        }
+        return false;
+    }
+
+    const handleSelectedItem = (i) => {
+        if (selectedItemMatches(i)) {
+            return (
+                <Row className='orderItem selectedItem' key={`orderItem-${i.sizeId}-${i.name}`} onClick={(e) => handleClick(e, i)}>
+                    <Col className='orderItemCol' sm md lg xl="1">{i.quantity}</Col>
+                    <Col className='orderItemCol' sm md lg xl="2">{parseSizeId(i.sizeId)}</Col>
+                    <Col className='orderItemCol' >{utility.capitalizeEveryFirstLetter(i.name)}</Col>
+                    <Col className='orderSummaryMoneyCol orderItemCol' sm md lg xl="3">{currency(i.price * i.quantity).format()}</Col>
+                </Row>
+            )
+        } else {
+            return (
+                <Row className='orderItem' key={`orderItem-${i.sizeId}-${i.name}`} onClick={(e) => handleClick(e, i)}>
+                    <Col sm md lg xl="1">{i.quantity}</Col>
+                    <Col sm md lg xl="2">{parseSizeId(i.sizeId)}</Col>
+                    <Col>{utility.capitalizeEveryFirstLetter(i.name)}</Col>
+                    <Col className='orderSummaryMoneyCol' sm md lg xl="3">{currency(i.price * i.quantity).format()}</Col>
+                </Row>
+            )
+        }
+    }
+
+    const renderOrderSummaryItems = () => {
+        return (
+            <Col>
+                {
+                    orderSummary.map(i => {
+                        return handleSelectedItem(i)
+                    })
+                }
+                {
+                    <Row className='orderItem'>
+                        <Col sm md lg xl="1">{itemBuilder.quantity}</Col>
+                        <Col sm md lg xl="2">{parseSizeId(itemBuilder.sizeId)}</Col>
+                        <Col></Col>
+                        <Col className='orderSummaryMoneyCol' sm md lg xl="3"></Col>
+                    </Row>
+                }
+            </Col>
+        )
+    }
+
     return (
         <Container id="orderSummaryContainer">
             <Row>
                 <h4>Order Summary</h4>
-                <Col>
-                    {
-                        orderSummary.map(i => {
-                            return (
-                                <Row className='orderItem' key={`orderItem-${i.sizeId}-${i.name}`}>
-                                    <Col sm md lg xl="1">{i.quantity}</Col>
-                                    <Col sm md lg xl="2">{parseSizeId(i.sizeId)}</Col>
-                                    <Col>{utility.capitalizeEveryFirstLetter(i.name)}</Col>
-                                    <Col className='orderSummaryMoneyCol' sm md lg xl="3">{currency(i.price * i.quantity).format()}</Col>
-                                </Row>
-                            )
-                        })
-                    }
-                    {
-                        <Row className='orderItem'>
-                            <Col sm md lg xl="1">{itemBuilder.quantity}</Col>
-                            <Col sm md lg xl="2">{parseSizeId(itemBuilder.sizeId)}</Col>
-                            <Col></Col>
-                            <Col className='orderSummaryMoneyCol' sm md lg xl="3"></Col>
-                        </Row>
-                    }
-                </Col>
+                {renderOrderSummaryItems()}
             </Row>
             <div id='totalsContainer'>
                 <Row className='orderItem'>

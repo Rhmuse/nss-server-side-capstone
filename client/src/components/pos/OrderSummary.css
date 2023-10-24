@@ -12,6 +12,18 @@
 	justify-content: space-between;
 }
 
+.orderItem :hover {
+	cursor: pointer;
+}
+
 .orderSummaryMoneyCol {
 	text-align: end;
+}
+
+.selectedItem {
+	background-color: aqua;
+}
+
+.orderItemCol {
+	pointer-events: none;
 }

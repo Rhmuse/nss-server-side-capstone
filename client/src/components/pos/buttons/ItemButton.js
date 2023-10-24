@@ -13,9 +13,10 @@ const generator = function* () {
         i++
     }
 }
+
 const tempIdGenerator = generator();
 
-const ItemButton = ({ item, type, order, setOrder, itemBuilder, setItemBuilder }) => {
+const ItemButton = ({ item, type, order, setOrder, itemBuilder, setSelectedItem }) => {
 
     const handleAddDrink = () => {
         let copy = { ...order };
@@ -29,6 +30,7 @@ const ItemButton = ({ item, type, order, setOrder, itemBuilder, setItemBuilder }
             let newDrink = { drinkId: item.id, quantity: itemBuilder.quantity, name: item.name, price: item.price, sizeId: itemBuilder.sizeId };
             copy.drinks.push(newDrink);
         }
+        setSelectedItem({});
         setOrder(copy);
     }
 
@@ -44,6 +46,7 @@ const ItemButton = ({ item, type, order, setOrder, itemBuilder, setItemBuilder }
             let newSide = { sideId: item.id, quantity: itemBuilder.quantity, name: item.name, price: item.price, sizeId: itemBuilder.sizeId }
             copy.sides.push(newSide);
         }
+        setSelectedItem({});
         setOrder(copy);
     }
 
