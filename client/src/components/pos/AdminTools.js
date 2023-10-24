@@ -6,9 +6,12 @@ import { useEffect, useState } from 'react';
 import currency from 'currency.js';
 
 import './AdminTools.css';
+import { useNavigate } from 'react-router-dom';
 
 const utility = new Utility();
 const AdminTools = ({ loggedInUser, setLoggedInUser, menuItems }) => {
+    const navigate = useNavigate();
+
     const [selectedCategory, setSelectedCategory] = useState("drinks");
     const [itemList, setItemList] = useState([]);
 
@@ -52,6 +55,7 @@ const AdminTools = ({ loggedInUser, setLoggedInUser, menuItems }) => {
             <Row id='adminToolsCategoryRow'>
                 <Col>{renderCategorySelect()}</Col>
                 <Col><Button>New {utility.capitalizeEveryFirstLetter(selectedCategory).slice(0, -1)}</Button></Col>
+                <Col><Button onClick={() => { navigate("/") }}>Return to POS</Button></Col>
             </Row>
             <Row>
                 <Container>
