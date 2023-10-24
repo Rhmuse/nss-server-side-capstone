@@ -9,8 +9,6 @@ public class OrderDrink
     public Guid OrderId { get; set; }
     public int Quantity { get; set; }
     public Guid SizeId { get; set; }
-    [NotMapped]
     public Drink? Drink { get; set; }
-    [NotMapped]
     public Order? Order { get; set; }
 }

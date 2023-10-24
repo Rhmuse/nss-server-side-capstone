@@ -127,8 +127,8 @@ public class KrustyKrabDbContext : IdentityDbContext<IdentityUser>
         modelBuilder.Entity<Burger>().HasData(new Burger[]
         {
             new Burger{ Id = firstBurgerId, Quantity = 1, OrderId = firstOrderId },
-            new Burger{ Id = firstComboBurgerId, Quantity = 1 },
-            new Burger{ Id = secondComboBurgerId, Quantity = 1 }
+            new Burger{ Id = firstComboBurgerId, Quantity = 1, Name = "krabby patty" },
+            new Burger{ Id = secondComboBurgerId, Quantity = 1, Name = "double krabby patty" }
         });
 
         modelBuilder.Entity<Combo>().HasData(new Combo[]

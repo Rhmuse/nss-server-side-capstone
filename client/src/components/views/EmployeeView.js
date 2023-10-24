@@ -13,6 +13,7 @@ import { getAllDrinks } from '../../managers/drinksManager';
 import { getAllSides } from '../../managers/sidesManager';
 import { getAllCombos } from '../../managers/combosManager';
 import { getAllSizes } from '../../managers/sizesManager';
+import { getAllBurgers } from '../../managers/burgersManger';
 
 const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
     const [itemBuilder, setItemBuilder] = useState({
@@ -36,6 +37,7 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
             sides: [],
             combos: [],
             sizes: [],
+            burgers: [],
         }
     );
 
@@ -45,11 +47,12 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
 
     const loadMenuItems = () => {
         let menuItems = {};
-        Promise.all([getAllDrinks(), getAllSides(), getAllCombos(), getAllSizes()]).then(res => {
+        Promise.all([getAllDrinks(), getAllSides(), getAllCombos(), getAllSizes(), getAllBurgers()]).then(res => {
             menuItems.drinks = res[0];
             menuItems.sides = res[1];
             menuItems.combos = res[2];
             menuItems.sizes = res[3];
+            menuItems.burgers = res[4];
             setMenuItems(menuItems);
         })
     };

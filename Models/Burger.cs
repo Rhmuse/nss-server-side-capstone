@@ -5,16 +5,17 @@ public class Burger
 {
     public Guid Id { get; set; }
     public Guid? OrderId { get; set; }
+    public string? Name { get; set; }
     public int Quantity { get; set; }
     [NotMapped]
     public float? Price
     {
         get
         {
-            if (Toppings?.Count > 0)
+            if (BurgerToppings?.Count > 0)
             {
                 float total = 0F;
-                Toppings.ForEach(t =>
+                BurgerToppings.ForEach(t =>
                 {
                     total += t.Topping.Price;
                 });
@@ -23,6 +24,5 @@ public class Burger
             return null;
         }
     }
-    [NotMapped]
-    public List<BurgerTopping>? Toppings { get; set; }
+    public List<BurgerTopping>? BurgerToppings { get; set; }
 }

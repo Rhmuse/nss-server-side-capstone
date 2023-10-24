@@ -35,8 +35,13 @@ const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder }
                 </Col>
                 <Col id="itemCol">
                     <Row id="combosAndBurgersRow">
-                        <Button>Krabby Patty</Button>
-                        <Button>Double Krabby Patty</Button>
+                        {
+                            menuItems.burgers.map(b => {
+                                return (
+                                    <ItemButton key={`burger-${b.id}`} order={order} item={b} setOrder={setOrder} type="burger" setItemBuilder={setItemBuilder} itemBuilder={itemBuilder} />
+                                )
+                            })
+                        }
                         {
                             menuItems.combos.map(c => {
                                 return (
