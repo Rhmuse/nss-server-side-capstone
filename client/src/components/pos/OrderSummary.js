@@ -39,6 +39,14 @@ const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder }) => {
                 orderSummaryCopy[sideIndex].quantity = s.quantity;
             }
         })
+        order.burgers.forEach(b => {
+            const burgerIndex = orderSummaryCopy.findIndex(i => i.id === b.id);
+            if (burgerIndex < 0) {
+                orderSummaryCopy.push(b);
+            } else {
+                orderSummaryCopy[burgerIndex].quantity = b.quantity;
+            }
+        })
         setOrderSummary(orderSummaryCopy);
         setItemBuilder({ quantity: "", sizeId: "" })
     }, [order])
