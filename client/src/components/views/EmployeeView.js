@@ -16,6 +16,7 @@ import { getAllSizes } from '../../managers/sizesManager';
 import { getAllBurgers } from '../../managers/burgersManger';
 
 const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
+    const [orderSummary, setOrderSummary] = useState([]);
     const [itemBuilder, setItemBuilder] = useState({
         quantity: "",
         sizeId: "",
@@ -40,6 +41,8 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
             burgers: [],
         }
     );
+
+    const [selectedItem, setSelectedItem] = useState({});
 
     useEffect(() => {
         loadMenuItems();
@@ -68,7 +71,7 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                                 <Row>
                                     <Col lg md sm xl="3" >
                                         <Row id="orderSummaryRow">
-                                            <OrderSummary menuItems={menuItems} order={order} itemBuilder={itemBuilder} setItemBuilder={setItemBuilder} />
+                                            <OrderSummary orderSummary={orderSummary} setOrderSummary={setOrderSummary} selectedItem={selectedItem} setSelectedItem={setSelectedItem} menuItems={menuItems} order={order} itemBuilder={itemBuilder} setItemBuilder={setItemBuilder} />
                                         </Row>
                                         <Row>
                                             <PreviousOrdersList />
@@ -90,7 +93,7 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                                             <LoggedInUserDetails loggedInUser={loggedInUser} />
                                         </Row>
                                         <Row>
-                                            <MainPosView menuItems={menuItems} order={order} setOrder={setOrder} setItemBuilder={setItemBuilder} itemBuilder={itemBuilder} />
+                                            <MainPosView orderSummary={orderSummary} setOrderSummary={setOrderSummary} setSelectedItem={setSelectedItem} selectedItem={selectedItem} menuItems={menuItems} order={order} setOrder={setOrder} setItemBuilder={setItemBuilder} itemBuilder={itemBuilder} />
                                         </Row>
                                     </Col>
                                 </Row>
