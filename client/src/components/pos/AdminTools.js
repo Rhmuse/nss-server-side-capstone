@@ -51,7 +51,7 @@ const AdminTools = ({ loggedInUser, setLoggedInUser, menuItems }) => {
             </Row>
             <Row id='adminToolsCategoryRow'>
                 <Col>{renderCategorySelect()}</Col>
-                <Col></Col>
+                <Col><Button>New {utility.capitalizeEveryFirstLetter(selectedCategory).slice(0, -1)}</Button></Col>
             </Row>
             <Row>
                 <Container>
