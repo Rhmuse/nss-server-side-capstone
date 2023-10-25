@@ -21,7 +21,7 @@ public class BurgersController : ControllerBase
         var burgers = _dbContext.Burgers
             .Include(b => b.BurgerToppings)
             .ThenInclude(bt => bt.Topping)
-            .Where(b => b.OrderId == null)
+            .Where(b => b.OrderId == null && !b.IsDeleted)
             .ToList();
         return Ok(burgers);
     }

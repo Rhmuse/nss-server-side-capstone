@@ -17,7 +17,9 @@ public class SidesController : ControllerBase
     [HttpGet]
     public IActionResult Get()
     {
-        var sides = _dbContext.Sides.OrderBy(s => s.Name);
+        var sides = _dbContext.Sides
+        .Where(s => !s.IsDeleted)
+        .OrderBy(s => s.Name);
         return Ok(sides);
     }
 }

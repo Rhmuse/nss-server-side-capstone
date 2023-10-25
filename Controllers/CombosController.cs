@@ -17,7 +17,8 @@ public class CombosController : ControllerBase
     [HttpGet]
     public IActionResult Get()
     {
-        var combos = _dbContext.Combos;
+        var combos = _dbContext.Combos
+            .Where(c => !c.IsDeleted);
         return Ok(combos);
     }
 }

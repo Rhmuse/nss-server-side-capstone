@@ -7,6 +7,7 @@ public class Burger
     public Guid? OrderId { get; set; }
     public string? Name { get; set; }
     public int Quantity { get; set; }
+    public bool IsDeleted { get; set; } = false;
     [NotMapped]
     public float? Price
     {
