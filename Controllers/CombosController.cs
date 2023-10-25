@@ -21,4 +21,15 @@ public class CombosController : ControllerBase
             .Where(c => !c.IsDeleted);
         return Ok(combos);
     }
+
+    [HttpDelete("{id}")]
+    public IActionResult Delete(Guid id)
+    {
+        var foundCombo = _dbContext.Combos
+            .SingleOrDefault(d => d.Id == id);
+        if (foundCombo == null) return NotFound("Could not find a drink with specified id");
+        foundCombo.IsDeleted = true;
+        _dbContext.SaveChanges();
+        return NoContent();
+    }
 }

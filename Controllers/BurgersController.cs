@@ -25,4 +25,15 @@ public class BurgersController : ControllerBase
             .ToList();
         return Ok(burgers);
     }
+
+    [HttpDelete("{id}")]
+    public IActionResult Delete(Guid id)
+    {
+        var foundBurger = _dbContext.Burgers
+            .SingleOrDefault(d => d.Id == id);
+        if (foundBurger == null) return NotFound("Could not find a drink with specified id");
+        foundBurger.IsDeleted = true;
+        _dbContext.SaveChanges();
+        return NoContent();
+    }
 }

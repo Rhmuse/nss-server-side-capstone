@@ -22,4 +22,15 @@ public class SidesController : ControllerBase
         .OrderBy(s => s.Name);
         return Ok(sides);
     }
+
+    [HttpDelete("{id}")]
+    public IActionResult Delete(Guid id)
+    {
+        var foundSide = _dbContext.Sides
+            .SingleOrDefault(d => d.Id == id);
+        if (foundSide == null) return NotFound("Could not find a drink with specified id");
+        foundSide.IsDeleted = true;
+        _dbContext.SaveChanges();
+        return NoContent();
+    }
 }
