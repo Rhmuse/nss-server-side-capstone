@@ -5,12 +5,14 @@ import NumberButton from './buttons/NumberButton';
 import SizeButton from './buttons/SizeButton';
 
 import "./MainPosView.css";
+import { useNavigate } from 'react-router-dom';
 
 const numberArr = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
 const utility = new Utility();
 
-const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder, setSelectedItem, selectedItem, setOrderSummary, orderSummary }) => {
+const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder, setSelectedItem, selectedItem, setOrderSummary, orderSummary, loggedInUser }) => {
+    const navigate = useNavigate();
     const handleDelete = () => {
         const orderCopy = { ...order };
         let orderSummaryCopy = [...orderSummary];
@@ -100,7 +102,7 @@ const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder, 
                 <Col md lg="2" id="utilityCol">
                     <Row><Button>Here/ToGo</Button></Row>
                     <Row><Button>Cancel Order</Button></Row>
-                    <Row><Button>Admin Tools</Button></Row>
+                    {loggedInUser.roles.includes("Admin") && <Row><Button onClick={() => navigate('admintools')}>Admin Tools</Button></Row>}
                 </Col>
             </Row>
             <Row id="bottomRow">

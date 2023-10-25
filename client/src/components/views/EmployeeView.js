@@ -14,6 +14,7 @@ import { getAllSides } from '../../managers/sidesManager';
 import { getAllCombos } from '../../managers/combosManager';
 import { getAllSizes } from '../../managers/sizesManager';
 import { getAllBurgers } from '../../managers/burgersManger';
+import AdminTools from '../pos/AdminTools';
 
 const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
     const [orderSummary, setOrderSummary] = useState([]);
@@ -93,7 +94,7 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                                             <LoggedInUserDetails loggedInUser={loggedInUser} />
                                         </Row>
                                         <Row>
-                                            <MainPosView orderSummary={orderSummary} setOrderSummary={setOrderSummary} setSelectedItem={setSelectedItem} selectedItem={selectedItem} menuItems={menuItems} order={order} setOrder={setOrder} setItemBuilder={setItemBuilder} itemBuilder={itemBuilder} />
+                                            <MainPosView orderSummary={orderSummary} setOrderSummary={setOrderSummary} setSelectedItem={setSelectedItem} selectedItem={selectedItem} menuItems={menuItems} order={order} setOrder={setOrder} setItemBuilder={setItemBuilder} itemBuilder={itemBuilder} loggedInUser={loggedInUser} />
                                         </Row>
                                     </Col>
                                 </Row>
@@ -101,7 +102,16 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                         </AuthorizedRoute>
                     }
                 />
+                <Route path='admintools' element={
+                    <AuthorizedRoute loggedInUser={loggedInUser}>
+                        <Container>
+                            <AdminTools loggedInUser={loggedInUser} menuItems={menuItems} />
+                        </Container>
+                    </AuthorizedRoute>
+                }
+                />
             </Route>
+
         </Routes>
     )
 }
