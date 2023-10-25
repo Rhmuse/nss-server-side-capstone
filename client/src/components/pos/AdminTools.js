@@ -40,7 +40,21 @@ const AdminTools = ({ menuItems, loadMenuItems }) => {
     }
 
     const handleDelete = (id) => {
-        deleteDrink(id);
+        switch (selectedCategory) {
+            case "drinks":
+                deleteDrink(id);
+                break;
+            case "sides":
+                break;
+            case "burgers":
+                break;
+            case "combos":
+                break;
+            default:
+                window.alert("Something went wrong!")
+                break;
+        }
+
         loadMenuItems();
     }
 
