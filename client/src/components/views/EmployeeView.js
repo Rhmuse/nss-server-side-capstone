@@ -16,10 +16,13 @@ import { getAllSizes } from '../../managers/sizesManager';
 import { getAllBurgers } from '../../managers/burgersManger';
 import AdminTools from '../pos/AdminTools';
 import AddDrinkForm from '../pos/admintools/drinks/AddDrinkForm';
+import { getAllToppings } from '../../managers/toppingsManager';
+import AddBurgerForm from '../pos/admintools/burgers/AddBurgerForm';
 
 
 const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
     const [orderSummary, setOrderSummary] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState("drinks");
     const [itemBuilder, setItemBuilder] = useState({
         quantity: "",
         sizeId: "",
@@ -42,6 +45,7 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
             combos: [],
             sizes: [],
             burgers: [],
+            toppings: [],
         }
     );
 
@@ -53,12 +57,13 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
 
     const loadMenuItems = () => {
         let menuItems = {};
-        Promise.all([getAllDrinks(), getAllSides(), getAllCombos(), getAllSizes(), getAllBurgers()]).then(res => {
+        Promise.all([getAllDrinks(), getAllSides(), getAllCombos(), getAllSizes(), getAllBurgers(), getAllToppings()]).then(res => {
             menuItems.drinks = res[0];
             menuItems.sides = res[1];
             menuItems.combos = res[2];
             menuItems.sizes = res[3];
             menuItems.burgers = res[4];
+            menuItems.toppings = res[5];
             setMenuItems(menuItems);
         })
     };
@@ -96,7 +101,7 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                         <AuthorizedRoute loggedInUser={loggedInUser}>
                             <Container>
                                 <LoggedInUserDetails loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
-                                <AdminTools loadMenuItems={loadMenuItems} loggedInUser={loggedInUser} menuItems={menuItems} />
+                                <AdminTools loadMenuItems={loadMenuItems} loggedInUser={loggedInUser} menuItems={menuItems} setSelectedCategory={setSelectedCategory} selectedCategory={selectedCategory} />
                             </Container>
                         </AuthorizedRoute>
                     }
@@ -105,10 +110,19 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                         <AuthorizedRoute loggedInUser={loggedInUser}>
                             <Container>
                                 <LoggedInUserDetails loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
-                                <AddDrinkForm loadMenuItems={loadMenuItems} />
+                                <AddDrinkForm loadMenuItems={loadMenuItems} setSelectedCategory={setSelectedCategory} menuItems={menuItems} />
                             </Container>
                         </AuthorizedRoute>
                     } />
+                    <Route path='burgers/add' element={
+                        <AuthorizedRoute loggedInUser={loggedInUser}>
+                            <Container>
+                                <LoggedInUserDetails loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
+                                <AddBurgerForm loadMenuItems={loadMenuItems} menuItems={menuItems} setSelectedCategory={setSelectedCategory} />
+                            </Container>
+                        </AuthorizedRoute>
+                    }
+                    />
                 </Route>
             </Route>
 

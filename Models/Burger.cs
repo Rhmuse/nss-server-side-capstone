@@ -13,7 +13,7 @@ public class Burger
     {
         get
         {
-            if (BurgerToppings?.Count > 0)
+            if (BurgerToppings?.Count > 0 && BurgerToppings[0].Topping != null)
             {
                 float total = 0F;
                 BurgerToppings.ForEach(t =>

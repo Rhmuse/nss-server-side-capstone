@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { addDrink } from '../../../../managers/drinksManager';
+import CategorySelect from '../../CategorySelect';
 
-const AddDrinkForm = ({ loadMenuItems }) => {
+const AddDrinkForm = ({ loadMenuItems, menuItems, setSelectedCategory }) => {
     const navigate = useNavigate();
     const [newDrink, setNewDrink] = useState(
         {
@@ -25,10 +26,13 @@ const AddDrinkForm = ({ loadMenuItems }) => {
                 <Col>
                     <h1>New Drink</h1>
                 </Col>
-                <Col></Col>
+                <Col>
+                    <CategorySelect menuItems={menuItems} setSelectedCategory={setSelectedCategory} />
+                </Col>
                 <Col>
                     <Col>
                         <Button onClick={() => { navigate("/") }}>Return to POS</Button>
+                        <Button onClick={() => { navigate("/admintools") }} >Back to List</Button>
                     </Col>
                 </Col>
             </Row>
@@ -53,7 +57,9 @@ const AddDrinkForm = ({ loadMenuItems }) => {
                 </Form>
             </Row>
             <Row>
-                <Col><Button onClick={() => handleClick()}>Save Drink</Button></Col>
+                <Col>
+                    <Button onClick={() => handleClick()}>Save Drink</Button>
+                </Col>
             </Row>
         </Container>
     )

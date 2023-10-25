@@ -9,3 +9,13 @@ export const deleteBurger = (id) => {
         method: "DELETE"
     })
 }
+
+export const addBurger = (newBurgerDTO) => {
+    return fetch(_API_URL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newBurgerDTO)
+    }).then(res => res.json())
+}

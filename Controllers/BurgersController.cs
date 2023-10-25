@@ -1,4 +1,5 @@
 using KrustyKrab.Data;
+using KrustyKrab.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -35,5 +36,24 @@ public class BurgersController : ControllerBase
         foundBurger.IsDeleted = true;
         _dbContext.SaveChanges();
         return NoContent();
+    }
+
+    [HttpPost]
+    public IActionResult Post(NewBurgerDto burgerDto)
+    {
+        Burger burger = new Burger();
+        burger.Name = burgerDto.Name;
+        burger.Quantity = 1;
+        _dbContext.Burgers.Add(burger);
+        burgerDto.Toppings.ForEach(t =>
+        {
+            BurgerTopping burgerTopping = new BurgerTopping();
+            burgerTopping.BurgerId = burger.Id;
+            burgerTopping.ToppingId = t.ToppingId;
+            if (t.Extra) burgerTopping.Extra = true;
+            _dbContext.BurgerToppings.Add(burgerTopping);
+        });
+        _dbContext.SaveChanges();
+        return Created($"/api/burgers/{burger.Id}", burger);
     }
 }

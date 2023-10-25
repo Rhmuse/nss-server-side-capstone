@@ -9,11 +9,11 @@ import { deleteDrink } from '../../managers/drinksManager';
 import { deleteSide } from '../../managers/sidesManager';
 import { deleteBurger } from '../../managers/burgersManger';
 import { deleteCombo } from '../../managers/combosManager';
+import CategorySelect from './CategorySelect';
 
 const utility = new Utility();
-const AdminTools = ({ menuItems, loadMenuItems }) => {
+const AdminTools = ({ menuItems, loadMenuItems, selectedCategory, setSelectedCategory }) => {
     const navigate = useNavigate();
-    const [selectedCategory, setSelectedCategory] = useState("drinks");
     const [itemList, setItemList] = useState([]);
 
     useEffect(() => {
@@ -22,7 +22,7 @@ const AdminTools = ({ menuItems, loadMenuItems }) => {
 
     useEffect(() => {
         loadMenuItems()
-    }, [])
+    }, [menuItems, loadMenuItems])
 
     const renderCategorySelect = () => {
         let categoryArr = [];
@@ -67,7 +67,9 @@ const AdminTools = ({ menuItems, loadMenuItems }) => {
     return (
         <Container>
             <Row id='adminToolsCategoryRow'>
-                <Col>{renderCategorySelect()}</Col>
+                <Col>
+                    <CategorySelect menuItems={menuItems} setSelectedCategory={setSelectedCategory} />
+                </Col>
                 <Col>
                     <Button onClick={() => {
                         navigate(`${selectedCategory}/add`)
