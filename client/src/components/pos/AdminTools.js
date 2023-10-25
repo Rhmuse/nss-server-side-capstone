@@ -6,6 +6,9 @@ import currency from 'currency.js';
 import './AdminTools.css';
 import { useNavigate } from 'react-router-dom';
 import { deleteDrink } from '../../managers/drinksManager';
+import { deleteSide } from '../../managers/sidesManager';
+import { deleteBurger } from '../../managers/burgersManger';
+import { deleteCombo } from '../../managers/combosManager';
 
 const utility = new Utility();
 const AdminTools = ({ menuItems, loadMenuItems }) => {
@@ -45,10 +48,13 @@ const AdminTools = ({ menuItems, loadMenuItems }) => {
                 deleteDrink(id);
                 break;
             case "sides":
+                deleteSide(id);
                 break;
             case "burgers":
+                deleteBurger(id);
                 break;
             case "combos":
+                deleteCombo(id);
                 break;
             default:
                 window.alert("Something went wrong!")
