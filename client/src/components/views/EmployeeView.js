@@ -15,6 +15,8 @@ import { getAllCombos } from '../../managers/combosManager';
 import { getAllSizes } from '../../managers/sizesManager';
 import { getAllBurgers } from '../../managers/burgersManger';
 import AdminTools from '../pos/AdminTools';
+import AddDrinkForm from '../pos/admintools/drinks/AddDrinkForm';
+
 
 const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
     const [orderSummary, setOrderSummary] = useState([]);
@@ -79,20 +81,7 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                                         </Row>
                                     </Col>
                                     <Col>
-                                        <Row id='userDetailsRow'>
-                                            <Button
-                                                color="primary"
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    logout().then(() => {
-                                                        setLoggedInUser(null);
-                                                    });
-                                                }}
-                                            >
-                                                Logout
-                                            </Button>
-                                            <LoggedInUserDetails loggedInUser={loggedInUser} />
-                                        </Row>
+                                        <LoggedInUserDetails loggedInUser={loggedInUser} />
                                         <Row>
                                             <MainPosView orderSummary={orderSummary} setOrderSummary={setOrderSummary} setSelectedItem={setSelectedItem} selectedItem={selectedItem} menuItems={menuItems} order={order} setOrder={setOrder} setItemBuilder={setItemBuilder} itemBuilder={itemBuilder} loggedInUser={loggedInUser} />
                                         </Row>
@@ -102,14 +91,25 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                         </AuthorizedRoute>
                     }
                 />
-                <Route path='admintools' element={
-                    <AuthorizedRoute loggedInUser={loggedInUser}>
-                        <Container>
-                            <AdminTools loggedInUser={loggedInUser} menuItems={menuItems} />
-                        </Container>
-                    </AuthorizedRoute>
-                }
-                />
+                <Route path='admintools'>
+                    <Route index element={
+                        <AuthorizedRoute loggedInUser={loggedInUser}>
+                            <Container>
+                                <LoggedInUserDetails loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
+                                <AdminTools loadMenuItems={loadMenuItems} loggedInUser={loggedInUser} menuItems={menuItems} />
+                            </Container>
+                        </AuthorizedRoute>
+                    }
+                    />
+                    <Route path='drinks/add' element={
+                        <AuthorizedRoute loggedInUser={loggedInUser}>
+                            <Container>
+                                <LoggedInUserDetails loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
+                                <AddDrinkForm loadMenuItems={loadMenuItems} />
+                            </Container>
+                        </AuthorizedRoute>
+                    } />
+                </Route>
             </Route>
 
         </Routes>
