@@ -20,11 +20,13 @@ const AdminTools = ({ menuItems, loadMenuItems, selectedCategory, setSelectedCat
 
     useEffect(() => {
         setItemList(menuItems[selectedCategory]);
-    }, [selectedCategory])
+    }, [selectedCategory, menuItems])
 
     useEffect(() => {
         loadMenuItems()
     }, [])
+
+
 
     const handleDelete = (id) => {
         switch (selectedCategory) {
@@ -49,6 +51,29 @@ const AdminTools = ({ menuItems, loadMenuItems, selectedCategory, setSelectedCat
         }
 
         loadMenuItems();
+    }
+
+    const handleEdit = (id) => {
+        switch (selectedCategory) {
+            case "drinks":
+                navigate(`${selectedCategory}/edit/${id}`);
+                break;
+            case "sides":
+                deleteSide(id);
+                break;
+            case "burgers":
+                deleteBurger(id);
+                break;
+            case "combos":
+                deleteCombo(id);
+                break;
+            case "toppings":
+                deleteTopping(id);
+                break;
+            default:
+                window.alert("Something went wrong!")
+                break;
+        }
     }
 
     return (
@@ -86,7 +111,9 @@ const AdminTools = ({ menuItems, loadMenuItems, selectedCategory, setSelectedCat
                                             <td>{utility.capitalizeEveryFirstLetter(i.name)}</td>
                                             <td>{i.id}</td>
                                             <td>{currency(i.price).format()}</td>
-                                            <td><Button>Edit</Button></td>
+                                            <td><Button onClick={() => {
+                                                handleEdit(i.id)
+                                            }}>Edit</Button></td>
                                             <td><Button onClick={() => handleDelete(i.id)}>Delete</Button></td>
                                         </tr>
                                     )

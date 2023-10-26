@@ -15,7 +15,6 @@ const AddSideForm = ({ menuItems, setSelectedCategory, loadMenuItems }) => {
 
     const handleClick = () => {
         addSide(newSide).then(() => {
-            loadMenuItems()
             navigate("/admintools")
         })
     }

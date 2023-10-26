@@ -15,7 +15,6 @@ const AddDrinkForm = ({ loadMenuItems, menuItems, setSelectedCategory }) => {
 
     const handleClick = () => {
         addDrink(newDrink).then(() => {
-            loadMenuItems()
             navigate("/admintools")
         })
     }

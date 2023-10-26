@@ -51,4 +51,15 @@ public class DrinksController : ControllerBase
         _dbContext.SaveChanges();
         return NoContent();
     }
+
+    [HttpPut]
+    public IActionResult Put(Drink drink)
+    {
+        var foundDrink = _dbContext.Drinks.SingleOrDefault(d => d.Id == drink.Id);
+        if (foundDrink == null) return NotFound();
+        foundDrink.Name = drink.Name;
+        foundDrink.Price = drink.Price;
+        _dbContext.SaveChanges();
+        return Ok(drink);
+    }
 }

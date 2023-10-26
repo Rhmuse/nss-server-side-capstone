@@ -1,23 +1,27 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
-import { addDrink } from '../../../../managers/drinksManager';
 import CategorySelect from '../../CategorySelect';
+import { updateDrink } from '../../../../managers/drinksManager';
 
 const EditDrinkForm = ({ loadMenuItems, menuItems, setSelectedCategory }) => {
     const navigate = useNavigate();
     const { id } = useParams();
     console.log(id);
-    const [newDrink, setNewDrink] = useState(
+    const [drink, setDrink] = useState(
         {
             name: "",
             price: "0",
         }
     );
 
+    useEffect(() => {
+        const foundDrink = menuItems.drinks.find(d => d.id === id);
+        setDrink(foundDrink);
+    }, [])
+
     const handleClick = () => {
-        addDrink(newDrink).then(() => {
-            loadMenuItems()
+        updateDrink(drink).then(() => {
             navigate("/admintools")
         })
     }
@@ -40,27 +44,27 @@ const EditDrinkForm = ({ loadMenuItems, menuItems, setSelectedCategory }) => {
             </Row>
             <Row>
                 <Form>
-                    <Form.Group className="mb-3" controlId="newDrinkForm.name" >
+                    <Form.Group className="mb-3" controlId="editDrinkForm.name" >
                         <Form.Label>Name:</Form.Label>
-                        <Form.Control placeholder='Name of Drink...' type='text' onChange={(e) => {
-                            const copy = { ...newDrink };
+                        <Form.Control value={drink.name} placeholder='Name of Drink...' type='text' onChange={(e) => {
+                            const copy = { ...drink };
                             copy.name = e.target.value;
-                            setNewDrink(copy);
+                            setDrink(copy);
                         }} />
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="newDrinkForm.price" >
+                    <Form.Group className="mb-3" controlId="editDrinkForm.price" >
                         <Form.Label>Price:</Form.Label>
-                        <Form.Control placeholder='0' type='number' min={0} onChange={(e) => {
-                            const copy = { ...newDrink };
+                        <Form.Control value={drink.price} placeholder='0' type='number' min={0} onChange={(e) => {
+                            const copy = { ...drink };
                             copy.price = e.target.value;
-                            setNewDrink(copy);
+                            setDrink(copy);
                         }} />
                     </Form.Group>
                 </Form>
             </Row>
             <Row>
                 <Col>
-                    <Button onClick={() => handleClick()}>Save Drink</Button>
+                    <Button onClick={() => handleClick()}>Save Changes</Button>
                 </Col>
             </Row>
         </Container>

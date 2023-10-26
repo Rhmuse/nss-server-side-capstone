@@ -15,7 +15,6 @@ const AddToppingForm = ({ loadMenuItems, menuItems, setSelectedCategory }) => {
 
     const handleClick = () => {
         addTopping(newTopping).then(() => {
-            loadMenuItems()
             navigate("/admintools")
         })
     }

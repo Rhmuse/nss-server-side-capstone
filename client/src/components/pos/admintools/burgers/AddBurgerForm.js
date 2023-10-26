@@ -22,7 +22,6 @@ const AddBurgerForm = ({ loadMenuItems, menuItems, setSelectedCategory }) => {
 
     const handleClick = () => {
         addBurger(newBurger).then(() => {
-            loadMenuItems()
             navigate("/admintools")
         })
     }
