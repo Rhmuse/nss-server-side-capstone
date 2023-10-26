@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { addTopping } from '../../../../managers/toppingsManager';
 
-const AddToppingForm = ({ loadMenuItems, menuItems, setSelectedCategory }) => {
+const AddToppingForm = ({ menuItems, setSelectedCategory }) => {
     const navigate = useNavigate();
     const [newTopping, setNewTopping] = useState(
         {

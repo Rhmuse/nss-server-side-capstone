@@ -19,6 +19,7 @@ import AddSideForm from '../pos/admintools/sides/AddSideForm';
 import "./EmployeeView.css";
 import AddToppingForm from '../pos/admintools/toppings/AddToppingForm';
 import EditDrinkForm from '../pos/admintools/drinks/EditDrinkForm';
+import EditToppingForm from '../pos/admintools/toppings/EditToppingForm';
 
 
 const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
@@ -107,6 +108,8 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                         </AuthorizedRoute>
                     }
                     />
+
+                    {/* Drinks */}
                     <Route path='drinks/add' element={
                         <AuthorizedRoute loggedInUser={loggedInUser}>
                             <Container>
@@ -123,6 +126,8 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                             </Container>
                         </AuthorizedRoute>
                     } />
+
+                    {/* Burgers */}
                     <Route path='burgers/add' element={
                         <AuthorizedRoute loggedInUser={loggedInUser}>
                             <Container>
@@ -131,6 +136,8 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                             </Container>
                         </AuthorizedRoute>
                     } />
+
+                    {/* Sides */}
                     <Route path='sides/add' element={
                         <AuthorizedRoute loggedInUser={loggedInUser}>
                             <Container>
@@ -139,11 +146,21 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                             </Container>
                         </AuthorizedRoute>
                     } />
+
+                    {/* Toppings */}
                     <Route path='toppings/add' element={
                         <AuthorizedRoute loggedInUser={loggedInUser}>
                             <Container>
                                 <LoggedInUserDetails loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
                                 <AddToppingForm loadMenuItems={loadMenuItems} menuItems={menuItems} setSelectedCategory={setSelectedCategory} />
+                            </Container>
+                        </AuthorizedRoute>
+                    } />
+                    <Route path='toppings/edit/:id' element={
+                        <AuthorizedRoute loggedInUser={loggedInUser}>
+                            <Container>
+                                <LoggedInUserDetails loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
+                                <EditToppingForm loadMenuItems={loadMenuItems} setSelectedCategory={setSelectedCategory} menuItems={menuItems} />
                             </Container>
                         </AuthorizedRoute>
                     } />

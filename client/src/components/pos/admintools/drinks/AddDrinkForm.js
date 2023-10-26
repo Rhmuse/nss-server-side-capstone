@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { addDrink } from '../../../../managers/drinksManager';
 import CategorySelect from '../../CategorySelect';
 
-const AddDrinkForm = ({ loadMenuItems, menuItems, setSelectedCategory }) => {
+const AddDrinkForm = ({ menuItems, setSelectedCategory }) => {
     const navigate = useNavigate();
     const [newDrink, setNewDrink] = useState(
         {

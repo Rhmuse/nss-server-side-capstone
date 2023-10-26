@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import CategorySelect from '../../CategorySelect';
-import { updateDrink } from '../../../../managers/drinksManager';
+import { updateTopping } from '../../../../managers/toppingsManager';
 
-const EditDrinkForm = ({ menuItems, setSelectedCategory }) => {
+const EditToppingForm = ({ menuItems, setSelectedCategory }) => {
     const navigate = useNavigate();
     const { id } = useParams();
     console.log(id);
-    const [drink, setDrink] = useState(
+    const [topping, setTopping] = useState(
         {
             name: "",
             price: "0",
@@ -16,12 +16,12 @@ const EditDrinkForm = ({ menuItems, setSelectedCategory }) => {
     );
 
     useEffect(() => {
-        const foundDrink = menuItems.drinks.find(d => d.id === id);
-        setDrink(foundDrink);
+        const foundTopping = menuItems.toppings.find(d => d.id === id);
+        setTopping(foundTopping);
     }, [])
 
     const handleClick = () => {
-        updateDrink(drink).then(() => {
+        updateTopping(topping).then(() => {
             navigate("/admintools")
         })
     }
@@ -30,7 +30,7 @@ const EditDrinkForm = ({ menuItems, setSelectedCategory }) => {
         <Container>
             <Row>
                 <Col>
-                    <h1>New Drink</h1>
+                    <h1>New Topping</h1>
                 </Col>
                 <Col>
                     <CategorySelect menuItems={menuItems} setSelectedCategory={setSelectedCategory} />
@@ -44,20 +44,20 @@ const EditDrinkForm = ({ menuItems, setSelectedCategory }) => {
             </Row>
             <Row>
                 <Form>
-                    <Form.Group className="mb-3" controlId="editDrinkForm.name" >
+                    <Form.Group className="mb-3" controlId="editToppingForm.name" >
                         <Form.Label>Name:</Form.Label>
-                        <Form.Control value={drink.name} placeholder='Name of Drink...' type='text' onChange={(e) => {
-                            const copy = { ...drink };
+                        <Form.Control value={topping.name} placeholder='Name of Topping...' type='text' onChange={(e) => {
+                            const copy = { ...topping };
                             copy.name = e.target.value;
-                            setDrink(copy);
+                            setTopping(copy);
                         }} />
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="editDrinkForm.price" >
+                    <Form.Group className="mb-3" controlId="editToppingForm.price" >
                         <Form.Label>Price:</Form.Label>
-                        <Form.Control value={drink.price} placeholder='0' type='number' min={0} onChange={(e) => {
-                            const copy = { ...drink };
+                        <Form.Control value={topping.price} placeholder='0' type='number' min={0} onChange={(e) => {
+                            const copy = { ...topping };
                             copy.price = e.target.value;
-                            setDrink(copy);
+                            setTopping(copy);
                         }} />
                     </Form.Group>
                 </Form>
@@ -71,4 +71,4 @@ const EditDrinkForm = ({ menuItems, setSelectedCategory }) => {
     )
 }
 
-export default EditDrinkForm;
+export default EditToppingForm; 

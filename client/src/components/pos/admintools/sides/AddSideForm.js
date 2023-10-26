@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { addSide } from '../../../../managers/sidesManager';
 
-const AddSideForm = ({ menuItems, setSelectedCategory, loadMenuItems }) => {
+const AddSideForm = ({ menuItems, setSelectedCategory }) => {
     const navigate = useNavigate();
     const [newSide, setNewSide] = useState(
         {

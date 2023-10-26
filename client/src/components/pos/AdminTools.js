@@ -54,27 +54,9 @@ const AdminTools = ({ menuItems, loadMenuItems, selectedCategory, setSelectedCat
     }
 
     const handleEdit = (id) => {
-        switch (selectedCategory) {
-            case "drinks":
-                navigate(`${selectedCategory}/edit/${id}`);
-                break;
-            case "sides":
-                deleteSide(id);
-                break;
-            case "burgers":
-                deleteBurger(id);
-                break;
-            case "combos":
-                deleteCombo(id);
-                break;
-            case "toppings":
-                deleteTopping(id);
-                break;
-            default:
-                window.alert("Something went wrong!")
-                break;
-        }
+        navigate(`${selectedCategory}/edit/${id}`);
     }
+
 
     return (
         <Container>
