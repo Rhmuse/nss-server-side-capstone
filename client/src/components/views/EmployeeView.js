@@ -18,6 +18,7 @@ import AddBurgerForm from '../pos/admintools/burgers/AddBurgerForm';
 import AddSideForm from '../pos/admintools/sides/AddSideForm';
 import "./EmployeeView.css";
 import AddToppingForm from '../pos/admintools/toppings/AddToppingForm';
+import EditDrinkForm from '../pos/admintools/drinks/EditDrinkForm';
 
 
 const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
@@ -111,6 +112,14 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                             <Container>
                                 <LoggedInUserDetails loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
                                 <AddDrinkForm loadMenuItems={loadMenuItems} setSelectedCategory={setSelectedCategory} menuItems={menuItems} />
+                            </Container>
+                        </AuthorizedRoute>
+                    } />
+                    <Route path='drinks/edit/:id' element={
+                        <AuthorizedRoute loggedInUser={loggedInUser}>
+                            <Container>
+                                <LoggedInUserDetails loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
+                                <EditDrinkForm loadMenuItems={loadMenuItems} setSelectedCategory={setSelectedCategory} menuItems={menuItems} />
                             </Container>
                         </AuthorizedRoute>
                     } />

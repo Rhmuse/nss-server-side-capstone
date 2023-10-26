@@ -1,29 +1,30 @@
-import { Button, Col, Container, Form, Row, Table } from 'react-bootstrap';
-import Utility from '../../utility';
+import { Button, Col, Container, Row, Table } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-import currency from 'currency.js';
-
-import './AdminTools.css';
 import { useNavigate } from 'react-router-dom';
 import { deleteDrink } from '../../managers/drinksManager';
 import { deleteSide } from '../../managers/sidesManager';
 import { deleteBurger } from '../../managers/burgersManger';
 import { deleteCombo } from '../../managers/combosManager';
-import CategorySelect from './CategorySelect';
 import { deleteTopping } from '../../managers/toppingsManager';
+import Utility from '../../utility';
+import currency from 'currency.js';
+import CategorySelect from './CategorySelect';
+
+import './AdminTools.css';
 
 const utility = new Utility();
+
 const AdminTools = ({ menuItems, loadMenuItems, selectedCategory, setSelectedCategory }) => {
     const navigate = useNavigate();
     const [itemList, setItemList] = useState([]);
 
     useEffect(() => {
         setItemList(menuItems[selectedCategory]);
-    }, [selectedCategory, menuItems])
+    }, [selectedCategory])
 
     useEffect(() => {
         loadMenuItems()
-    }, [menuItems, loadMenuItems])
+    }, [])
 
     const handleDelete = (id) => {
         switch (selectedCategory) {
