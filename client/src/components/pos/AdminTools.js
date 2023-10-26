@@ -10,6 +10,7 @@ import { deleteSide } from '../../managers/sidesManager';
 import { deleteBurger } from '../../managers/burgersManger';
 import { deleteCombo } from '../../managers/combosManager';
 import CategorySelect from './CategorySelect';
+import { deleteTopping } from '../../managers/toppingsManager';
 
 const utility = new Utility();
 const AdminTools = ({ menuItems, loadMenuItems, selectedCategory, setSelectedCategory }) => {
@@ -24,24 +25,6 @@ const AdminTools = ({ menuItems, loadMenuItems, selectedCategory, setSelectedCat
         loadMenuItems()
     }, [menuItems, loadMenuItems])
 
-    const renderCategorySelect = () => {
-        let categoryArr = [];
-        for (const category in menuItems) {
-            categoryArr.push(category);
-        }
-        return (
-            <Form.Select size="lg" onChange={(e) => { setSelectedCategory(e.target.value) }}>
-                {
-                    categoryArr.map(c => {
-                        return (
-                            <option key={`${c}-option`} value={c}>{utility.capitalizeEveryFirstLetter(c)}</option>
-                        )
-                    })
-                }
-            </Form.Select>
-        )
-    }
-
     const handleDelete = (id) => {
         switch (selectedCategory) {
             case "drinks":
@@ -55,6 +38,9 @@ const AdminTools = ({ menuItems, loadMenuItems, selectedCategory, setSelectedCat
                 break;
             case "combos":
                 deleteCombo(id);
+                break;
+            case "toppings":
+                deleteTopping(id);
                 break;
             default:
                 window.alert("Something went wrong!")

@@ -1,14 +1,11 @@
 import { Route, Routes } from 'react-router-dom';
 import { AuthorizedRoute } from '../auth/AuthorizedRoute';
-import { Button, Col, Container, Row } from "react-bootstrap";
-import { logout } from '../../managers/authManager';
+import { Col, Container, Row } from "react-bootstrap";
 import { useEffect, useState } from 'react';
 import OrderSummary from '../pos/OrderSummary';
 import PreviousOrdersList from '../pos/PreviousOrdersList';
 import LoggedInUserDetails from '../pos/LoggedInUserDetails';
 import MainPosView from '../pos/MainPosView';
-
-import "./EmployeeView.css";
 import { getAllDrinks } from '../../managers/drinksManager';
 import { getAllSides } from '../../managers/sidesManager';
 import { getAllCombos } from '../../managers/combosManager';
@@ -19,6 +16,8 @@ import AddDrinkForm from '../pos/admintools/drinks/AddDrinkForm';
 import { getAllToppings } from '../../managers/toppingsManager';
 import AddBurgerForm from '../pos/admintools/burgers/AddBurgerForm';
 import AddSideForm from '../pos/admintools/sides/AddSideForm';
+import "./EmployeeView.css";
+import AddToppingForm from '../pos/admintools/toppings/AddToppingForm';
 
 
 const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
@@ -131,9 +130,16 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                             </Container>
                         </AuthorizedRoute>
                     } />
+                    <Route path='toppings/add' element={
+                        <AuthorizedRoute loggedInUser={loggedInUser}>
+                            <Container>
+                                <LoggedInUserDetails loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
+                                <AddToppingForm loadMenuItems={loadMenuItems} menuItems={menuItems} setSelectedCategory={setSelectedCategory} />
+                            </Container>
+                        </AuthorizedRoute>
+                    } />
                 </Route>
             </Route>
-
         </Routes>
     )
 }
