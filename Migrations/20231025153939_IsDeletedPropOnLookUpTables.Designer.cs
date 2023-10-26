@@ -3,6 +3,7 @@ using System;
 using KrustyKrab.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace KrustyKrab.Migrations
 {
     [DbContext(typeof(KrustyKrabDbContext))]
-    partial class KrustyKrabDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231025153939_IsDeletedPropOnLookUpTables")]
+    partial class IsDeletedPropOnLookUpTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,21 +52,21 @@ namespace KrustyKrab.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("38dc94be-3dcf-4314-a4e2-323d6485e76b"),
+                            Id = new Guid("1550ee77-ee70-421e-a798-fc7f7e17f044"),
                             IsDeleted = false,
-                            OrderId = new Guid("b8f91b50-04ff-4c47-8c64-90d4649580c9"),
+                            OrderId = new Guid("ce778112-793e-49bf-8aeb-dfbd7be0ba68"),
                             Quantity = 1
                         },
                         new
                         {
-                            Id = new Guid("634febcc-7523-4269-9d01-e42f101eae0a"),
+                            Id = new Guid("474ad82b-f1fc-4333-ad69-fead5e6d5c26"),
                             IsDeleted = false,
                             Name = "krabby patty",
                             Quantity = 1
                         },
                         new
                         {
-                            Id = new Guid("e44f9af6-655d-4628-8c98-875b03f5473a"),
+                            Id = new Guid("d97475c5-027c-4ffa-bf5d-f46a46c08a1b"),
                             IsDeleted = false,
                             Name = "double krabby patty",
                             Quantity = 1
@@ -79,9 +82,6 @@ namespace KrustyKrab.Migrations
                     b.Property<Guid>("BurgerId")
                         .HasColumnType("uuid");
 
-                    b.Property<bool>("Extra")
-                        .HasColumnType("boolean");
-
                     b.Property<Guid>("ToppingId")
                         .HasColumnType("uuid");
 
@@ -96,206 +96,177 @@ namespace KrustyKrab.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2561731d-e253-43e5-a2ec-eae96334b5d2"),
-                            BurgerId = new Guid("e44f9af6-655d-4628-8c98-875b03f5473a"),
-                            Extra = false,
-                            ToppingId = new Guid("efd1e2df-888f-4ccb-a237-6f5ea21cefe0")
+                            Id = new Guid("7f911631-5111-40df-9df2-79e3a27897e2"),
+                            BurgerId = new Guid("d97475c5-027c-4ffa-bf5d-f46a46c08a1b"),
+                            ToppingId = new Guid("24628238-7095-4574-ab5f-a7cca8bcd38d")
                         },
                         new
                         {
-                            Id = new Guid("47363598-8aa6-4c4f-96a9-ff72e5179e77"),
-                            BurgerId = new Guid("e44f9af6-655d-4628-8c98-875b03f5473a"),
-                            Extra = false,
-                            ToppingId = new Guid("2dd66e1e-66ca-4b68-8fc7-5858e477488a")
+                            Id = new Guid("3a49ed3b-b0ec-4a6c-8dd5-1a8883880701"),
+                            BurgerId = new Guid("d97475c5-027c-4ffa-bf5d-f46a46c08a1b"),
+                            ToppingId = new Guid("987b3c75-bd26-43dc-9fd2-e4287fa1e5b5")
                         },
                         new
                         {
-                            Id = new Guid("4d1e91c0-b173-4c9b-a3ec-507d9d745fa4"),
-                            BurgerId = new Guid("e44f9af6-655d-4628-8c98-875b03f5473a"),
-                            Extra = false,
-                            ToppingId = new Guid("9210eeb1-8dc6-49d8-a423-132617edcd10")
+                            Id = new Guid("efff9917-abc5-4c0d-baf1-66cb323e4815"),
+                            BurgerId = new Guid("d97475c5-027c-4ffa-bf5d-f46a46c08a1b"),
+                            ToppingId = new Guid("1cce94fb-4d8a-4897-9b50-0504e0420601")
                         },
                         new
                         {
-                            Id = new Guid("e6f5c472-bfc8-4f47-88ad-0c62900d3c02"),
-                            BurgerId = new Guid("e44f9af6-655d-4628-8c98-875b03f5473a"),
-                            Extra = false,
-                            ToppingId = new Guid("29ff0a1f-97aa-4772-8904-d49220db3694")
+                            Id = new Guid("471a1eb5-4d11-4618-acaa-596b3f8767c3"),
+                            BurgerId = new Guid("d97475c5-027c-4ffa-bf5d-f46a46c08a1b"),
+                            ToppingId = new Guid("06d8f575-86f7-4b7d-a093-f108b06bfe25")
                         },
                         new
                         {
-                            Id = new Guid("9f096de8-0aaf-40b5-90a8-4244b0aa2cea"),
-                            BurgerId = new Guid("e44f9af6-655d-4628-8c98-875b03f5473a"),
-                            Extra = false,
-                            ToppingId = new Guid("2dcf6d43-60e4-40e3-a4c9-5863f5643cef")
+                            Id = new Guid("4fe8c8f5-ac35-406b-a134-ac202422164b"),
+                            BurgerId = new Guid("d97475c5-027c-4ffa-bf5d-f46a46c08a1b"),
+                            ToppingId = new Guid("bbd167a3-aa8a-48cf-af40-b72c5e9d21d5")
                         },
                         new
                         {
-                            Id = new Guid("1885c014-29ca-4dd0-a0c8-4e94d138e553"),
-                            BurgerId = new Guid("e44f9af6-655d-4628-8c98-875b03f5473a"),
-                            Extra = false,
-                            ToppingId = new Guid("f3fbf0eb-ef16-40c1-9bdc-0a7123176f08")
+                            Id = new Guid("1706f150-a394-4c2d-89ac-916264d5b7b5"),
+                            BurgerId = new Guid("d97475c5-027c-4ffa-bf5d-f46a46c08a1b"),
+                            ToppingId = new Guid("719f2698-34e0-406e-b927-edc8a36d2c0d")
                         },
                         new
                         {
-                            Id = new Guid("a1885878-24c0-4c22-ab2b-23ce9dfd88f0"),
-                            BurgerId = new Guid("e44f9af6-655d-4628-8c98-875b03f5473a"),
-                            Extra = false,
-                            ToppingId = new Guid("f3fbf0eb-ef16-40c1-9bdc-0a7123176f08")
+                            Id = new Guid("dea6fea9-e588-4aab-8257-97ea60c527b6"),
+                            BurgerId = new Guid("d97475c5-027c-4ffa-bf5d-f46a46c08a1b"),
+                            ToppingId = new Guid("719f2698-34e0-406e-b927-edc8a36d2c0d")
                         },
                         new
                         {
-                            Id = new Guid("38d5b069-3417-4610-8ed4-a7f26598b9ac"),
-                            BurgerId = new Guid("e44f9af6-655d-4628-8c98-875b03f5473a"),
-                            Extra = false,
-                            ToppingId = new Guid("eb335c98-4143-4844-80fc-eb45f545b3b5")
+                            Id = new Guid("80052281-af8f-472c-b5fc-3df77310fcb2"),
+                            BurgerId = new Guid("d97475c5-027c-4ffa-bf5d-f46a46c08a1b"),
+                            ToppingId = new Guid("dee1f361-c209-4e5f-95ba-8776e809a761")
                         },
                         new
                         {
-                            Id = new Guid("d563c5ac-b611-4875-b684-1069a26d09d8"),
-                            BurgerId = new Guid("e44f9af6-655d-4628-8c98-875b03f5473a"),
-                            Extra = false,
-                            ToppingId = new Guid("a3a2a614-9f7e-49bd-ab04-f5a65823b5b1")
+                            Id = new Guid("d66966f6-3110-42cf-a5c0-097b4fb7188f"),
+                            BurgerId = new Guid("d97475c5-027c-4ffa-bf5d-f46a46c08a1b"),
+                            ToppingId = new Guid("b10665c5-be5d-45c2-9848-29ba93d9640c")
                         },
                         new
                         {
-                            Id = new Guid("d289eae4-770d-4721-9311-58d9307c8711"),
-                            BurgerId = new Guid("e44f9af6-655d-4628-8c98-875b03f5473a"),
-                            Extra = false,
-                            ToppingId = new Guid("8e0ef6b8-8979-46e8-9425-88d05b7083b3")
+                            Id = new Guid("0c41b7a6-b768-4657-8ea4-b40fbf96ce96"),
+                            BurgerId = new Guid("d97475c5-027c-4ffa-bf5d-f46a46c08a1b"),
+                            ToppingId = new Guid("9bf78170-4b49-47be-af2a-cb594588813b")
                         },
                         new
                         {
-                            Id = new Guid("110757cd-d608-4d8f-8e47-b8a035db3b5b"),
-                            BurgerId = new Guid("634febcc-7523-4269-9d01-e42f101eae0a"),
-                            Extra = false,
-                            ToppingId = new Guid("efd1e2df-888f-4ccb-a237-6f5ea21cefe0")
+                            Id = new Guid("f3999313-5eee-4a09-a937-b7d897acf2dc"),
+                            BurgerId = new Guid("474ad82b-f1fc-4333-ad69-fead5e6d5c26"),
+                            ToppingId = new Guid("24628238-7095-4574-ab5f-a7cca8bcd38d")
                         },
                         new
                         {
-                            Id = new Guid("0af13366-e466-420f-ab9a-d0fd0972a6cb"),
-                            BurgerId = new Guid("634febcc-7523-4269-9d01-e42f101eae0a"),
-                            Extra = false,
-                            ToppingId = new Guid("2dd66e1e-66ca-4b68-8fc7-5858e477488a")
+                            Id = new Guid("b601af36-7ba6-41a6-a3aa-62ca19d70954"),
+                            BurgerId = new Guid("474ad82b-f1fc-4333-ad69-fead5e6d5c26"),
+                            ToppingId = new Guid("987b3c75-bd26-43dc-9fd2-e4287fa1e5b5")
                         },
                         new
                         {
-                            Id = new Guid("7771be65-f28f-476b-9015-bd61a571cef3"),
-                            BurgerId = new Guid("634febcc-7523-4269-9d01-e42f101eae0a"),
-                            Extra = false,
-                            ToppingId = new Guid("9210eeb1-8dc6-49d8-a423-132617edcd10")
+                            Id = new Guid("d7056eec-1562-4a6d-97b7-d7ccbc9088c8"),
+                            BurgerId = new Guid("474ad82b-f1fc-4333-ad69-fead5e6d5c26"),
+                            ToppingId = new Guid("1cce94fb-4d8a-4897-9b50-0504e0420601")
                         },
                         new
                         {
-                            Id = new Guid("74cfe159-1cac-4e35-a0a9-e6e798b80e20"),
-                            BurgerId = new Guid("634febcc-7523-4269-9d01-e42f101eae0a"),
-                            Extra = false,
-                            ToppingId = new Guid("29ff0a1f-97aa-4772-8904-d49220db3694")
+                            Id = new Guid("78138d95-db65-479e-a0ac-d5ef32965538"),
+                            BurgerId = new Guid("474ad82b-f1fc-4333-ad69-fead5e6d5c26"),
+                            ToppingId = new Guid("06d8f575-86f7-4b7d-a093-f108b06bfe25")
                         },
                         new
                         {
-                            Id = new Guid("814c2240-ef20-4433-a8f3-e10779fced07"),
-                            BurgerId = new Guid("634febcc-7523-4269-9d01-e42f101eae0a"),
-                            Extra = false,
-                            ToppingId = new Guid("2dcf6d43-60e4-40e3-a4c9-5863f5643cef")
+                            Id = new Guid("7bf74864-f39e-4b82-bc72-41815bbf9601"),
+                            BurgerId = new Guid("474ad82b-f1fc-4333-ad69-fead5e6d5c26"),
+                            ToppingId = new Guid("bbd167a3-aa8a-48cf-af40-b72c5e9d21d5")
                         },
                         new
                         {
-                            Id = new Guid("912366b6-7717-4046-9f53-c19140acb5f1"),
-                            BurgerId = new Guid("634febcc-7523-4269-9d01-e42f101eae0a"),
-                            Extra = false,
-                            ToppingId = new Guid("f3fbf0eb-ef16-40c1-9bdc-0a7123176f08")
+                            Id = new Guid("83951240-935d-48fb-ad0a-39c7dd3487d2"),
+                            BurgerId = new Guid("474ad82b-f1fc-4333-ad69-fead5e6d5c26"),
+                            ToppingId = new Guid("719f2698-34e0-406e-b927-edc8a36d2c0d")
                         },
                         new
                         {
-                            Id = new Guid("eb5f4b9b-b433-4d65-8b4a-86aa0c28f6d7"),
-                            BurgerId = new Guid("634febcc-7523-4269-9d01-e42f101eae0a"),
-                            Extra = false,
-                            ToppingId = new Guid("eb335c98-4143-4844-80fc-eb45f545b3b5")
+                            Id = new Guid("80a10115-8b3c-4f0b-80bb-61ebdabf71fc"),
+                            BurgerId = new Guid("474ad82b-f1fc-4333-ad69-fead5e6d5c26"),
+                            ToppingId = new Guid("dee1f361-c209-4e5f-95ba-8776e809a761")
                         },
                         new
                         {
-                            Id = new Guid("5495c1a8-f357-4d78-aec1-d5a8eb70d996"),
-                            BurgerId = new Guid("634febcc-7523-4269-9d01-e42f101eae0a"),
-                            Extra = false,
-                            ToppingId = new Guid("a3a2a614-9f7e-49bd-ab04-f5a65823b5b1")
+                            Id = new Guid("5957597c-fa9f-4bc4-93eb-16435cbc89cd"),
+                            BurgerId = new Guid("474ad82b-f1fc-4333-ad69-fead5e6d5c26"),
+                            ToppingId = new Guid("b10665c5-be5d-45c2-9848-29ba93d9640c")
                         },
                         new
                         {
-                            Id = new Guid("e092f8e9-3429-49a5-ac26-32d778aadb51"),
-                            BurgerId = new Guid("634febcc-7523-4269-9d01-e42f101eae0a"),
-                            Extra = false,
-                            ToppingId = new Guid("8e0ef6b8-8979-46e8-9425-88d05b7083b3")
+                            Id = new Guid("bc0e9a6d-e1d9-421f-9eeb-5f62746d79e3"),
+                            BurgerId = new Guid("474ad82b-f1fc-4333-ad69-fead5e6d5c26"),
+                            ToppingId = new Guid("9bf78170-4b49-47be-af2a-cb594588813b")
                         },
                         new
                         {
-                            Id = new Guid("2651776b-f785-4906-a7dd-e605d219adaa"),
-                            BurgerId = new Guid("38dc94be-3dcf-4314-a4e2-323d6485e76b"),
-                            Extra = false,
-                            ToppingId = new Guid("efd1e2df-888f-4ccb-a237-6f5ea21cefe0")
+                            Id = new Guid("0b617b32-8c6a-44dd-b5f4-c597b8682c88"),
+                            BurgerId = new Guid("1550ee77-ee70-421e-a798-fc7f7e17f044"),
+                            ToppingId = new Guid("24628238-7095-4574-ab5f-a7cca8bcd38d")
                         },
                         new
                         {
-                            Id = new Guid("bcc66c80-7159-4100-bef1-ec5f3cfccfac"),
-                            BurgerId = new Guid("38dc94be-3dcf-4314-a4e2-323d6485e76b"),
-                            Extra = false,
-                            ToppingId = new Guid("2dd66e1e-66ca-4b68-8fc7-5858e477488a")
+                            Id = new Guid("3bed77b2-1bc3-4bbe-9523-e3053babb97c"),
+                            BurgerId = new Guid("1550ee77-ee70-421e-a798-fc7f7e17f044"),
+                            ToppingId = new Guid("987b3c75-bd26-43dc-9fd2-e4287fa1e5b5")
                         },
                         new
                         {
-                            Id = new Guid("6a8720a9-5821-4df1-b9a1-ded5835000ba"),
-                            BurgerId = new Guid("38dc94be-3dcf-4314-a4e2-323d6485e76b"),
-                            Extra = false,
-                            ToppingId = new Guid("9210eeb1-8dc6-49d8-a423-132617edcd10")
+                            Id = new Guid("703c7404-cd78-423d-bfc3-07ce47903c7a"),
+                            BurgerId = new Guid("1550ee77-ee70-421e-a798-fc7f7e17f044"),
+                            ToppingId = new Guid("1cce94fb-4d8a-4897-9b50-0504e0420601")
                         },
                         new
                         {
-                            Id = new Guid("62779b0e-56d2-4770-9e0e-9c5bdc751f1a"),
-                            BurgerId = new Guid("38dc94be-3dcf-4314-a4e2-323d6485e76b"),
-                            Extra = false,
-                            ToppingId = new Guid("29ff0a1f-97aa-4772-8904-d49220db3694")
+                            Id = new Guid("990f1733-deed-42f3-8007-932cb0b4488a"),
+                            BurgerId = new Guid("1550ee77-ee70-421e-a798-fc7f7e17f044"),
+                            ToppingId = new Guid("06d8f575-86f7-4b7d-a093-f108b06bfe25")
                         },
                         new
                         {
-                            Id = new Guid("b79b09e6-ff57-4ead-824a-01f90063fc51"),
-                            BurgerId = new Guid("38dc94be-3dcf-4314-a4e2-323d6485e76b"),
-                            Extra = false,
-                            ToppingId = new Guid("2dcf6d43-60e4-40e3-a4c9-5863f5643cef")
+                            Id = new Guid("fa52552b-6ad3-4c53-ab21-483561a32239"),
+                            BurgerId = new Guid("1550ee77-ee70-421e-a798-fc7f7e17f044"),
+                            ToppingId = new Guid("bbd167a3-aa8a-48cf-af40-b72c5e9d21d5")
                         },
                         new
                         {
-                            Id = new Guid("3a65ed95-69c9-421a-86b1-45bc83e8355b"),
-                            BurgerId = new Guid("38dc94be-3dcf-4314-a4e2-323d6485e76b"),
-                            Extra = false,
-                            ToppingId = new Guid("f3fbf0eb-ef16-40c1-9bdc-0a7123176f08")
+                            Id = new Guid("de4129a4-5c35-4eeb-b3cf-b51172f69372"),
+                            BurgerId = new Guid("1550ee77-ee70-421e-a798-fc7f7e17f044"),
+                            ToppingId = new Guid("719f2698-34e0-406e-b927-edc8a36d2c0d")
                         },
                         new
                         {
-                            Id = new Guid("14cd6020-a3ff-4064-8d53-4eebcb575a8d"),
-                            BurgerId = new Guid("38dc94be-3dcf-4314-a4e2-323d6485e76b"),
-                            Extra = false,
-                            ToppingId = new Guid("f3fbf0eb-ef16-40c1-9bdc-0a7123176f08")
+                            Id = new Guid("d73a61e6-2f29-4035-a8d6-55c08ea252b3"),
+                            BurgerId = new Guid("1550ee77-ee70-421e-a798-fc7f7e17f044"),
+                            ToppingId = new Guid("719f2698-34e0-406e-b927-edc8a36d2c0d")
                         },
                         new
                         {
-                            Id = new Guid("0d73de71-a276-41c4-9601-b07d7764d34f"),
-                            BurgerId = new Guid("38dc94be-3dcf-4314-a4e2-323d6485e76b"),
-                            Extra = false,
-                            ToppingId = new Guid("eb335c98-4143-4844-80fc-eb45f545b3b5")
+                            Id = new Guid("24421084-98f9-45ea-b836-be348bbe7052"),
+                            BurgerId = new Guid("1550ee77-ee70-421e-a798-fc7f7e17f044"),
+                            ToppingId = new Guid("dee1f361-c209-4e5f-95ba-8776e809a761")
                         },
                         new
                         {
-                            Id = new Guid("48df298f-bf43-462f-afef-6d737ecc259d"),
-                            BurgerId = new Guid("38dc94be-3dcf-4314-a4e2-323d6485e76b"),
-                            Extra = false,
-                            ToppingId = new Guid("a3a2a614-9f7e-49bd-ab04-f5a65823b5b1")
+                            Id = new Guid("a4234173-6954-44c4-b600-ac382c57604a"),
+                            BurgerId = new Guid("1550ee77-ee70-421e-a798-fc7f7e17f044"),
+                            ToppingId = new Guid("b10665c5-be5d-45c2-9848-29ba93d9640c")
                         },
                         new
                         {
-                            Id = new Guid("620a436b-00bf-4e85-bb1d-2e24c9bec4a4"),
-                            BurgerId = new Guid("38dc94be-3dcf-4314-a4e2-323d6485e76b"),
-                            Extra = false,
-                            ToppingId = new Guid("8e0ef6b8-8979-46e8-9425-88d05b7083b3")
+                            Id = new Guid("8259aeb5-91a3-483d-b343-a8c0d1eafdf6"),
+                            BurgerId = new Guid("1550ee77-ee70-421e-a798-fc7f7e17f044"),
+                            ToppingId = new Guid("9bf78170-4b49-47be-af2a-cb594588813b")
                         });
                 });
 
@@ -325,16 +296,16 @@ namespace KrustyKrab.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("329e1c49-53c3-4392-a70d-ff89ef38cbc5"),
-                            BurgerId = new Guid("634febcc-7523-4269-9d01-e42f101eae0a"),
+                            Id = new Guid("ed7f749b-2df9-43d9-9234-da7cde3875a3"),
+                            BurgerId = new Guid("474ad82b-f1fc-4333-ad69-fead5e6d5c26"),
                             Discount = -1f,
                             IsDeleted = false,
                             Name = "krabby patty combo"
                         },
                         new
                         {
-                            Id = new Guid("787d6425-0a64-4696-9c1a-8d7b54ce8d82"),
-                            BurgerId = new Guid("e44f9af6-655d-4628-8c98-875b03f5473a"),
+                            Id = new Guid("45fe3ce5-1bd4-4e6f-b582-8a752f0478ad"),
+                            BurgerId = new Guid("d97475c5-027c-4ffa-bf5d-f46a46c08a1b"),
                             Discount = -1.25f,
                             IsDeleted = false,
                             Name = "double krabby patty combo"
@@ -363,24 +334,24 @@ namespace KrustyKrab.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("6021f50d-15a6-47ff-8eba-e51ffbb54df9"),
-                            ComboId = new Guid("787d6425-0a64-4696-9c1a-8d7b54ce8d82"),
-                            ItemId = new Guid("38dc94be-3dcf-4314-a4e2-323d6485e76b"),
-                            OrderId = new Guid("b8f91b50-04ff-4c47-8c64-90d4649580c9")
+                            Id = new Guid("481897c0-5585-4052-aeb4-674dc62a9cef"),
+                            ComboId = new Guid("45fe3ce5-1bd4-4e6f-b582-8a752f0478ad"),
+                            ItemId = new Guid("1550ee77-ee70-421e-a798-fc7f7e17f044"),
+                            OrderId = new Guid("ce778112-793e-49bf-8aeb-dfbd7be0ba68")
                         },
                         new
                         {
-                            Id = new Guid("2b291270-64f7-43f3-a152-0ed737f79379"),
-                            ComboId = new Guid("787d6425-0a64-4696-9c1a-8d7b54ce8d82"),
-                            ItemId = new Guid("1ce0f36b-35f6-41b4-9bf6-ae1c826dc61b"),
-                            OrderId = new Guid("b8f91b50-04ff-4c47-8c64-90d4649580c9")
+                            Id = new Guid("cbe51507-60a4-41a5-bada-9884665c46cf"),
+                            ComboId = new Guid("45fe3ce5-1bd4-4e6f-b582-8a752f0478ad"),
+                            ItemId = new Guid("91050da3-8aa5-4c1b-9b2b-fbc4ac9fb0b1"),
+                            OrderId = new Guid("ce778112-793e-49bf-8aeb-dfbd7be0ba68")
                         },
                         new
                         {
-                            Id = new Guid("c5702e08-9d19-4189-a07d-094a2521e0fc"),
-                            ComboId = new Guid("787d6425-0a64-4696-9c1a-8d7b54ce8d82"),
-                            ItemId = new Guid("f2cebf79-feff-4f67-9d0f-c8c02b4ada94"),
-                            OrderId = new Guid("b8f91b50-04ff-4c47-8c64-90d4649580c9")
+                            Id = new Guid("252b4696-3e6c-4978-a6ab-598aeac4f502"),
+                            ComboId = new Guid("45fe3ce5-1bd4-4e6f-b582-8a752f0478ad"),
+                            ItemId = new Guid("43ad2091-5747-4ded-8f27-21c41b682c01"),
+                            OrderId = new Guid("ce778112-793e-49bf-8aeb-dfbd7be0ba68")
                         });
                 });
 
@@ -407,42 +378,42 @@ namespace KrustyKrab.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("48662a7b-15c9-4486-b59c-14a36190ef30"),
+                            Id = new Guid("4d75d32c-682c-4dd8-863f-2aa23885bfad"),
                             IsDeleted = false,
                             Name = "dr. kelp",
                             Price = 1f
                         },
                         new
                         {
-                            Id = new Guid("678e387a-2551-4452-a80e-1a09f7de7076"),
+                            Id = new Guid("0df4044c-87a5-45ce-919b-e43cab4107c3"),
                             IsDeleted = false,
                             Name = "diet dr. kelp",
                             Price = 1f
                         },
                         new
                         {
-                            Id = new Guid("7b02a299-a291-4a3b-b359-2edc22899e77"),
+                            Id = new Guid("6d459456-d44a-48dd-b469-ab7ae74fc51b"),
                             IsDeleted = false,
                             Name = "red tide",
                             Price = 1f
                         },
                         new
                         {
-                            Id = new Guid("e1782c27-1fc1-4988-8b88-94025f7dc7b2"),
+                            Id = new Guid("dc3042cf-cae4-4316-9022-301207ff1031"),
                             IsDeleted = false,
                             Name = "kelp shake",
                             Price = 1.5f
                         },
                         new
                         {
-                            Id = new Guid("f146e8cf-7198-400b-ae45-70e6287bdea6"),
+                            Id = new Guid("34d79d8f-ce48-4096-be61-a782b6ed470a"),
                             IsDeleted = false,
                             Name = "seafoam soda",
                             Price = 1f
                         },
                         new
                         {
-                            Id = new Guid("d73d8ad9-9fee-4ba3-9fc2-bcbd528f9890"),
+                            Id = new Guid("17fd50de-2f0b-424d-a7ad-e47cc916f114"),
                             IsDeleted = false,
                             Name = "water",
                             Price = 0.1f
@@ -480,11 +451,11 @@ namespace KrustyKrab.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b8f91b50-04ff-4c47-8c64-90d4649580c9"),
-                            CustomerId = new Guid("ba93f744-6a18-42ca-84dc-e48d67855cb0"),
-                            EmployeeId = new Guid("a8b1424d-8270-49dd-b72c-e1896db13e75"),
+                            Id = new Guid("ce778112-793e-49bf-8aeb-dfbd7be0ba68"),
+                            CustomerId = new Guid("1940f1e7-2d49-4bb6-9ee8-13b57c57d4a6"),
+                            EmployeeId = new Guid("d3bea2cd-0152-44b1-8b0b-a30d5c8f8804"),
                             OrderTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            OrderTypeId = new Guid("4ca8a278-5910-40e7-ad31-af49f5ace38f")
+                            OrderTypeId = new Guid("d2f304e3-5746-4574-b0fc-9a9177d4c831")
                         });
                 });
 
@@ -517,11 +488,11 @@ namespace KrustyKrab.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f2cebf79-feff-4f67-9d0f-c8c02b4ada94"),
-                            DrinkId = new Guid("7b02a299-a291-4a3b-b359-2edc22899e77"),
-                            OrderId = new Guid("b8f91b50-04ff-4c47-8c64-90d4649580c9"),
+                            Id = new Guid("43ad2091-5747-4ded-8f27-21c41b682c01"),
+                            DrinkId = new Guid("6d459456-d44a-48dd-b469-ab7ae74fc51b"),
+                            OrderId = new Guid("ce778112-793e-49bf-8aeb-dfbd7be0ba68"),
                             Quantity = 1,
-                            SizeId = new Guid("098e8c9d-87d5-42e5-bfeb-787253180835")
+                            SizeId = new Guid("31fcb550-f998-41da-8cd1-487d4b2631e0")
                         });
                 });
 
@@ -557,12 +528,12 @@ namespace KrustyKrab.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("1ce0f36b-35f6-41b4-9bf6-ae1c826dc61b"),
+                            Id = new Guid("91050da3-8aa5-4c1b-9b2b-fbc4ac9fb0b1"),
                             ComboItemId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            OrderId = new Guid("b8f91b50-04ff-4c47-8c64-90d4649580c9"),
+                            OrderId = new Guid("ce778112-793e-49bf-8aeb-dfbd7be0ba68"),
                             Quantity = 1,
-                            SideId = new Guid("b5cc19c4-755d-4198-8185-8d4786c49153"),
-                            SizeId = new Guid("28179729-4f26-4667-8e49-0702b1789349")
+                            SideId = new Guid("2c5a4933-6a22-47f8-8e85-bd80cece4041"),
+                            SizeId = new Guid("f2285cfc-304e-44ec-9ef0-600d0e9a6e3a")
                         });
                 });
 
@@ -583,17 +554,17 @@ namespace KrustyKrab.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("4ca8a278-5910-40e7-ad31-af49f5ace38f"),
+                            Id = new Guid("d2f304e3-5746-4574-b0fc-9a9177d4c831"),
                             Name = "here"
                         },
                         new
                         {
-                            Id = new Guid("fbe65cf5-676b-45dc-8772-05a15eb525ad"),
+                            Id = new Guid("732c1060-2342-4366-b3a3-0baa344bd927"),
                             Name = "togo"
                         },
                         new
                         {
-                            Id = new Guid("b98a6937-829e-4834-afb5-032f51d0e5cb"),
+                            Id = new Guid("44052afc-e1c7-4b9d-9add-6175216f60f8"),
                             Name = "pickup"
                         });
                 });
@@ -621,35 +592,35 @@ namespace KrustyKrab.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b5cc19c4-755d-4198-8185-8d4786c49153"),
+                            Id = new Guid("2c5a4933-6a22-47f8-8e85-bd80cece4041"),
                             IsDeleted = false,
                             Name = "coral bits",
                             Price = 1.25f
                         },
                         new
                         {
-                            Id = new Guid("6fc52287-6d31-43bd-b092-40e72be42b09"),
+                            Id = new Guid("c22c0801-63e2-4627-b8e5-480ed11ac8ae"),
                             IsDeleted = false,
                             Name = "barnacle rings",
                             Price = 1.25f
                         },
                         new
                         {
-                            Id = new Guid("80b5f45e-22b1-42b8-8dd4-53f3625cf53a"),
+                            Id = new Guid("612ffa60-ba57-40c3-9c08-a12b547baad5"),
                             IsDeleted = false,
                             Name = "kelp fries",
                             Price = 1.25f
                         },
                         new
                         {
-                            Id = new Guid("bd799ba8-475b-47a4-9e88-f64af8be5843"),
+                            Id = new Guid("e9456783-5c00-4148-bb6f-4e8dba26f0e7"),
                             IsDeleted = false,
                             Name = "oyster skins",
                             Price = 1.25f
                         },
                         new
                         {
-                            Id = new Guid("8b596700-cef7-40c7-90fe-6a0fad4fb0dd"),
+                            Id = new Guid("16a982a7-87ef-442e-94e0-1297f93a0e27"),
                             IsDeleted = false,
                             Name = "seaweed salad",
                             Price = 2f
@@ -677,19 +648,19 @@ namespace KrustyKrab.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("151c5f80-eaea-4233-a7fa-d951fdb3381f"),
+                            Id = new Guid("a7e7d50f-43f9-4b31-9006-4371a7b1c53d"),
                             Name = "small",
                             ShortHand = "sm"
                         },
                         new
                         {
-                            Id = new Guid("098e8c9d-87d5-42e5-bfeb-787253180835"),
+                            Id = new Guid("31fcb550-f998-41da-8cd1-487d4b2631e0"),
                             Name = "medium",
                             ShortHand = "md"
                         },
                         new
                         {
-                            Id = new Guid("28179729-4f26-4667-8e49-0702b1789349"),
+                            Id = new Guid("f2285cfc-304e-44ec-9ef0-600d0e9a6e3a"),
                             Name = "large",
                             ShortHand = "lg"
                         });
@@ -718,70 +689,70 @@ namespace KrustyKrab.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2dd66e1e-66ca-4b68-8fc7-5858e477488a"),
+                            Id = new Guid("987b3c75-bd26-43dc-9fd2-e4287fa1e5b5"),
                             IsDeleted = false,
                             Name = "lettuce",
                             Price = 0.05f
                         },
                         new
                         {
-                            Id = new Guid("9210eeb1-8dc6-49d8-a423-132617edcd10"),
+                            Id = new Guid("1cce94fb-4d8a-4897-9b50-0504e0420601"),
                             IsDeleted = false,
                             Name = "tomato",
                             Price = 0.05f
                         },
                         new
                         {
-                            Id = new Guid("29ff0a1f-97aa-4772-8904-d49220db3694"),
+                            Id = new Guid("06d8f575-86f7-4b7d-a093-f108b06bfe25"),
                             IsDeleted = false,
                             Name = "pickle",
                             Price = 0.05f
                         },
                         new
                         {
-                            Id = new Guid("2dcf6d43-60e4-40e3-a4c9-5863f5643cef"),
+                            Id = new Guid("bbd167a3-aa8a-48cf-af40-b72c5e9d21d5"),
                             IsDeleted = false,
                             Name = "onion",
                             Price = 0.05f
                         },
                         new
                         {
-                            Id = new Guid("a3a2a614-9f7e-49bd-ab04-f5a65823b5b1"),
+                            Id = new Guid("b10665c5-be5d-45c2-9848-29ba93d9640c"),
                             IsDeleted = false,
                             Name = "mustard",
                             Price = 0f
                         },
                         new
                         {
-                            Id = new Guid("eb335c98-4143-4844-80fc-eb45f545b3b5"),
+                            Id = new Guid("dee1f361-c209-4e5f-95ba-8776e809a761"),
                             IsDeleted = false,
                             Name = "ketchup",
                             Price = 0f
                         },
                         new
                         {
-                            Id = new Guid("efd1e2df-888f-4ccb-a237-6f5ea21cefe0"),
+                            Id = new Guid("24628238-7095-4574-ab5f-a7cca8bcd38d"),
                             IsDeleted = false,
                             Name = "secret sauce",
                             Price = 0f
                         },
                         new
                         {
-                            Id = new Guid("f3fbf0eb-ef16-40c1-9bdc-0a7123176f08"),
+                            Id = new Guid("719f2698-34e0-406e-b927-edc8a36d2c0d"),
                             IsDeleted = false,
                             Name = "patty",
                             Price = 1f
                         },
                         new
                         {
-                            Id = new Guid("8e0ef6b8-8979-46e8-9425-88d05b7083b3"),
+                            Id = new Guid("9bf78170-4b49-47be-af2a-cb594588813b"),
                             IsDeleted = false,
                             Name = "bun",
                             Price = 0.2f
                         },
                         new
                         {
-                            Id = new Guid("be5324a9-2702-4016-bc9e-3f2727ae981e"),
+                            Id = new Guid("7608e8c2-a295-4c2d-ae9d-5b9ccbd293cd"),
                             IsDeleted = false,
                             Name = "sea cheese",
                             Price = 0.25f
@@ -819,7 +790,7 @@ namespace KrustyKrab.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("792b2b03-311c-422f-b2ff-39bb405a5697"),
+                            Id = new Guid("080b0aae-9cb6-4a45-b6cd-7bcb2c85c02f"),
                             Address = "101 Main Street",
                             FirstName = "Admina",
                             IdentityUserId = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
@@ -827,34 +798,34 @@ namespace KrustyKrab.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a6d64d08-518d-47fa-b883-9033940a4695"),
+                            Id = new Guid("00a7dd35-2558-48ca-9ebc-300e1f602ee3"),
                             Address = "124 Conch Street",
                             FirstName = "SpongeBob",
-                            IdentityUserId = "fcc4b018-9081-43a7-91e6-e82ff8a61fd7",
+                            IdentityUserId = "a76b2fb2-b1d5-46f1-a3fa-d179598dd273",
                             LastName = "SquarePants"
                         },
                         new
                         {
-                            Id = new Guid("a8b1424d-8270-49dd-b72c-e1896db13e75"),
+                            Id = new Guid("d3bea2cd-0152-44b1-8b0b-a30d5c8f8804"),
                             Address = "122 Conch Street",
                             FirstName = "Squidward",
-                            IdentityUserId = "53e45d77-e821-4533-8290-440c385cc6d5",
+                            IdentityUserId = "8f27a07a-38fa-463e-9d2f-90dcf02cbed0",
                             LastName = "Tentacles"
                         },
                         new
                         {
-                            Id = new Guid("6142a667-7f16-410a-b87c-a2d2aa5804ca"),
+                            Id = new Guid("5040a619-9551-4cba-97cd-49f3b3a344f3"),
                             Address = "3541 Anchor Way",
                             FirstName = "Eugene",
-                            IdentityUserId = "3e17f931-a840-4cd8-b088-591069bcdc04",
+                            IdentityUserId = "0369d568-16f9-4001-b70c-8b959d506f2c",
                             LastName = "Krabs"
                         },
                         new
                         {
-                            Id = new Guid("ba93f744-6a18-42ca-84dc-e48d67855cb0"),
+                            Id = new Guid("1940f1e7-2d49-4bb6-9ee8-13b57c57d4a6"),
                             Address = "120 Conch Street",
                             FirstName = "Patrick",
-                            IdentityUserId = "2f44720f-855c-4319-8ef7-d871b99aed3e",
+                            IdentityUserId = "ecb4346b-f284-4ab3-9b5e-3cdb0c4d9557",
                             LastName = "Star"
                         });
                 });
@@ -893,7 +864,7 @@ namespace KrustyKrab.Migrations
                         },
                         new
                         {
-                            Id = "9a9683d9-e090-416a-b6ed-62221c71214f",
+                            Id = "4731b957-71fe-413a-abaa-c1b0f4b8c778",
                             Name = "Employee",
                             NormalizedName = "employee"
                         });
@@ -992,69 +963,69 @@ namespace KrustyKrab.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7b4aa31f-45d1-46f1-ae71-9269d33339ba",
+                            ConcurrencyStamp = "7d4d6dd0-178c-4d4a-99fe-45a3c4118cca",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEGsohjXwAKTheqfLxjWBmBeg0KAl9XRIiocvuchYcHT+DW7yVK7wufUP1rSz23cOdg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEKycxU3fUJTHfHCsZY+OyH0BtDxm/dlquirZnGco/9v77yjM2NLyP9muziXiRmY6g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "11d7b080-b408-4dae-b452-26ad632fb07f",
+                            SecurityStamp = "6df8c882-2046-45ce-bf32-fbe49d36f073",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         },
                         new
                         {
-                            Id = "fcc4b018-9081-43a7-91e6-e82ff8a61fd7",
+                            Id = "a76b2fb2-b1d5-46f1-a3fa-d179598dd273",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b9fbbd00-9e9b-4af5-b483-039cbb3c75c7",
+                            ConcurrencyStamp = "d540a100-7fca-492a-80e8-de6f28a8ddb6",
                             Email = "jellyfanatic12@goofygoober.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEEpuGiuGuGNAmb+rxdwpePGnR8HYojTWuZdvKGQTmjtVSLWOjQy/fEcXgP9qaEXOBw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENAZbHIsBNKRjiuekmWTsE9HQn7PFUXQOr3NTyDx4Yh5U2SDprm6yS0pSH0aKPc6MQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fface5d8-69d7-4999-84ff-8ea93e2d609a",
+                            SecurityStamp = "dee9eb66-e6b8-4181-aea2-e6d06c9ae26f",
                             TwoFactorEnabled = false,
                             UserName = "ssquarepants"
                         },
                         new
                         {
-                            Id = "3e17f931-a840-4cd8-b088-591069bcdc04",
+                            Id = "0369d568-16f9-4001-b70c-8b959d506f2c",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "433ce99a-5357-4d06-8a16-9e9d02dd535d",
+                            ConcurrencyStamp = "c393bcf8-71da-422d-b650-1354ba562efd",
                             Email = "saltydog@seamail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEDdBPZkpu+q9poXuyuJH5nn4/5w+uWLCSZ4fSo26UEgMlo9QfJicWyHKO5xJKqhNSw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIhoycBlvof7s7DxwcrxIPnYby/I4yKoTbT/SpBaMRYxef1bn9v8I9boOy18jMdbPg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f5ed5d9c-8e46-4d55-9272-6c75bcc4b608",
+                            SecurityStamp = "759b1d85-8ca2-454b-b34c-5e5d29f562d9",
                             TwoFactorEnabled = false,
                             UserName = "ekrabs"
                         },
                         new
                         {
-                            Id = "53e45d77-e821-4533-8290-440c385cc6d5",
+                            Id = "8f27a07a-38fa-463e-9d2f-90dcf02cbed0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e167c72d-e086-4a64-bb23-b8fa272234c2",
+                            ConcurrencyStamp = "a7adac26-c434-4ac2-be06-6e587285185b",
                             Email = "stentacles2@seamail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEIw9Bfw2ixwAFLcUyDdrhQUorcoCUPdNayt1+JJiQBezc81e2MfbRq4Br2VkM/0NSA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHIZcqu2s0PH1M8TqW0H/NwZLziFO/HdgDEjqt1tQLZpHGnCcsKZryO6bmTmu7nYvQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "44fd06fe-2e82-4140-9e03-23b1033c6706",
+                            SecurityStamp = "fc418501-b896-44cd-820c-2301ab6771fb",
                             TwoFactorEnabled = false,
                             UserName = "stentacles"
                         },
                         new
                         {
-                            Id = "2f44720f-855c-4319-8ef7-d871b99aed3e",
+                            Id = "ecb4346b-f284-4ab3-9b5e-3cdb0c4d9557",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f2e1db49-5c68-4c3f-9e3c-db5620ac0d79",
+                            ConcurrencyStamp = "cfece248-9a1f-44c5-a763-60d558e7103b",
                             Email = "patrickstar@goofygoober.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEIHY6Sp0WvFdw4FLkc2rSybgFagcSORszj/+Ycnm6cA46rPjKpIuNnypRopEiGgwIw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGrlpufv49MGgW0xntEAo7XWETkAywgy3wOUrkHvs94nBknXyrwoZZqvFcVbdh6D4w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4849d49e-0ece-4a7e-9d02-edc0a266e8ac",
+                            SecurityStamp = "6a0f1bd4-a9ac-45c2-9837-24761dfb88a3",
                             TwoFactorEnabled = false,
                             UserName = "pstar"
                         });
@@ -1129,18 +1100,18 @@ namespace KrustyKrab.Migrations
                         },
                         new
                         {
-                            UserId = "3e17f931-a840-4cd8-b088-591069bcdc04",
+                            UserId = "0369d568-16f9-4001-b70c-8b959d506f2c",
                             RoleId = "c3aaeb97-d2ba-4a53-a521-4eea61e59b35"
                         },
                         new
                         {
-                            UserId = "fcc4b018-9081-43a7-91e6-e82ff8a61fd7",
-                            RoleId = "9a9683d9-e090-416a-b6ed-62221c71214f"
+                            UserId = "a76b2fb2-b1d5-46f1-a3fa-d179598dd273",
+                            RoleId = "4731b957-71fe-413a-abaa-c1b0f4b8c778"
                         },
                         new
                         {
-                            UserId = "53e45d77-e821-4533-8290-440c385cc6d5",
-                            RoleId = "9a9683d9-e090-416a-b6ed-62221c71214f"
+                            UserId = "8f27a07a-38fa-463e-9d2f-90dcf02cbed0",
+                            RoleId = "4731b957-71fe-413a-abaa-c1b0f4b8c778"
                         });
                 });
 

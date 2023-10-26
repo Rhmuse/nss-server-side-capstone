@@ -6,4 +6,5 @@ public class Combo
     public string Name { get; set; }
     public float Discount { get; set; }
     public Guid BurgerId { get; set; }
+    public bool IsDeleted { get; set; }
 }

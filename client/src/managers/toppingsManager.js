@@ -1,20 +1,20 @@
-const _API_URL = "/api/drinks";
+const _API_URL = "/api/toppings"
 
-export const getAllDrinks = () => {
+export const getAllToppings = () => {
     return fetch(_API_URL).then(res => res.json());
 }
 
-export const addDrink = (drink) => {
+export const addTopping = (topping) => {
     return fetch(_API_URL, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(drink)
+        body: JSON.stringify(topping)
     }).then(res => res.json())
 }
 
-export const deleteDrink = (id) => {
+export const deleteTopping = (id) => {
     return fetch(`${_API_URL}/${id}`, {
         method: "DELETE"
     })

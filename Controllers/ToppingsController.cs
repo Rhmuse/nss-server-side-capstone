@@ -6,11 +6,11 @@ namespace KrustyKrab.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class DrinksController : ControllerBase
+public class ToppingsController : ControllerBase
 {
     private KrustyKrabDbContext _dbContext;
 
-    public DrinksController(KrustyKrabDbContext context)
+    public ToppingsController(KrustyKrabDbContext context)
     {
         _dbContext = context;
     }
@@ -18,37 +18,38 @@ public class DrinksController : ControllerBase
     [HttpGet]
     public IActionResult Get()
     {
-        var drinks = _dbContext.Drinks
+        var toppings = _dbContext.Toppings
             .OrderBy(d => d.Name)
             .Where(d => !d.IsDeleted);
-        return Ok(drinks);
+        return Ok(toppings);
     }
 
     [HttpGet("{id}")]
     public IActionResult Get(Guid id)
     {
-        var foundDrink = _dbContext.Drinks
+        var foundTopping = _dbContext.Toppings
             .SingleOrDefault(d => d.Id == id);
-        if (foundDrink == null) return NotFound("Could not find a drink with specified id");
-        return Ok(foundDrink);
+        if (foundTopping == null) return NotFound("Could not find a topping with specified id");
+        return Ok(foundTopping);
     }
 
     [HttpPost]
-    public IActionResult Post(Drink drink)
+    public IActionResult Post(Topping topping)
     {
-        _dbContext.Drinks.Add(drink);
+        _dbContext.Toppings.Add(topping);
         _dbContext.SaveChanges();
-        return Created($"/api/drinks/{drink.Id}", drink);
+        return Created($"/api/toppings/{topping.Id}", topping);
     }
 
     [HttpDelete("{id}")]
     public IActionResult Delete(Guid id)
     {
-        var foundDrink = _dbContext.Drinks
+        var foundTopping = _dbContext.Toppings
             .SingleOrDefault(d => d.Id == id);
-        if (foundDrink == null) return NotFound("Could not find a drink with specified id");
-        foundDrink.IsDeleted = true;
+        if (foundTopping == null) return NotFound("Could not find a topping with specified id");
+        foundTopping.IsDeleted = true;
         _dbContext.SaveChanges();
         return NoContent();
     }
+
 }

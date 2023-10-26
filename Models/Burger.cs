@@ -7,12 +7,13 @@ public class Burger
     public Guid? OrderId { get; set; }
     public string? Name { get; set; }
     public int Quantity { get; set; }
+    public bool IsDeleted { get; set; } = false;
     [NotMapped]
     public float? Price
     {
         get
         {
-            if (BurgerToppings?.Count > 0)
+            if (BurgerToppings?.Count > 0 && BurgerToppings[0].Topping != null)
             {
                 float total = 0F;
                 BurgerToppings.ForEach(t =>
