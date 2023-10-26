@@ -18,6 +18,7 @@ import AdminTools from '../pos/AdminTools';
 import AddDrinkForm from '../pos/admintools/drinks/AddDrinkForm';
 import { getAllToppings } from '../../managers/toppingsManager';
 import AddBurgerForm from '../pos/admintools/burgers/AddBurgerForm';
+import AddSideForm from '../pos/admintools/sides/AddSideForm';
 
 
 const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
@@ -121,8 +122,15 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                                 <AddBurgerForm loadMenuItems={loadMenuItems} menuItems={menuItems} setSelectedCategory={setSelectedCategory} />
                             </Container>
                         </AuthorizedRoute>
-                    }
-                    />
+                    } />
+                    <Route path='sides/add' element={
+                        <AuthorizedRoute loggedInUser={loggedInUser}>
+                            <Container>
+                                <LoggedInUserDetails loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
+                                <AddSideForm loadMenuItems={loadMenuItems} menuItems={menuItems} setSelectedCategory={setSelectedCategory} />
+                            </Container>
+                        </AuthorizedRoute>
+                    } />
                 </Route>
             </Route>
 

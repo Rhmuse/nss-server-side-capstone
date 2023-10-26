@@ -1,4 +1,5 @@
 using KrustyKrab.Data;
+using KrustyKrab.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KrustyKrab.Controllers;
@@ -32,5 +33,13 @@ public class SidesController : ControllerBase
         foundSide.IsDeleted = true;
         _dbContext.SaveChanges();
         return NoContent();
+    }
+
+    [HttpPost]
+    public IActionResult Post(Side side)
+    {
+        _dbContext.Sides.Add(side);
+        _dbContext.SaveChanges();
+        return Created($"/api/drinks/{side.Id}", side);
     }
 }

@@ -9,3 +9,13 @@ export const deleteSide = (id) => {
         method: "DELETE"
     })
 }
+
+export const addSide = (side) => {
+    return fetch(_API_URL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(side)
+    }).then(res => res.json())
+}
