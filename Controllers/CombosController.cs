@@ -41,4 +41,16 @@ public class CombosController : ControllerBase
         _dbContext.SaveChanges();
         return Created($"/api/combos/{combo.Id}", combo);
     }
+
+    [HttpPut]
+    public IActionResult Put(Combo combo)
+    {
+        var foundCombo = _dbContext.Combos.SingleOrDefault(c => c.Id == combo.Id);
+        if (foundCombo == null) return NotFound();
+        foundCombo.Name = combo.Name;
+        foundCombo.Discount = combo.Discount;
+        foundCombo.BurgerId = combo.BurgerId;
+        _dbContext.SaveChanges();
+        return Ok(combo);
+    }
 }

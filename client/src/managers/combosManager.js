@@ -19,3 +19,13 @@ export const addCombo = (combo) => {
         body: JSON.stringify(combo)
     }).then(res => res.json())
 }
+
+export const updateCombo = (combo) => {
+    return fetch(_API_URL, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(combo)
+    }).then(res => res.json())
+}
