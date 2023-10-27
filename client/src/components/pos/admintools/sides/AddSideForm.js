@@ -55,7 +55,7 @@ const AddSideForm = ({ menuItems, setSelectedCategory }) => {
             </Row>
             <Row>
                 <Col>
-                    <Button onClick={() => handleClick()}>Save Drink</Button>
+                    <Button onClick={() => handleClick()}>Save Side</Button>
                 </Col>
             </Row>
         </Container>

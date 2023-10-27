@@ -22,6 +22,7 @@ import EditDrinkForm from '../pos/admintools/drinks/EditDrinkForm';
 import EditToppingForm from '../pos/admintools/toppings/EditToppingForm';
 import EditSideForm from '../pos/admintools/sides/EditSideForm';
 import EditBurgerForm from '../pos/admintools/burgers/EditBurgerForm';
+import AddComboForm from '../pos/admintools/combos/AddComboForm';
 
 
 const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
@@ -125,6 +126,16 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                             <Container>
                                 <LoggedInUserDetails loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
                                 <EditDrinkForm loadMenuItems={loadMenuItems} setSelectedCategory={setSelectedCategory} menuItems={menuItems} />
+                            </Container>
+                        </AuthorizedRoute>
+                    } />
+
+                    {/* Combos */}
+                    <Route path='combos/add' element={
+                        <AuthorizedRoute loggedInUser={loggedInUser}>
+                            <Container>
+                                <LoggedInUserDetails loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
+                                <AddComboForm loadMenuItems={loadMenuItems} menuItems={menuItems} setSelectedCategory={setSelectedCategory} />
                             </Container>
                         </AuthorizedRoute>
                     } />

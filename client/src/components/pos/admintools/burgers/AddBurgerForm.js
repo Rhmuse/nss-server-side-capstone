@@ -6,6 +6,7 @@ import Utility from '../../../../utility';
 import CategorySelect from '../../CategorySelect';
 
 const utility = new Utility();
+
 const AddBurgerForm = ({ menuItems, setSelectedCategory }) => {
     const navigate = useNavigate();
 

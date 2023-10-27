@@ -31,26 +31,36 @@ const AdminTools = ({ menuItems, loadMenuItems, selectedCategory, setSelectedCat
     const handleDelete = (id) => {
         switch (selectedCategory) {
             case "drinks":
-                deleteDrink(id);
+                deleteDrink(id).then(() => {
+                    loadMenuItems();
+                });
                 break;
             case "sides":
-                deleteSide(id);
+                deleteSide(id).then(() => {
+                    loadMenuItems();
+                });
                 break;
             case "burgers":
-                deleteBurger(id);
+                deleteBurger(id).then(() => {
+                    loadMenuItems();
+                });
                 break;
             case "combos":
-                deleteCombo(id);
+                deleteCombo(id).then(() => {
+                    loadMenuItems();
+                });
                 break;
             case "toppings":
-                deleteTopping(id);
+                deleteTopping(id).then(() => {
+                    loadMenuItems();
+                });
                 break;
             default:
                 window.alert("Something went wrong!")
                 break;
         }
 
-        loadMenuItems();
+
     }
 
     const handleEdit = (id) => {
@@ -80,7 +90,7 @@ const AdminTools = ({ menuItems, loadMenuItems, selectedCategory, setSelectedCat
                             <tr>
                                 <th>Name</th>
                                 <th>Id</th>
-                                <th>Price</th>
+                                <th>{selectedCategory === "combos" ? "Discount" : "Price"}</th>
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -92,7 +102,7 @@ const AdminTools = ({ menuItems, loadMenuItems, selectedCategory, setSelectedCat
                                         <tr key={i.id}>
                                             <td>{utility.capitalizeEveryFirstLetter(i.name)}</td>
                                             <td>{i.id}</td>
-                                            <td>{currency(i.price).format()}</td>
+                                            <td>{selectedCategory === "combos" ? `${currency(parseInt(i.discount) * -1).format()}` : currency(i.price).format()}</td>
                                             <td><Button onClick={() => {
                                                 handleEdit(i.id)
                                             }}>Edit</Button></td>
