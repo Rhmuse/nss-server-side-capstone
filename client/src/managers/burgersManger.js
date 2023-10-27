@@ -19,3 +19,13 @@ export const addBurger = (newBurgerDTO) => {
         body: JSON.stringify(newBurgerDTO)
     }).then(res => res.json())
 }
+
+export const updateBurger = (burger) => {
+    return fetch(_API_URL, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(burger)
+    }).then(res => res.json())
+}

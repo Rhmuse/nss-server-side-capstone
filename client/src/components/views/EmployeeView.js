@@ -21,6 +21,7 @@ import AddToppingForm from '../pos/admintools/toppings/AddToppingForm';
 import EditDrinkForm from '../pos/admintools/drinks/EditDrinkForm';
 import EditToppingForm from '../pos/admintools/toppings/EditToppingForm';
 import EditSideForm from '../pos/admintools/sides/EditSideForm';
+import EditBurgerForm from '../pos/admintools/burgers/EditBurgerForm';
 
 
 const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
@@ -134,6 +135,15 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                             <Container>
                                 <LoggedInUserDetails loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
                                 <AddBurgerForm loadMenuItems={loadMenuItems} menuItems={menuItems} setSelectedCategory={setSelectedCategory} />
+                            </Container>
+                        </AuthorizedRoute>
+                    } />
+
+                    <Route path='burgers/edit/:id' element={
+                        <AuthorizedRoute loggedInUser={loggedInUser}>
+                            <Container>
+                                <LoggedInUserDetails loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
+                                <EditBurgerForm loadMenuItems={loadMenuItems} setSelectedCategory={setSelectedCategory} menuItems={menuItems} />
                             </Container>
                         </AuthorizedRoute>
                     } />

@@ -56,7 +56,7 @@ const AddBurgerForm = ({ menuItems, setSelectedCategory }) => {
                             menuItems.toppings.map(({ id, name }, index) => {
                                 if (name === "patty") {
                                     return (
-                                        <>
+                                        <div key={`topping-${id}`}>
                                             <br />
                                             <Form.Label>Number of Patties:</Form.Label>
                                             <Form.Control type='number' min={0} onChange={(e) => {
@@ -67,7 +67,7 @@ const AddBurgerForm = ({ menuItems, setSelectedCategory }) => {
                                                 }
                                                 setNewBurger(newBurgerCopy);
                                             }} />
-                                        </>
+                                        </div>
                                     )
                                 }
                                 return (

@@ -30,7 +30,7 @@ const EditDrinkForm = ({ menuItems, setSelectedCategory }) => {
         <Container>
             <Row>
                 <Col>
-                    <h1>New Drink</h1>
+                    <h1>Edit Drink</h1>
                 </Col>
                 <Col>
                     <CategorySelect menuItems={menuItems} setSelectedCategory={setSelectedCategory} />

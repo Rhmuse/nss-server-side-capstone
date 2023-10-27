@@ -32,7 +32,7 @@ public class BurgersController : ControllerBase
     {
         var foundBurger = _dbContext.Burgers
             .SingleOrDefault(d => d.Id == id);
-        if (foundBurger == null) return NotFound("Could not find a drink with specified id");
+        if (foundBurger == null) return NotFound("Could not find a burger with specified id");
         foundBurger.IsDeleted = true;
         _dbContext.SaveChanges();
         return NoContent();
@@ -55,5 +55,25 @@ public class BurgersController : ControllerBase
         });
         _dbContext.SaveChanges();
         return Created($"/api/burgers/{burger.Id}", burger);
+    }
+
+    [HttpPut]
+    public IActionResult Put(NewBurgerDto burgerDto)
+    {
+        var foundBurger = _dbContext.Burgers.SingleOrDefault(b => b.Id == burgerDto.Id);
+        if (foundBurger == null) return NotFound("Could not find a burger with specified id");
+        foundBurger.Name = burgerDto.Name;
+        var foundBurgerToppings = _dbContext.BurgerToppings.Where(bt => bt.BurgerId == foundBurger.Id).ToList();
+        _dbContext.BurgerToppings.RemoveRange(foundBurgerToppings);
+        burgerDto.Toppings.ForEach(t =>
+        {
+            BurgerTopping burgerTopping = new BurgerTopping();
+            burgerTopping.BurgerId = foundBurger.Id;
+            burgerTopping.ToppingId = t.ToppingId;
+            if (t.Extra) burgerTopping.Extra = true;
+            _dbContext.BurgerToppings.Add(burgerTopping);
+        });
+        _dbContext.SaveChanges();
+        return Ok(foundBurger);
     }
 }

@@ -19,8 +19,7 @@ public class ToppingsController : ControllerBase
     public IActionResult Get()
     {
         var toppings = _dbContext.Toppings
-            .OrderBy(d => d.Name)
-            .Where(d => !d.IsDeleted);
+            .OrderBy(d => d.Name);
         return Ok(toppings);
     }
 
