@@ -235,9 +235,9 @@ public class KrustyKrabDbContext : IdentityDbContext<IdentityUser>
 
         modelBuilder.Entity<Size>().HasData(new Size[]
         {
-            new Size{ Id = smallId, Name = "small", ShortHand = "sm"},
-            new Size{ Id = mediumId, Name = "medium", ShortHand = "md"},
-            new Size{ Id = largeId, Name = "large", ShortHand = "lg"}
+            new Size{ Id = smallId, Name = "small", ShortHand = "sm", Price = 0},
+            new Size{ Id = mediumId, Name = "medium", ShortHand = "md", Price = 0.20F},
+            new Size{ Id = largeId, Name = "large", ShortHand = "lg", Price= 0.45F}
         });
     }
 }

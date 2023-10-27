@@ -11,6 +11,7 @@ import currency from 'currency.js';
 import CategorySelect from './CategorySelect';
 
 import './AdminTools.css';
+import { deleteSize } from '../../managers/sizesManager';
 
 const utility = new Utility();
 
@@ -54,6 +55,11 @@ const AdminTools = ({ menuItems, loadMenuItems, selectedCategory, setSelectedCat
                 deleteTopping(id).then(() => {
                     loadMenuItems();
                 });
+                break;
+            case "sizes":
+                deleteSize(id).then(() => {
+                    loadMenuItems();
+                })
                 break;
             default:
                 window.alert("Something went wrong!")

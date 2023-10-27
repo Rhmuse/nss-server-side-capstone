@@ -24,6 +24,8 @@ import EditSideForm from '../pos/admintools/sides/EditSideForm';
 import EditBurgerForm from '../pos/admintools/burgers/EditBurgerForm';
 import AddComboForm from '../pos/admintools/combos/AddComboForm';
 import EditComboForm from '../pos/admintools/combos/EditComboForm';
+import AddSizeForm from '../pos/admintools/sizes/AddSizeForm';
+import EditSizeForm from '../pos/admintools/sizes/EditSizeForm';
 
 
 const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
@@ -184,6 +186,26 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                             <Container>
                                 <LoggedInUserDetails loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
                                 <EditSideForm loadMenuItems={loadMenuItems} setSelectedCategory={setSelectedCategory} menuItems={menuItems} />
+                            </Container>
+                        </AuthorizedRoute>
+                    } />
+
+                    {/* Sizes */}
+
+                    <Route path='sizes/add' element={
+                        <AuthorizedRoute loggedInUser={loggedInUser}>
+                            <Container>
+                                <LoggedInUserDetails loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
+                                <AddSizeForm loadMenuItems={loadMenuItems} menuItems={menuItems} setSelectedCategory={setSelectedCategory} />
+                            </Container>
+                        </AuthorizedRoute>
+                    } />
+
+                    <Route path='sizes/edit/:id' element={
+                        <AuthorizedRoute loggedInUser={loggedInUser}>
+                            <Container>
+                                <LoggedInUserDetails loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
+                                <EditSizeForm loadMenuItems={loadMenuItems} setSelectedCategory={setSelectedCategory} menuItems={menuItems} />
                             </Container>
                         </AuthorizedRoute>
                     } />

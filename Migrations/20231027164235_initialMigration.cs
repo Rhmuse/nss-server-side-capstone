@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace KrustyKrab.Migrations
 {
     /// <inheritdoc />
-    public partial class nameOnBurgers : Migration
+    public partial class initialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -74,7 +74,8 @@ namespace KrustyKrab.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Discount = table.Column<float>(type: "real", nullable: false),
-                    BurgerId = table.Column<Guid>(type: "uuid", nullable: false)
+                    BurgerId = table.Column<Guid>(type: "uuid", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -87,7 +88,8 @@ namespace KrustyKrab.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    Price = table.Column<float>(type: "real", nullable: false)
+                    Price = table.Column<float>(type: "real", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -112,7 +114,8 @@ namespace KrustyKrab.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    Price = table.Column<float>(type: "real", nullable: false)
+                    Price = table.Column<float>(type: "real", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -125,7 +128,8 @@ namespace KrustyKrab.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    ShortHand = table.Column<string>(type: "text", nullable: false)
+                    ShortHand = table.Column<string>(type: "text", nullable: false),
+                    Price = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -138,7 +142,8 @@ namespace KrustyKrab.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    Price = table.Column<float>(type: "real", nullable: false)
+                    Price = table.Column<float>(type: "real", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -311,7 +316,8 @@ namespace KrustyKrab.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     OrderId = table.Column<Guid>(type: "uuid", nullable: true),
                     Name = table.Column<string>(type: "text", nullable: true),
-                    Quantity = table.Column<int>(type: "integer", nullable: false)
+                    Quantity = table.Column<int>(type: "integer", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -384,7 +390,8 @@ namespace KrustyKrab.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     BurgerId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ToppingId = table.Column<Guid>(type: "uuid", nullable: false)
+                    ToppingId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Extra = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -408,8 +415,8 @@ namespace KrustyKrab.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "c3aaeb97-d2ba-4a53-a521-4eea61e59b35", null, "Admin", "admin" },
-                    { "dc3b483f-72fc-4bee-a519-387151ccda89", null, "Employee", "employee" }
+                    { "76f3405d-c548-4d39-8df5-5fd105406eaf", null, "Employee", "employee" },
+                    { "c3aaeb97-d2ba-4a53-a521-4eea61e59b35", null, "Admin", "admin" }
                 });
 
             migrationBuilder.InsertData(
@@ -417,20 +424,20 @@ namespace KrustyKrab.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "02281be4-0d95-4711-99a8-0c64b640799b", 0, "452c8282-9173-4574-9dc6-5e2bae126137", "stentacles2@seamail.com", false, false, null, null, null, "AQAAAAIAAYagAAAAEI7rkYAq2A/pI522xDCj7p0/OejBMYPE6c6m9AmdmBeq9Zp0KlBpkExcdcUBIHbKjA==", null, false, "0443c1c0-2dfd-4022-aae8-9e08fcbbab37", false, "stentacles" },
-                    { "099cbd77-4110-43f3-b771-3bd2dd976d5b", 0, "b6822f2c-aa86-4945-9430-945c6d1f2561", "saltydog@seamail.com", false, false, null, null, null, "AQAAAAIAAYagAAAAECvuTYSkBST7u3yx6c/r8o/zPQPjklrzwGK1dKigr8GRc77Fg7GKwdQvbc76riR6mQ==", null, false, "4b48d669-5419-4d8d-a876-9f3f0ab9fc0f", false, "ekrabs" },
-                    { "9a4eb093-6ebb-4f1d-bdfe-3f7b179a786c", 0, "e550af3d-2a05-42c8-b4e6-91b3cf7caa14", "jellyfanatic12@goofygoober.com", false, false, null, null, null, "AQAAAAIAAYagAAAAEJJMVfH0B+FTz53kA7L1nxthZhw8C7/XR5KF1UDnDlzg/dpqZh4O5XGH7XL0EvcVBw==", null, false, "146c831e-34f4-402a-aad5-618f1537892f", false, "ssquarepants" },
-                    { "c32c4039-3085-44f9-b190-eabc0db206b7", 0, "696bd78c-bfcc-48e0-88a9-0b7a77338401", "patrickstar@goofygoober.com", false, false, null, null, null, "AQAAAAIAAYagAAAAEM/loJoQPhZh4HBiyJX/DzOwGtgeyVBlpa0cpYvHjnvfme1bSzzLepGKXsPa0VZ9pg==", null, false, "2be63c57-cd7b-4b67-925a-31fe39a79a41", false, "pstar" },
-                    { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "f3bd03d8-0929-40ef-8122-d405c4563835", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEJIM1Hgi5upDYkaXc4/z+AD07VZY26jCGLZMa0T3xtNaQAlSkhBMKN7H/HR5dhQB+g==", null, false, "401307f8-5813-4a7c-a0eb-dcfd786abff6", false, "Administrator" }
+                    { "adfbdde0-4137-4da0-a236-940faca4bbf0", 0, "9f939765-72ee-472c-a530-dc6d89dd3a60", "saltydog@seamail.com", false, false, null, null, null, "AQAAAAIAAYagAAAAEDeBs0VYHb6pXMB95/K4xEffRFgQAXnvIrCi050U3rZpIfnONHG+MLTrNhc8wAf1+g==", null, false, "0b42ed69-8dc9-4cd7-b9d1-ba7a1e26cb6b", false, "ekrabs" },
+                    { "b06e00ba-4ca2-467e-9dab-0cc033063a8e", 0, "3ef0eec0-fcf0-47f9-ae8a-5acb389a1d5a", "patrickstar@goofygoober.com", false, false, null, null, null, "AQAAAAIAAYagAAAAEGUGk35h8rYEHkuxHbkN+lQeCnAMaNOJ3ZIJ6Litznv2DJlLaBSpPXGLyjNKxSjNdA==", null, false, "c88b737e-46b0-402d-9a4b-a979b50cf764", false, "pstar" },
+                    { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "65ab3a02-2cc4-4791-8c13-0f0162c9764c", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEAkRP4XHi4knBHgNS10YpjPQeWgeHqQwtfEUX8MHLeMvkHm6WZsumu4M/gAsKCEHxA==", null, false, "904bbfb2-9b00-434a-9c3f-b37eee6a81c1", false, "Administrator" },
+                    { "f45c916f-1254-4845-8c6f-aa2a8c73fab9", 0, "5c055536-8787-4f13-9dcd-17acaa2acd7a", "jellyfanatic12@goofygoober.com", false, false, null, null, null, "AQAAAAIAAYagAAAAEOlEecGwv7Pcx3USDFtVY+jLr8hCsxzCoDgYAMKg2u5cYqVSUAwWBk5pzvJ2lrPnQg==", null, false, "2c9118dd-716c-4a66-a4d9-9ef08ca250de", false, "ssquarepants" },
+                    { "fda0ed28-b9ca-40e6-9037-eba5832459b9", 0, "59759cd5-18e7-4c58-8fab-b6cf76e8dc30", "stentacles2@seamail.com", false, false, null, null, null, "AQAAAAIAAYagAAAAELHDwJEu4B7zKY2YaPurq3Pf/UEJms6gTMSOXMhpV/PjMKyCtplCn5++pYv3mHKZrw==", null, false, "73dc81cb-a4c6-4320-ac0f-4234c59972c3", false, "stentacles" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Burgers",
-                columns: new[] { "Id", "Name", "OrderId", "Quantity" },
+                columns: new[] { "Id", "IsDeleted", "Name", "OrderId", "Quantity" },
                 values: new object[,]
                 {
-                    { new Guid("76b45ca0-2d30-4d73-9ff9-86b16c6c0f6b"), "krabby patty", null, 1 },
-                    { new Guid("d058ac14-b29a-4a72-8ce4-116dc22c400a"), "double krabby patty", null, 1 }
+                    { new Guid("48181d82-9754-4f60-98e9-d845efdedf0c"), false, "double krabby patty", null, 1 },
+                    { new Guid("52821fc6-3b27-41c5-9bdf-d65b3493eb55"), false, "krabby patty", null, 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -438,31 +445,31 @@ namespace KrustyKrab.Migrations
                 columns: new[] { "Id", "ComboId", "ItemId", "OrderId" },
                 values: new object[,]
                 {
-                    { new Guid("1c108a9e-9b99-4fc0-9d12-2ad2ca395799"), new Guid("48945177-66b3-4da7-9226-2071ad78594b"), new Guid("178a0e8b-bc78-4daa-9976-8935353340b9"), new Guid("9c850bab-3dd6-4415-ab77-d2b880885303") },
-                    { new Guid("9d97c034-61df-49ad-84fc-246f7e78890a"), new Guid("48945177-66b3-4da7-9226-2071ad78594b"), new Guid("40a5da61-4f56-4081-8bb7-41976b0a701d"), new Guid("9c850bab-3dd6-4415-ab77-d2b880885303") },
-                    { new Guid("b961bbf0-403f-49f2-aaf3-98ea533289d9"), new Guid("48945177-66b3-4da7-9226-2071ad78594b"), new Guid("b08890cb-025d-48d6-9aec-1fad1e5c472f"), new Guid("9c850bab-3dd6-4415-ab77-d2b880885303") }
+                    { new Guid("6f433746-1e6f-4b8a-89ef-12a5b42bed3c"), new Guid("002ea8cf-c0cb-4df9-a01a-4f8643355a32"), new Guid("fc93e2c1-3eda-48b2-9c72-a90895fa9942"), new Guid("532a218c-744b-4f9d-9af1-ec7d96c489cb") },
+                    { new Guid("7bf1755e-0b70-4533-9bec-c61647a5f54c"), new Guid("002ea8cf-c0cb-4df9-a01a-4f8643355a32"), new Guid("034c2400-e07a-4642-8147-e1a4f5f27333"), new Guid("532a218c-744b-4f9d-9af1-ec7d96c489cb") },
+                    { new Guid("ad2c73b8-06e4-4bda-b506-3a01dc5d818b"), new Guid("002ea8cf-c0cb-4df9-a01a-4f8643355a32"), new Guid("2fa7d04c-3cb8-4e80-844f-f7c3e870be9a"), new Guid("532a218c-744b-4f9d-9af1-ec7d96c489cb") }
                 });
 
             migrationBuilder.InsertData(
                 table: "Combos",
-                columns: new[] { "Id", "BurgerId", "Discount", "Name" },
+                columns: new[] { "Id", "BurgerId", "Discount", "IsDeleted", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("008678d3-329a-41ed-8163-7c8437ee8939"), new Guid("76b45ca0-2d30-4d73-9ff9-86b16c6c0f6b"), -1f, "krabby patty combo" },
-                    { new Guid("48945177-66b3-4da7-9226-2071ad78594b"), new Guid("d058ac14-b29a-4a72-8ce4-116dc22c400a"), -1.25f, "double krabby patty combo" }
+                    { new Guid("002ea8cf-c0cb-4df9-a01a-4f8643355a32"), new Guid("48181d82-9754-4f60-98e9-d845efdedf0c"), -1.25f, false, "double krabby patty combo" },
+                    { new Guid("e44b6e20-493b-4f8f-86bb-dccc29a4f3fe"), new Guid("52821fc6-3b27-41c5-9bdf-d65b3493eb55"), -1f, false, "krabby patty combo" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Drinks",
-                columns: new[] { "Id", "Name", "Price" },
+                columns: new[] { "Id", "IsDeleted", "Name", "Price" },
                 values: new object[,]
                 {
-                    { new Guid("116c2397-0358-440b-9c87-76090a8eecc1"), "dr. kelp", 1f },
-                    { new Guid("44b9e5c2-8ff9-40fb-ac2f-9165f8795035"), "diet dr. kelp", 1f },
-                    { new Guid("5c1dd2e5-156d-4196-9bc6-57e7c2d8e0b3"), "red tide", 1f },
-                    { new Guid("cf7f64ad-79ea-4981-b46c-a29a71e8251f"), "kelp shake", 1.5f },
-                    { new Guid("eb5317b2-636a-44dc-89d4-591e25d772af"), "water", 0.1f },
-                    { new Guid("f04c3eb3-f135-4316-8d8f-2989c401d3c7"), "seafoam soda", 1f }
+                    { new Guid("00856106-03e6-4b79-928b-adc13311f92c"), false, "dr. kelp", 1f },
+                    { new Guid("4dfe9945-5b5c-4ac3-a693-3391d888dfed"), false, "diet dr. kelp", 1f },
+                    { new Guid("9ccf65fe-6216-4570-9889-e6661e3334a4"), false, "water", 0.1f },
+                    { new Guid("a728417d-4b6f-4b11-b0e6-cf3e4c7f9b0c"), false, "kelp shake", 1.5f },
+                    { new Guid("d28b90a8-fe7c-463d-9ddb-7af68864ff45"), false, "red tide", 1f },
+                    { new Guid("e03f0e6b-699c-4452-a3bf-a23f528cec7c"), false, "seafoam soda", 1f }
                 });
 
             migrationBuilder.InsertData(
@@ -470,48 +477,48 @@ namespace KrustyKrab.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("3e6743ad-c9aa-413f-8416-24047564323c"), "pickup" },
-                    { new Guid("99aea153-e778-4e43-9210-1125857287c9"), "here" },
-                    { new Guid("fac82dfc-c5a1-4ae1-8b3c-b1e7d557dc5c"), "togo" }
+                    { new Guid("2a9b9b55-22c0-44b8-83cd-cf06a16982c0"), "pickup" },
+                    { new Guid("8b9196b0-3cf7-45ae-95ec-cc369c34464b"), "togo" },
+                    { new Guid("c43dac35-214d-45ab-9777-237818dfbbcf"), "here" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Sides",
-                columns: new[] { "Id", "Name", "Price" },
+                columns: new[] { "Id", "IsDeleted", "Name", "Price" },
                 values: new object[,]
                 {
-                    { new Guid("1e1642f0-346b-4f30-b886-a93a71fc7efd"), "coral bits", 1.25f },
-                    { new Guid("49da624b-41c4-4f0c-8c4e-9b32f87c3d24"), "barnacle rings", 1.25f },
-                    { new Guid("77aec8fc-d0ad-49aa-932f-2e04f8a5b4f5"), "kelp fries", 1.25f },
-                    { new Guid("e0507091-6a54-440b-bd24-adf2e23f0e8a"), "seaweed salad", 2f },
-                    { new Guid("e84bfef9-d6a7-4c33-b8ac-927eb3e5a44b"), "oyster skins", 1.25f }
+                    { new Guid("18614fbd-91ce-4329-80dc-754fabe4bf4f"), false, "kelp fries", 1.25f },
+                    { new Guid("2727c75e-92b9-4e97-a576-e0957fbd2c5f"), false, "seaweed salad", 2f },
+                    { new Guid("4ccd58b2-57de-47af-98ef-da75a315ab78"), false, "coral bits", 1.25f },
+                    { new Guid("b59f5921-fb41-4c89-beae-340473a25990"), false, "oyster skins", 1.25f },
+                    { new Guid("e9e89f13-e3d3-4bfd-ab1d-a6b7dd6bdc0e"), false, "barnacle rings", 1.25f }
                 });
 
             migrationBuilder.InsertData(
                 table: "Sizes",
-                columns: new[] { "Id", "Name", "ShortHand" },
+                columns: new[] { "Id", "Name", "Price", "ShortHand" },
                 values: new object[,]
                 {
-                    { new Guid("52e7feb2-ce4b-41ff-954b-bf1530547817"), "medium", "md" },
-                    { new Guid("85359301-c9f5-4907-92d5-de759d7f91c7"), "small", "sm" },
-                    { new Guid("919e5331-40e7-4db7-b9a6-7f7bfbda2188"), "large", "lg" }
+                    { new Guid("24428db6-9d06-45f3-a02f-3eb06cf63669"), "small", 0f, "sm" },
+                    { new Guid("373462c5-f90b-4125-9a59-efc3692b1d7a"), "medium", 0.2f, "md" },
+                    { new Guid("cc92aca0-fe16-4b18-88a0-6c798a508469"), "large", 0.45f, "lg" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Toppings",
-                columns: new[] { "Id", "Name", "Price" },
+                columns: new[] { "Id", "IsDeleted", "Name", "Price" },
                 values: new object[,]
                 {
-                    { new Guid("1507ca55-71b2-47d2-bf42-877b02c71718"), "secret sauce", 0f },
-                    { new Guid("568cb4ec-53a4-4ac2-ae18-4d5b48c52289"), "sea cheese", 0.25f },
-                    { new Guid("60725929-ae42-4838-8c7b-1976f79730f3"), "onion", 0.05f },
-                    { new Guid("6feaa3bc-0cf8-4ac9-8238-7192ff1af5b3"), "lettuce", 0.05f },
-                    { new Guid("919dfc51-1f00-4916-bd96-7c95defd8f19"), "patty", 1f },
-                    { new Guid("92ea16f4-7a90-4fd8-805a-a606c093063e"), "mustard", 0f },
-                    { new Guid("a9b8334a-125b-4cb7-bac8-b325514a8223"), "pickle", 0.05f },
-                    { new Guid("c28c19ab-eea1-45b7-b14d-a85adc37c6d2"), "ketchup", 0f },
-                    { new Guid("cc4538a2-5b30-4421-a08d-a3e460fe6dd2"), "bun", 0.2f },
-                    { new Guid("d8036fd0-1e30-4e49-8ec3-328b6a1b5c02"), "tomato", 0.05f }
+                    { new Guid("19d53262-c2ba-4c5b-80f6-2cb0c70f468c"), false, "onion", 0.05f },
+                    { new Guid("1dc23006-68fb-4fa3-b4cc-0d3897011299"), false, "patty", 1f },
+                    { new Guid("292c221d-94f4-4bb5-843c-dbf66a2d10f3"), false, "pickle", 0.05f },
+                    { new Guid("3835b77e-d016-48e3-8f68-d0e9ab5f8739"), false, "ketchup", 0f },
+                    { new Guid("3cdcab2b-8e87-473a-8d79-cbaf65010e77"), false, "lettuce", 0.05f },
+                    { new Guid("47605247-b3c4-445a-a62c-cc08f938c1a4"), false, "secret sauce", 0f },
+                    { new Guid("51bae8ec-0e4c-4e62-aa73-8ea1248139c4"), false, "tomato", 0.05f },
+                    { new Guid("62a34a87-60ce-443c-90f5-108dbe4e2dd7"), false, "sea cheese", 0.25f },
+                    { new Guid("a7527fc4-86d7-4730-a97a-18b8b554a77e"), false, "bun", 0.2f },
+                    { new Guid("ce3dcf04-d1d7-4152-876a-e96782569b08"), false, "mustard", 0f }
                 });
 
             migrationBuilder.InsertData(
@@ -519,36 +526,36 @@ namespace KrustyKrab.Migrations
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { "dc3b483f-72fc-4bee-a519-387151ccda89", "02281be4-0d95-4711-99a8-0c64b640799b" },
-                    { "c3aaeb97-d2ba-4a53-a521-4eea61e59b35", "099cbd77-4110-43f3-b771-3bd2dd976d5b" },
-                    { "dc3b483f-72fc-4bee-a519-387151ccda89", "9a4eb093-6ebb-4f1d-bdfe-3f7b179a786c" },
-                    { "c3aaeb97-d2ba-4a53-a521-4eea61e59b35", "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f" }
+                    { "c3aaeb97-d2ba-4a53-a521-4eea61e59b35", "adfbdde0-4137-4da0-a236-940faca4bbf0" },
+                    { "c3aaeb97-d2ba-4a53-a521-4eea61e59b35", "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f" },
+                    { "76f3405d-c548-4d39-8df5-5fd105406eaf", "f45c916f-1254-4845-8c6f-aa2a8c73fab9" },
+                    { "76f3405d-c548-4d39-8df5-5fd105406eaf", "fda0ed28-b9ca-40e6-9037-eba5832459b9" }
                 });
 
             migrationBuilder.InsertData(
                 table: "BurgerToppings",
-                columns: new[] { "Id", "BurgerId", "ToppingId" },
+                columns: new[] { "Id", "BurgerId", "Extra", "ToppingId" },
                 values: new object[,]
                 {
-                    { new Guid("10376ad2-a002-4efd-8b85-81d996cc98df"), new Guid("d058ac14-b29a-4a72-8ce4-116dc22c400a"), new Guid("a9b8334a-125b-4cb7-bac8-b325514a8223") },
-                    { new Guid("1917d909-1520-4254-8038-22e802afd312"), new Guid("76b45ca0-2d30-4d73-9ff9-86b16c6c0f6b"), new Guid("1507ca55-71b2-47d2-bf42-877b02c71718") },
-                    { new Guid("2407de12-5255-4c9b-a341-e2401b0584f4"), new Guid("76b45ca0-2d30-4d73-9ff9-86b16c6c0f6b"), new Guid("c28c19ab-eea1-45b7-b14d-a85adc37c6d2") },
-                    { new Guid("25e21efc-8351-4583-a38c-b2b645615804"), new Guid("d058ac14-b29a-4a72-8ce4-116dc22c400a"), new Guid("919dfc51-1f00-4916-bd96-7c95defd8f19") },
-                    { new Guid("4f123d89-a7e4-4276-9e97-9b856b98dc19"), new Guid("76b45ca0-2d30-4d73-9ff9-86b16c6c0f6b"), new Guid("92ea16f4-7a90-4fd8-805a-a606c093063e") },
-                    { new Guid("50efa2bc-1d28-430b-b65a-80f3505c1afa"), new Guid("d058ac14-b29a-4a72-8ce4-116dc22c400a"), new Guid("92ea16f4-7a90-4fd8-805a-a606c093063e") },
-                    { new Guid("53cd1d84-e8e9-421a-ab13-3339ad34834d"), new Guid("d058ac14-b29a-4a72-8ce4-116dc22c400a"), new Guid("919dfc51-1f00-4916-bd96-7c95defd8f19") },
-                    { new Guid("53e0df93-bed2-4d26-8f84-ea43feba3f46"), new Guid("76b45ca0-2d30-4d73-9ff9-86b16c6c0f6b"), new Guid("cc4538a2-5b30-4421-a08d-a3e460fe6dd2") },
-                    { new Guid("62b246f4-bd0b-4a0a-bbe1-3e673d7683d1"), new Guid("d058ac14-b29a-4a72-8ce4-116dc22c400a"), new Guid("6feaa3bc-0cf8-4ac9-8238-7192ff1af5b3") },
-                    { new Guid("83542567-c618-4812-b9a9-c57904e97045"), new Guid("76b45ca0-2d30-4d73-9ff9-86b16c6c0f6b"), new Guid("60725929-ae42-4838-8c7b-1976f79730f3") },
-                    { new Guid("86540e5d-0415-413e-9568-f1058c452c0e"), new Guid("d058ac14-b29a-4a72-8ce4-116dc22c400a"), new Guid("c28c19ab-eea1-45b7-b14d-a85adc37c6d2") },
-                    { new Guid("907499c3-a68a-45a6-85b9-9fb16b3e4f75"), new Guid("d058ac14-b29a-4a72-8ce4-116dc22c400a"), new Guid("60725929-ae42-4838-8c7b-1976f79730f3") },
-                    { new Guid("918a5f5c-2f15-4236-84c6-9383153dad56"), new Guid("76b45ca0-2d30-4d73-9ff9-86b16c6c0f6b"), new Guid("6feaa3bc-0cf8-4ac9-8238-7192ff1af5b3") },
-                    { new Guid("abb70bbd-43c6-4776-8248-d453521f2b3d"), new Guid("d058ac14-b29a-4a72-8ce4-116dc22c400a"), new Guid("d8036fd0-1e30-4e49-8ec3-328b6a1b5c02") },
-                    { new Guid("aee88ad4-e559-44e5-82a0-23188b224dfa"), new Guid("d058ac14-b29a-4a72-8ce4-116dc22c400a"), new Guid("1507ca55-71b2-47d2-bf42-877b02c71718") },
-                    { new Guid("ccd6255b-fe49-4bd4-86f9-2b33b03c820a"), new Guid("76b45ca0-2d30-4d73-9ff9-86b16c6c0f6b"), new Guid("d8036fd0-1e30-4e49-8ec3-328b6a1b5c02") },
-                    { new Guid("d6c86d88-b232-429b-8206-6ee969156b20"), new Guid("76b45ca0-2d30-4d73-9ff9-86b16c6c0f6b"), new Guid("a9b8334a-125b-4cb7-bac8-b325514a8223") },
-                    { new Guid("f45b3877-b8b0-4cbe-a7ab-54515862407c"), new Guid("76b45ca0-2d30-4d73-9ff9-86b16c6c0f6b"), new Guid("919dfc51-1f00-4916-bd96-7c95defd8f19") },
-                    { new Guid("f58d9e70-83b3-4f16-a1f6-1086492e37f7"), new Guid("d058ac14-b29a-4a72-8ce4-116dc22c400a"), new Guid("cc4538a2-5b30-4421-a08d-a3e460fe6dd2") }
+                    { new Guid("0bcbedd2-99f8-4b08-86f0-90edce6dbd52"), new Guid("52821fc6-3b27-41c5-9bdf-d65b3493eb55"), false, new Guid("47605247-b3c4-445a-a62c-cc08f938c1a4") },
+                    { new Guid("0e57fc9b-19e5-4ab3-acab-ee0c58ad4628"), new Guid("48181d82-9754-4f60-98e9-d845efdedf0c"), false, new Guid("ce3dcf04-d1d7-4152-876a-e96782569b08") },
+                    { new Guid("1894f331-49e3-48d7-b4a3-5ef8897ab56b"), new Guid("48181d82-9754-4f60-98e9-d845efdedf0c"), false, new Guid("292c221d-94f4-4bb5-843c-dbf66a2d10f3") },
+                    { new Guid("1f57633c-9243-4d66-a37f-6828cb823bf4"), new Guid("48181d82-9754-4f60-98e9-d845efdedf0c"), false, new Guid("1dc23006-68fb-4fa3-b4cc-0d3897011299") },
+                    { new Guid("29058c1a-53bb-4c64-9b85-ebffe72c3cbd"), new Guid("52821fc6-3b27-41c5-9bdf-d65b3493eb55"), false, new Guid("a7527fc4-86d7-4730-a97a-18b8b554a77e") },
+                    { new Guid("33047f9a-e740-4fc0-81cf-84d2d0afd4c5"), new Guid("48181d82-9754-4f60-98e9-d845efdedf0c"), false, new Guid("47605247-b3c4-445a-a62c-cc08f938c1a4") },
+                    { new Guid("45e23aa5-d296-442a-8344-375b5802ae45"), new Guid("48181d82-9754-4f60-98e9-d845efdedf0c"), false, new Guid("3835b77e-d016-48e3-8f68-d0e9ab5f8739") },
+                    { new Guid("59f79e4d-441c-4e5f-a7d0-65b22957fc03"), new Guid("48181d82-9754-4f60-98e9-d845efdedf0c"), false, new Guid("3cdcab2b-8e87-473a-8d79-cbaf65010e77") },
+                    { new Guid("6dae9d4d-ec46-458b-a67f-7fb1f285c54b"), new Guid("52821fc6-3b27-41c5-9bdf-d65b3493eb55"), false, new Guid("1dc23006-68fb-4fa3-b4cc-0d3897011299") },
+                    { new Guid("920c3d25-0710-4cbe-be30-0cff1e7b49d7"), new Guid("48181d82-9754-4f60-98e9-d845efdedf0c"), false, new Guid("19d53262-c2ba-4c5b-80f6-2cb0c70f468c") },
+                    { new Guid("9294fc26-9698-47c9-82dd-0ece19c7c37e"), new Guid("48181d82-9754-4f60-98e9-d845efdedf0c"), false, new Guid("a7527fc4-86d7-4730-a97a-18b8b554a77e") },
+                    { new Guid("92aff036-6066-48e7-bc44-b5f06462a60a"), new Guid("52821fc6-3b27-41c5-9bdf-d65b3493eb55"), false, new Guid("3835b77e-d016-48e3-8f68-d0e9ab5f8739") },
+                    { new Guid("a02ca4f5-f98a-4c5e-8b2c-f053c74983cf"), new Guid("52821fc6-3b27-41c5-9bdf-d65b3493eb55"), false, new Guid("292c221d-94f4-4bb5-843c-dbf66a2d10f3") },
+                    { new Guid("a739380c-0887-4a5a-835f-f390457408b5"), new Guid("52821fc6-3b27-41c5-9bdf-d65b3493eb55"), false, new Guid("3cdcab2b-8e87-473a-8d79-cbaf65010e77") },
+                    { new Guid("b6ce29c1-6ac6-4ffe-8841-0fc4216987e5"), new Guid("52821fc6-3b27-41c5-9bdf-d65b3493eb55"), false, new Guid("ce3dcf04-d1d7-4152-876a-e96782569b08") },
+                    { new Guid("c1031eba-a255-47bd-9a4c-b76f7b65dc10"), new Guid("52821fc6-3b27-41c5-9bdf-d65b3493eb55"), false, new Guid("19d53262-c2ba-4c5b-80f6-2cb0c70f468c") },
+                    { new Guid("c42bc2c5-6155-47ac-8f55-48100b1cd383"), new Guid("48181d82-9754-4f60-98e9-d845efdedf0c"), false, new Guid("1dc23006-68fb-4fa3-b4cc-0d3897011299") },
+                    { new Guid("d0374f34-2ff3-43bd-8821-7fb3faabc2ff"), new Guid("48181d82-9754-4f60-98e9-d845efdedf0c"), false, new Guid("51bae8ec-0e4c-4e62-aa73-8ea1248139c4") },
+                    { new Guid("ecf72ae4-79f0-450c-b3ce-cfe2c201455b"), new Guid("52821fc6-3b27-41c5-9bdf-d65b3493eb55"), false, new Guid("51bae8ec-0e4c-4e62-aa73-8ea1248139c4") }
                 });
 
             migrationBuilder.InsertData(
@@ -556,48 +563,48 @@ namespace KrustyKrab.Migrations
                 columns: new[] { "Id", "Address", "FirstName", "IdentityUserId", "LastName" },
                 values: new object[,]
                 {
-                    { new Guid("007e837e-1dfb-4d59-b0c9-c325f0d8d32d"), "3541 Anchor Way", "Eugene", "099cbd77-4110-43f3-b771-3bd2dd976d5b", "Krabs" },
-                    { new Guid("0e9ede9a-14aa-4801-80e5-62fef7a0f63c"), "124 Conch Street", "SpongeBob", "9a4eb093-6ebb-4f1d-bdfe-3f7b179a786c", "SquarePants" },
-                    { new Guid("1695d860-3926-452f-9c5b-42518b143fa5"), "122 Conch Street", "Squidward", "02281be4-0d95-4711-99a8-0c64b640799b", "Tentacles" },
-                    { new Guid("2335abc1-2914-4355-b32b-6f5dd81ccc8f"), "101 Main Street", "Admina", "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", "Strator" },
-                    { new Guid("2a5c48d7-9ce7-4747-80c6-bcdfebc62d82"), "120 Conch Street", "Patrick", "c32c4039-3085-44f9-b190-eabc0db206b7", "Star" }
+                    { new Guid("12c557a5-c321-4131-b0bd-b1520b68655b"), "120 Conch Street", "Patrick", "b06e00ba-4ca2-467e-9dab-0cc033063a8e", "Star" },
+                    { new Guid("23170bda-5e4e-4183-a1c3-1cf6ac1d9059"), "122 Conch Street", "Squidward", "fda0ed28-b9ca-40e6-9037-eba5832459b9", "Tentacles" },
+                    { new Guid("b78f00c3-e837-48dc-a1ed-db755bcf5263"), "101 Main Street", "Admina", "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", "Strator" },
+                    { new Guid("fe06653f-cbde-456e-a447-aa6f1480d219"), "3541 Anchor Way", "Eugene", "adfbdde0-4137-4da0-a236-940faca4bbf0", "Krabs" },
+                    { new Guid("ff1c6961-8579-49a0-ba4f-14944976a561"), "124 Conch Street", "SpongeBob", "f45c916f-1254-4845-8c6f-aa2a8c73fab9", "SquarePants" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Orders",
                 columns: new[] { "Id", "CustomerId", "EmployeeId", "OrderTime", "OrderTypeId" },
-                values: new object[] { new Guid("9c850bab-3dd6-4415-ab77-d2b880885303"), new Guid("2a5c48d7-9ce7-4747-80c6-bcdfebc62d82"), new Guid("1695d860-3926-452f-9c5b-42518b143fa5"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("99aea153-e778-4e43-9210-1125857287c9") });
+                values: new object[] { new Guid("532a218c-744b-4f9d-9af1-ec7d96c489cb"), new Guid("12c557a5-c321-4131-b0bd-b1520b68655b"), new Guid("23170bda-5e4e-4183-a1c3-1cf6ac1d9059"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("c43dac35-214d-45ab-9777-237818dfbbcf") });
 
             migrationBuilder.InsertData(
                 table: "Burgers",
-                columns: new[] { "Id", "Name", "OrderId", "Quantity" },
-                values: new object[] { new Guid("b08890cb-025d-48d6-9aec-1fad1e5c472f"), null, new Guid("9c850bab-3dd6-4415-ab77-d2b880885303"), 1 });
+                columns: new[] { "Id", "IsDeleted", "Name", "OrderId", "Quantity" },
+                values: new object[] { new Guid("fc93e2c1-3eda-48b2-9c72-a90895fa9942"), false, null, new Guid("532a218c-744b-4f9d-9af1-ec7d96c489cb"), 1 });
 
             migrationBuilder.InsertData(
                 table: "OrderDrinks",
                 columns: new[] { "Id", "DrinkId", "OrderId", "Quantity", "SizeId" },
-                values: new object[] { new Guid("40a5da61-4f56-4081-8bb7-41976b0a701d"), new Guid("5c1dd2e5-156d-4196-9bc6-57e7c2d8e0b3"), new Guid("9c850bab-3dd6-4415-ab77-d2b880885303"), 1, new Guid("52e7feb2-ce4b-41ff-954b-bf1530547817") });
+                values: new object[] { new Guid("034c2400-e07a-4642-8147-e1a4f5f27333"), new Guid("d28b90a8-fe7c-463d-9ddb-7af68864ff45"), new Guid("532a218c-744b-4f9d-9af1-ec7d96c489cb"), 1, new Guid("373462c5-f90b-4125-9a59-efc3692b1d7a") });
 
             migrationBuilder.InsertData(
                 table: "OrderSides",
                 columns: new[] { "Id", "ComboItemId", "OrderId", "Quantity", "SideId", "SizeId" },
-                values: new object[] { new Guid("178a0e8b-bc78-4daa-9976-8935353340b9"), new Guid("00000000-0000-0000-0000-000000000000"), new Guid("9c850bab-3dd6-4415-ab77-d2b880885303"), 1, new Guid("1e1642f0-346b-4f30-b886-a93a71fc7efd"), new Guid("919e5331-40e7-4db7-b9a6-7f7bfbda2188") });
+                values: new object[] { new Guid("2fa7d04c-3cb8-4e80-844f-f7c3e870be9a"), new Guid("00000000-0000-0000-0000-000000000000"), new Guid("532a218c-744b-4f9d-9af1-ec7d96c489cb"), 1, new Guid("4ccd58b2-57de-47af-98ef-da75a315ab78"), new Guid("cc92aca0-fe16-4b18-88a0-6c798a508469") });
 
             migrationBuilder.InsertData(
                 table: "BurgerToppings",
-                columns: new[] { "Id", "BurgerId", "ToppingId" },
+                columns: new[] { "Id", "BurgerId", "Extra", "ToppingId" },
                 values: new object[,]
                 {
-                    { new Guid("02e33225-72c0-4967-90ad-ec4f79ba3d63"), new Guid("b08890cb-025d-48d6-9aec-1fad1e5c472f"), new Guid("cc4538a2-5b30-4421-a08d-a3e460fe6dd2") },
-                    { new Guid("0f718f4b-d7b9-4423-83df-2984a5b56d12"), new Guid("b08890cb-025d-48d6-9aec-1fad1e5c472f"), new Guid("a9b8334a-125b-4cb7-bac8-b325514a8223") },
-                    { new Guid("15cc10b4-1980-4a61-953a-d859b022428f"), new Guid("b08890cb-025d-48d6-9aec-1fad1e5c472f"), new Guid("1507ca55-71b2-47d2-bf42-877b02c71718") },
-                    { new Guid("19b9950e-ec42-46df-b85d-f9b256aac0cd"), new Guid("b08890cb-025d-48d6-9aec-1fad1e5c472f"), new Guid("92ea16f4-7a90-4fd8-805a-a606c093063e") },
-                    { new Guid("26414236-cd46-4cfa-8a35-5775426abdba"), new Guid("b08890cb-025d-48d6-9aec-1fad1e5c472f"), new Guid("919dfc51-1f00-4916-bd96-7c95defd8f19") },
-                    { new Guid("55fe7e6a-c202-4b84-b5fe-b3a0afb09423"), new Guid("b08890cb-025d-48d6-9aec-1fad1e5c472f"), new Guid("c28c19ab-eea1-45b7-b14d-a85adc37c6d2") },
-                    { new Guid("7c0c7ce4-e178-4803-86d3-487db8d08e2b"), new Guid("b08890cb-025d-48d6-9aec-1fad1e5c472f"), new Guid("d8036fd0-1e30-4e49-8ec3-328b6a1b5c02") },
-                    { new Guid("870c174e-f82a-4ca5-9d24-99e4f73c8c8d"), new Guid("b08890cb-025d-48d6-9aec-1fad1e5c472f"), new Guid("60725929-ae42-4838-8c7b-1976f79730f3") },
-                    { new Guid("a363fddc-4f80-4858-91cc-5d92a01fea7e"), new Guid("b08890cb-025d-48d6-9aec-1fad1e5c472f"), new Guid("6feaa3bc-0cf8-4ac9-8238-7192ff1af5b3") },
-                    { new Guid("e130519e-4022-432f-a4ec-d04763ac9d4c"), new Guid("b08890cb-025d-48d6-9aec-1fad1e5c472f"), new Guid("919dfc51-1f00-4916-bd96-7c95defd8f19") }
+                    { new Guid("08a85525-16ad-4c58-841a-f758dff3f1d6"), new Guid("fc93e2c1-3eda-48b2-9c72-a90895fa9942"), false, new Guid("51bae8ec-0e4c-4e62-aa73-8ea1248139c4") },
+                    { new Guid("63b68222-9bb5-4769-adc0-e30c1ae2c77c"), new Guid("fc93e2c1-3eda-48b2-9c72-a90895fa9942"), false, new Guid("292c221d-94f4-4bb5-843c-dbf66a2d10f3") },
+                    { new Guid("67422b0c-11b2-4283-8181-6293e42f578b"), new Guid("fc93e2c1-3eda-48b2-9c72-a90895fa9942"), false, new Guid("47605247-b3c4-445a-a62c-cc08f938c1a4") },
+                    { new Guid("6fc7712a-210a-4635-b1e5-0b2c5e249dfe"), new Guid("fc93e2c1-3eda-48b2-9c72-a90895fa9942"), false, new Guid("ce3dcf04-d1d7-4152-876a-e96782569b08") },
+                    { new Guid("8c28630d-5b27-4c93-b12f-ae30562c45c8"), new Guid("fc93e2c1-3eda-48b2-9c72-a90895fa9942"), false, new Guid("19d53262-c2ba-4c5b-80f6-2cb0c70f468c") },
+                    { new Guid("cbf27de8-9c74-481d-81f3-6f71796e3fd1"), new Guid("fc93e2c1-3eda-48b2-9c72-a90895fa9942"), false, new Guid("3835b77e-d016-48e3-8f68-d0e9ab5f8739") },
+                    { new Guid("cd8008d6-4d57-47b4-9391-c5b366e487f9"), new Guid("fc93e2c1-3eda-48b2-9c72-a90895fa9942"), false, new Guid("1dc23006-68fb-4fa3-b4cc-0d3897011299") },
+                    { new Guid("d19085b0-175a-4179-b327-503f0e18af0f"), new Guid("fc93e2c1-3eda-48b2-9c72-a90895fa9942"), false, new Guid("3cdcab2b-8e87-473a-8d79-cbaf65010e77") },
+                    { new Guid("ed645e77-bc25-45e9-b429-a93c7f9d29e6"), new Guid("fc93e2c1-3eda-48b2-9c72-a90895fa9942"), false, new Guid("1dc23006-68fb-4fa3-b4cc-0d3897011299") },
+                    { new Guid("f8ebaeb0-bf22-4efb-8479-fa857a7eb4e9"), new Guid("fc93e2c1-3eda-48b2-9c72-a90895fa9942"), false, new Guid("a7527fc4-86d7-4730-a97a-18b8b554a77e") }
                 });
 
             migrationBuilder.CreateIndex(
