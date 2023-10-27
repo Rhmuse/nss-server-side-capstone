@@ -68,15 +68,14 @@ const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder, 
                         {
                             menuItems.burgers.map(b => {
                                 return (
-                                    <ItemButton key={`burger-${b.id}`} setSelectedItem={setSelectedItem} order={order} item={b} setOrder={setOrder} type="burger" itemBuilder={itemBuilder} />
+                                    <ItemButton key={`burger-${b.id}`} setSelectedItem={setSelectedItem} order={order} item={b} setOrder={setOrder} type="burger" itemBuilder={itemBuilder} menuItems={menuItems} />
                                 )
                             })
                         }
                         {
                             menuItems.combos.map(c => {
                                 return (
-                                    <Button key={`combos-${c.id}`} >{utility.capitalizeEveryFirstLetter(c.name)}</Button>
-                                )
+                                    <ItemButton key={`combos-${c.id}`} setSelectedItem={setSelectedItem} order={order} item={c} setOrder={setOrder} type="combo" itemBuilder={itemBuilder} menuItems={menuItems} />)
                             })
                         }
                     </Row>
@@ -84,7 +83,7 @@ const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder, 
                         {
                             menuItems.drinks.map(d => {
                                 return (
-                                    <ItemButton setSelectedItem={setSelectedItem} key={d.id} item={d} order={order} setOrder={setOrder} type="drink" setItemBuilder={setItemBuilder} itemBuilder={itemBuilder} />
+                                    <ItemButton setSelectedItem={setSelectedItem} key={d.id} item={d} order={order} setOrder={setOrder} type="drink" setItemBuilder={setItemBuilder} itemBuilder={itemBuilder} menuItems={menuItems} />
                                 )
                             })
                         }
@@ -93,7 +92,7 @@ const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder, 
                         {
                             menuItems.sides.map(s => {
                                 return (
-                                    <ItemButton setSelectedItem={setSelectedItem} key={s.id} item={s} order={order} setOrder={setOrder} type="side" setItemBuilder={setItemBuilder} itemBuilder={itemBuilder} />
+                                    <ItemButton setSelectedItem={setSelectedItem} key={s.id} item={s} order={order} setOrder={setOrder} type="side" setItemBuilder={setItemBuilder} itemBuilder={itemBuilder} menuItems={menuItems} />
                                 )
                             })
                         }

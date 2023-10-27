@@ -1,9 +1,11 @@
-import { Button } from 'react-bootstrap'
+import { Button, Col, Modal, Row } from 'react-bootstrap';
+import ComboItemButton from './ComboItemButton';
 import Utility from '../../../utility';
 
 import "./posButton.css";
+import { useState } from 'react';
 
-const MEDIUM_SIZE = "52e7feb2-ce4b-41ff-954b-bf1530547817";
+const MEDIUM_SIZE = "3baba7e3-f4ca-42bf-9092-929e013bd15f";
 
 const utility = new Utility();
 const generator = function* () {
@@ -16,7 +18,21 @@ const generator = function* () {
 
 const tempIdGenerator = generator();
 
-const ItemButton = ({ item, type, order, setOrder, itemBuilder, setSelectedItem }) => {
+const ItemButton = ({ item, type, order, setOrder, itemBuilder, setSelectedItem, menuItems }) => {
+    const [show, setShow] = useState(false);
+    const [comboItems, setComboItems] = useState({
+        side: {},
+        drink: {},
+        burger: {},
+    });
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => {
+        setShow(true);
+        const copy = { ...comboItems };
+        copy.burger = item.burger;
+        setComboItems(copy)
+    }
 
     const handleAddDrink = () => {
         let copy = { ...order };
@@ -65,7 +81,17 @@ const ItemButton = ({ item, type, order, setOrder, itemBuilder, setSelectedItem 
     }
 
     const handleAddCombo = () => {
-
+        let copy = { ...order };
+        let newCombo = { id: item.id, name: item.name, items: [], price: 0, tempId: `${item.id}-${tempIdGenerator.next().value}` }
+        newCombo.items.push(comboItems.side);
+        newCombo.items.push(comboItems.drink);
+        newCombo.items.push(comboItems.burger);
+        newCombo.price += comboItems.side.price;
+        newCombo.price += comboItems.drink.price;
+        newCombo.price += comboItems.burger.price;
+        newCombo.price += item.discount;
+        copy.combos.push(newCombo);
+        setOrder(copy);
     }
 
     const handleAddItem = (type) => {
@@ -80,14 +106,55 @@ const ItemButton = ({ item, type, order, setOrder, itemBuilder, setSelectedItem 
                 handleAddBurger();
                 break;
             case "combo":
-                handleAddCombo();
+                handleShow();
                 break;
             default:
                 break;
         }
     }
 
-    return <Button className="posButton" onClick={() => { handleAddItem(type) }}>{utility.capitalizeEveryFirstLetter(item.name)}</Button>
+    return (
+        <>
+            <Button className="posButton" onClick={() => { handleAddItem(type) }}>{utility.capitalizeEveryFirstLetter(item.name)}</Button>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{utility.capitalizeEveryFirstLetter(item.name)}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Row>
+                        <Col id="drinksCol">
+                            <h3>Select a Drink:</h3>
+                            {
+                                menuItems.drinks.map(d => {
+                                    return (
+                                        <ComboItemButton key={d.id} item={d} order={order} setOrder={setOrder} comboItems={comboItems} setComboItems={setComboItems} type="drink" />
+                                    )
+                                })
+                            }
+                        </Col>
+                        <Col id='sidesCol'>
+                            <h3>Select a Side:</h3>
+                            {
+                                menuItems.sides.map(s => {
+                                    return (
+                                        <ComboItemButton key={s.id} item={s} order={order} setOrder={setOrder} comboItems={comboItems} setComboItems={setComboItems} type="side" />
+                                    )
+                                })
+                            }
+                        </Col>
+                    </Row>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={() => {
+                        handleClose();
+                        handleAddCombo();
+                    }}>
+                        Done
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </>
+    )
 }
 
 export default ItemButton;

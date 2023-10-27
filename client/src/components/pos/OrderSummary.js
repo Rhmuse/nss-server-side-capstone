@@ -20,6 +20,12 @@ const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder, setSelect
         order.sides.forEach(s => {
             subTotal += s.price * s.quantity;
         })
+        order.combos.forEach(c => {
+            subTotal += c.price;
+        })
+        order.burgers.forEach(b => {
+            subTotal += b.price;
+        })
         setSubTotal(subTotal);
 
         let orderSummaryCopy = [...orderSummary];
@@ -49,6 +55,10 @@ const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder, setSelect
             } else {
                 orderSummaryCopy[burgerIndex].quantity = b.quantity;
             }
+        })
+
+        order.combos.forEach(c => {
+            orderSummaryCopy.push(c);
         })
 
         setOrderSummary(orderSummaryCopy);
