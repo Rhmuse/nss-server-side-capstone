@@ -6,7 +6,8 @@ import Utility from '../../../../utility';
 import CategorySelect from '../../CategorySelect';
 
 const utility = new Utility();
-const AddBurgerForm = ({ loadMenuItems, menuItems, setSelectedCategory }) => {
+
+const AddBurgerForm = ({ menuItems, setSelectedCategory }) => {
     const navigate = useNavigate();
 
     const [checkedState, setCheckedState] = useState(
@@ -22,7 +23,6 @@ const AddBurgerForm = ({ loadMenuItems, menuItems, setSelectedCategory }) => {
 
     const handleClick = () => {
         addBurger(newBurger).then(() => {
-            loadMenuItems()
             navigate("/admintools")
         })
     }
@@ -57,7 +57,7 @@ const AddBurgerForm = ({ loadMenuItems, menuItems, setSelectedCategory }) => {
                             menuItems.toppings.map(({ id, name }, index) => {
                                 if (name === "patty") {
                                     return (
-                                        <>
+                                        <div key={`topping-${id}`}>
                                             <br />
                                             <Form.Label>Number of Patties:</Form.Label>
                                             <Form.Control type='number' min={0} onChange={(e) => {
@@ -68,7 +68,7 @@ const AddBurgerForm = ({ loadMenuItems, menuItems, setSelectedCategory }) => {
                                                 }
                                                 setNewBurger(newBurgerCopy);
                                             }} />
-                                        </>
+                                        </div>
                                     )
                                 }
                                 return (

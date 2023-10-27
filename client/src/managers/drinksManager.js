@@ -19,3 +19,13 @@ export const deleteDrink = (id) => {
         method: "DELETE"
     })
 }
+
+export const updateDrink = (drink) => {
+    return fetch(_API_URL, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(drink)
+    }).then(res => res.json())
+}

@@ -19,8 +19,7 @@ public class ToppingsController : ControllerBase
     public IActionResult Get()
     {
         var toppings = _dbContext.Toppings
-            .OrderBy(d => d.Name)
-            .Where(d => !d.IsDeleted);
+            .OrderBy(d => d.Name);
         return Ok(toppings);
     }
 
@@ -52,4 +51,14 @@ public class ToppingsController : ControllerBase
         return NoContent();
     }
 
+    [HttpPut]
+    public IActionResult Put(Topping topping)
+    {
+        var foundTopping = _dbContext.Toppings.SingleOrDefault(d => d.Id == topping.Id);
+        if (foundTopping == null) return NotFound();
+        foundTopping.Name = topping.Name;
+        foundTopping.Price = topping.Price;
+        _dbContext.SaveChanges();
+        return Ok(topping);
+    }
 }

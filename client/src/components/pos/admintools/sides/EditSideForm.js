@@ -1,20 +1,27 @@
-import { Button, Col, Container, Row, Form } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { useNavigate, useParams } from 'react-router-dom';
 import CategorySelect from '../../CategorySelect';
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { addTopping } from '../../../../managers/toppingsManager';
+import { updateSide } from '../../../../managers/sidesManager';
 
-const AddToppingForm = ({ menuItems, setSelectedCategory }) => {
+const EditSideForm = ({ menuItems, setSelectedCategory }) => {
     const navigate = useNavigate();
-    const [newTopping, setNewTopping] = useState(
+    const { id } = useParams();
+    console.log(id);
+    const [side, setSide] = useState(
         {
             name: "",
             price: "0",
         }
     );
 
+    useEffect(() => {
+        const foundSide = menuItems.sides.find(d => d.id === id);
+        setSide(foundSide);
+    }, [])
+
     const handleClick = () => {
-        addTopping(newTopping).then(() => {
+        updateSide(side).then(() => {
             navigate("/admintools")
         })
     }
@@ -23,7 +30,7 @@ const AddToppingForm = ({ menuItems, setSelectedCategory }) => {
         <Container>
             <Row>
                 <Col>
-                    <h1>New Topping</h1>
+                    <h1>Edit Side</h1>
                 </Col>
                 <Col>
                     <CategorySelect menuItems={menuItems} setSelectedCategory={setSelectedCategory} />
@@ -37,31 +44,31 @@ const AddToppingForm = ({ menuItems, setSelectedCategory }) => {
             </Row>
             <Row>
                 <Form>
-                    <Form.Group className="mb-3" controlId="newToppingForm.name" >
+                    <Form.Group className="mb-3" controlId="editSideForm.name" >
                         <Form.Label>Name:</Form.Label>
-                        <Form.Control placeholder='Name of Topping...' type='text' onChange={(e) => {
-                            const copy = { ...newTopping };
+                        <Form.Control value={side.name} placeholder='Name of Side...' type='text' onChange={(e) => {
+                            const copy = { ...side };
                             copy.name = e.target.value;
-                            setNewTopping(copy);
+                            setSide(copy);
                         }} />
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="newToppingForm.price" >
+                    <Form.Group className="mb-3" controlId="editSideForm.price" >
                         <Form.Label>Price:</Form.Label>
-                        <Form.Control placeholder='0' type='number' min={0} onChange={(e) => {
-                            const copy = { ...newTopping };
+                        <Form.Control value={side.price} placeholder='0' type='number' min={0} onChange={(e) => {
+                            const copy = { ...side };
                             copy.price = e.target.value;
-                            setNewTopping(copy);
+                            setSide(copy);
                         }} />
                     </Form.Group>
                 </Form>
             </Row>
             <Row>
                 <Col>
-                    <Button onClick={() => handleClick()}>Save Topping</Button>
+                    <Button onClick={() => handleClick()}>Save Changes</Button>
                 </Col>
             </Row>
         </Container>
     )
 }
 
-export default AddToppingForm;
+export default EditSideForm;

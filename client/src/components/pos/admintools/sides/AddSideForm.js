@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { addSide } from '../../../../managers/sidesManager';
 
-const AddSideForm = ({ menuItems, setSelectedCategory, loadMenuItems }) => {
+const AddSideForm = ({ menuItems, setSelectedCategory }) => {
     const navigate = useNavigate();
     const [newSide, setNewSide] = useState(
         {
@@ -15,7 +15,6 @@ const AddSideForm = ({ menuItems, setSelectedCategory, loadMenuItems }) => {
 
     const handleClick = () => {
         addSide(newSide).then(() => {
-            loadMenuItems()
             navigate("/admintools")
         })
     }
@@ -56,7 +55,7 @@ const AddSideForm = ({ menuItems, setSelectedCategory, loadMenuItems }) => {
             </Row>
             <Row>
                 <Col>
-                    <Button onClick={() => handleClick()}>Save Drink</Button>
+                    <Button onClick={() => handleClick()}>Save Side</Button>
                 </Col>
             </Row>
         </Container>

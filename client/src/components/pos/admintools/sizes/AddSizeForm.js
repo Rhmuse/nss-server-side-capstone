@@ -1,20 +1,21 @@
 import { useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { addDrink } from '../../../../managers/drinksManager';
+import { addSize } from '../../../../managers/sizesManager';
 import CategorySelect from '../../CategorySelect';
 
-const AddDrinkForm = ({ menuItems, setSelectedCategory }) => {
+const AddSizeForm = ({ menuItems, setSelectedCategory }) => {
     const navigate = useNavigate();
-    const [newDrink, setNewDrink] = useState(
+    const [newSize, setNewSize] = useState(
         {
             name: "",
             price: "0",
+            shortHand: "",
         }
     );
 
     const handleClick = () => {
-        addDrink(newDrink).then(() => {
+        addSize(newSize).then(() => {
             navigate("/admintools")
         })
     }
@@ -23,7 +24,7 @@ const AddDrinkForm = ({ menuItems, setSelectedCategory }) => {
         <Container>
             <Row>
                 <Col>
-                    <h1>New Drink</h1>
+                    <h1>New Size</h1>
                 </Col>
                 <Col>
                     <CategorySelect menuItems={menuItems} setSelectedCategory={setSelectedCategory} />
@@ -37,31 +38,39 @@ const AddDrinkForm = ({ menuItems, setSelectedCategory }) => {
             </Row>
             <Row>
                 <Form>
-                    <Form.Group className="mb-3" controlId="newDrinkForm.name" >
+                    <Form.Group className="mb-3" controlId="newSizeForm.name" >
                         <Form.Label>Name:</Form.Label>
-                        <Form.Control placeholder='Name of Drink...' type='text' onChange={(e) => {
-                            const copy = { ...newDrink };
+                        <Form.Control value={newSize.name} placeholder='Name of Size...' type='text' onChange={(e) => {
+                            const copy = { ...newSize };
                             copy.name = e.target.value;
-                            setNewDrink(copy);
+                            setNewSize(copy);
                         }} />
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="newDrinkForm.price" >
+                    <Form.Group className="mb-3" controlId="newSizeForm.shortHand" >
+                        <Form.Label>Shorthand Name:</Form.Label>
+                        <Form.Control value={newSize.shortHand} placeholder='Shorthand Name of Size...' type='text' onChange={(e) => {
+                            const copy = { ...newSize };
+                            copy.shortHand = e.target.value;
+                            setNewSize(copy);
+                        }} />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="newSizeForm.price" >
                         <Form.Label>Price:</Form.Label>
-                        <Form.Control placeholder='0' type='number' min={0} onChange={(e) => {
-                            const copy = { ...newDrink };
+                        <Form.Control value={newSize.price} placeholder='0' type='number' min={0} onChange={(e) => {
+                            const copy = { ...newSize };
                             copy.price = e.target.value;
-                            setNewDrink(copy);
+                            setNewSize(copy);
                         }} />
                     </Form.Group>
                 </Form>
             </Row>
             <Row>
                 <Col>
-                    <Button onClick={() => handleClick()}>Save Drink</Button>
+                    <Button onClick={() => handleClick()}>Save Size</Button>
                 </Col>
             </Row>
         </Container>
     )
 }
 
-export default AddDrinkForm;
+export default AddSizeForm;

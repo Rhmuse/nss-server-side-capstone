@@ -19,3 +19,13 @@ export const deleteTopping = (id) => {
         method: "DELETE"
     })
 }
+
+export const updateTopping = (topping) => {
+    return fetch(_API_URL, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(topping)
+    }).then(res => res.json())
+}

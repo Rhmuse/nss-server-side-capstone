@@ -40,6 +40,17 @@ public class SidesController : ControllerBase
     {
         _dbContext.Sides.Add(side);
         _dbContext.SaveChanges();
-        return Created($"/api/drinks/{side.Id}", side);
+        return Created($"/api/sides/{side.Id}", side);
+    }
+
+    [HttpPut]
+    public IActionResult Put(Side side)
+    {
+        var foundSide = _dbContext.Sides.SingleOrDefault(d => d.Id == side.Id);
+        if (foundSide == null) return NotFound();
+        foundSide.Name = side.Name;
+        foundSide.Price = side.Price;
+        _dbContext.SaveChanges();
+        return Ok(side);
     }
 }
