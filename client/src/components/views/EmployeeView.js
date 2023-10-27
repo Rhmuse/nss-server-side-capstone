@@ -20,6 +20,7 @@ import "./EmployeeView.css";
 import AddToppingForm from '../pos/admintools/toppings/AddToppingForm';
 import EditDrinkForm from '../pos/admintools/drinks/EditDrinkForm';
 import EditToppingForm from '../pos/admintools/toppings/EditToppingForm';
+import EditSideForm from '../pos/admintools/sides/EditSideForm';
 
 
 const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
@@ -143,6 +144,15 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                             <Container>
                                 <LoggedInUserDetails loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
                                 <AddSideForm loadMenuItems={loadMenuItems} menuItems={menuItems} setSelectedCategory={setSelectedCategory} />
+                            </Container>
+                        </AuthorizedRoute>
+                    } />
+
+                    <Route path='sides/edit/:id' element={
+                        <AuthorizedRoute loggedInUser={loggedInUser}>
+                            <Container>
+                                <LoggedInUserDetails loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
+                                <EditSideForm loadMenuItems={loadMenuItems} setSelectedCategory={setSelectedCategory} menuItems={menuItems} />
                             </Container>
                         </AuthorizedRoute>
                     } />

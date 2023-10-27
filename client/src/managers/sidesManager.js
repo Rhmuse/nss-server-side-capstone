@@ -19,3 +19,13 @@ export const addSide = (side) => {
         body: JSON.stringify(side)
     }).then(res => res.json())
 }
+
+export const updateSide = (side) => {
+    return fetch(_API_URL, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(side)
+    }).then(res => res.json())
+}
