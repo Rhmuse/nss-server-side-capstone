@@ -1,6 +1,7 @@
 using KrustyKrab.Data;
 using KrustyKrab.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace KrustyKrab.Controllers;
 
@@ -19,7 +20,11 @@ public class CombosController : ControllerBase
     public IActionResult Get()
     {
         var combos = _dbContext.Combos
-            .Where(c => !c.IsDeleted);
+            .Include(c => c.Burger)
+            .ThenInclude(b => b.BurgerToppings)
+            .ThenInclude(bt => bt.Topping)
+            .Where(c => !c.IsDeleted)
+            .ToList();
         return Ok(combos);
     }
 

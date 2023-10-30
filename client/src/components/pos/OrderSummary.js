@@ -20,6 +20,12 @@ const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder, setSelect
         order.sides.forEach(s => {
             subTotal += s.price * s.quantity;
         })
+        order.combos.forEach(c => {
+            subTotal += c.price;
+        })
+        order.burgers.forEach(b => {
+            subTotal += b.price;
+        })
         setSubTotal(subTotal);
 
         let orderSummaryCopy = [...orderSummary];
@@ -50,6 +56,13 @@ const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder, setSelect
                 orderSummaryCopy[burgerIndex].quantity = b.quantity;
             }
         })
+        order.combos.forEach(c => {
+            const comboIndex = orderSummaryCopy.findIndex(i => i.tempId === c.tempId);
+            if (comboIndex < 0) {
+                orderSummaryCopy.push(c);
+            }
+
+        })
 
         setOrderSummary(orderSummaryCopy);
         setItemBuilder({ quantity: "", sizeId: "" })
@@ -79,7 +92,7 @@ const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder, setSelect
             if (item.sideId === selectedItem.sideId && item.sizeId === selectedItem.sizeId) return true;
         }
         if (item.id) {
-            if (item.id === selectedItem.id) return true;
+            if (item.tempId === selectedItem.tempId) return true;
         }
         return false;
     }
@@ -87,21 +100,53 @@ const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder, setSelect
     const handleSelectedItem = (i) => {
         if (selectedItemMatches(i)) {
             return (
-                <Row className='orderItem selectedItem' key={`orderItem-${i.sizeId}-${i.name}`} onClick={(e) => handleClick(e, i)}>
-                    <Col className='orderItemCol' sm md lg xl="1">{i.quantity}</Col>
-                    <Col className='orderItemCol' sm md lg xl="2">{parseSizeId(i.sizeId)}</Col>
-                    <Col className='orderItemCol' >{utility.capitalizeEveryFirstLetter(i.name)}</Col>
-                    <Col className='orderSummaryMoneyCol orderItemCol' sm md lg xl="3">{currency(i.price * i.quantity).format()}</Col>
-                </Row>
+                <div key={`orderItem-${i.id}-${i.name}-${i.sizeId}`}>
+                    <Row className='orderItem selectedItem' onClick={(e) => handleClick(e, i)}>
+                        <Col className='orderItemCol' sm md lg xl="1">{i.quantity}</Col>
+                        <Col className='orderItemCol' sm md lg xl="2">{parseSizeId(i.sizeId)}</Col>
+                        <Col className='orderItemCol' >{utility.capitalizeEveryFirstLetter(i.name)}</Col>
+                        <Col className='orderSummaryMoneyCol orderItemCol' sm md lg xl="3">{currency(i.price * i.quantity).format()}</Col>
+                    </Row>
+                    {
+                        i.items
+                            ? i.items.map(item => {
+                                return (
+                                    <Row key={`comboItem-${item.id}`} className='comboSubItem'>
+                                        <Col className='orderItemCol' sm md lg xl="1">&#x21B3;</Col>
+                                        <Col className='orderItemCol' sm md lg xl="2">{parseSizeId(item.sizeId)}</Col>
+                                        <Col className='orderItemCol' >{utility.capitalizeEveryFirstLetter(item.name)}</Col>
+                                        <Col className='orderSummaryMoneyCol orderItemCol' sm md lg xl="3"></Col>
+                                    </Row>
+                                )
+                            })
+                            : ""
+                    }
+                </div>
             )
         } else {
             return (
-                <Row className='orderItem' key={`orderItem-${i.sizeId}-${i.name}`} onClick={(e) => handleClick(e, i)}>
-                    <Col sm md lg xl="1">{i.quantity}</Col>
-                    <Col sm md lg xl="2">{parseSizeId(i.sizeId)}</Col>
-                    <Col>{utility.capitalizeEveryFirstLetter(i.name)}</Col>
-                    <Col className='orderSummaryMoneyCol' sm md lg xl="3">{currency(i.price * i.quantity).format()}</Col>
-                </Row>
+                <div key={`orderItem-${i.id}-${i.name}-${i.sizeId}`}>
+                    <Row className='orderItem' onClick={(e) => handleClick(e, i)}>
+                        <Col sm md lg xl="1">{i.quantity}</Col>
+                        <Col sm md lg xl="2">{parseSizeId(i.sizeId)}</Col>
+                        <Col>{utility.capitalizeEveryFirstLetter(i.name)}</Col>
+                        <Col className='orderSummaryMoneyCol' sm md lg xl="3">{currency(i.price * i.quantity).format()}</Col>
+                    </Row>
+                    {
+                        i.items
+                            ? i.items.map(item => {
+                                return (
+                                    <Row key={`comboItem-${item.id}`} className='comboSubItem'>
+                                        <Col className='orderItemCol' sm md lg xl="1">&#x21B3;</Col>
+                                        <Col className='orderItemCol' sm md lg xl="2">{parseSizeId(item.sizeId)}</Col>
+                                        <Col className='orderItemCol' >{utility.capitalizeEveryFirstLetter(item.name)}</Col>
+                                        <Col className='orderSummaryMoneyCol orderItemCol' sm md lg xl="3"></Col>
+                                    </Row>
+                                )
+                            })
+                            : ""
+                    }
+                </div>
             )
         }
     }

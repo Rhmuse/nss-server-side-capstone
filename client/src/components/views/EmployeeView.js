@@ -44,6 +44,7 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
         drinks: [],
         burgers: [],
         sides: [],
+        combos: [],
     });
 
     const [menuItems, setMenuItems] = useState(
