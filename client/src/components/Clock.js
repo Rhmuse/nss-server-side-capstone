@@ -22,9 +22,16 @@ const Clock = () => {
         return () => clearInterval(timer);
     }, []);
 
+    const appendZero = (n) => {
+        if (`${n}`.length === 1) {
+            return `0${n}`
+        }
+        return n;
+    }
+
     return (
         <>
-            {dateTime.hours}:{dateTime.minutes}:{dateTime.seconds}
+            {dateTime.hours}:{appendZero(dateTime.minutes)}:{appendZero(dateTime.seconds)}
         </>
     )
 }
