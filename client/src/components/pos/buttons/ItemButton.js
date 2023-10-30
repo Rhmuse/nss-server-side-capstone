@@ -82,7 +82,7 @@ const ItemButton = ({ item, type, order, setOrder, itemBuilder, setSelectedItem,
 
     const handleAddCombo = () => {
         let copy = { ...order };
-        let newCombo = { id: item.id, name: item.name, items: [], price: 0, tempId: `${item.id}-${tempIdGenerator.next().value}` }
+        let newCombo = { quantity: 1, id: item.id, name: item.name, items: [], price: 0, tempId: `${item.id}-${tempIdGenerator.next().value}` }
         newCombo.items.push(comboItems.side);
         newCombo.items.push(comboItems.drink);
         newCombo.items.push(comboItems.burger);

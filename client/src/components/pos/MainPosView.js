@@ -16,27 +16,32 @@ const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder, 
     const handleDelete = () => {
         const orderCopy = { ...order };
         let orderSummaryCopy = [...orderSummary];
-        let foundItemIndex;
         if (selectedItem.drinkId) {
-            foundItemIndex = orderCopy.drinks.findIndex(d => d.drinkId === selectedItem.drinkId && d.sizeId === selectedItem.sizeId);
+            const foundItemIndex = orderCopy.drinks.findIndex(d => d.drinkId === selectedItem.drinkId && d.sizeId === selectedItem.sizeId);
             orderCopy.drinks = orderCopy.drinks.slice(0, foundItemIndex).concat(orderCopy.drinks.slice(foundItemIndex + 1))
 
             const orderSummaryIndex = orderSummaryCopy.findIndex(d => d.drinkId === selectedItem.drinkId && d.sizeId === selectedItem.sizeId);
             orderSummaryCopy = orderSummaryCopy.slice(0, orderSummaryIndex).concat(orderCopy.drinks.slice(orderSummaryIndex + 1))
         }
         if (selectedItem.sideId) {
-            foundItemIndex = orderCopy.sides.findIndex(s => s.sideId === selectedItem.sideId && s.sizeId === selectedItem.sizeId);
+            const foundItemIndex = orderCopy.sides.findIndex(s => s.sideId === selectedItem.sideId && s.sizeId === selectedItem.sizeId);
             orderCopy.sides = orderCopy.sides.slice(0, foundItemIndex).concat(orderCopy.sides.slice(foundItemIndex + 1))
 
             const orderSummaryIndex = orderSummaryCopy.findIndex(s => s.sideId === selectedItem.sideId && s.sizeId === selectedItem.sizeId);
             orderSummaryCopy = orderSummaryCopy.slice(0, orderSummaryIndex).concat(orderCopy.sides.slice(orderSummaryIndex + 1))
         }
-        if (selectedItem.id) {
-            foundItemIndex = orderCopy.burgers.findIndex(b => b.tempId === selectedItem.tempId);
-            orderCopy.burgers = orderCopy.burgers.slice(0, foundItemIndex).concat(orderCopy.burgers.slice(foundItemIndex + 1))
-
-            const orderSummaryIndex = orderSummaryCopy.findIndex(b => b.tempId === selectedItem.tempId);
-            orderSummaryCopy = orderSummaryCopy.slice(0, orderSummaryIndex).concat(orderCopy.burgers.slice(orderSummaryIndex + 1))
+        if (selectedItem.tempId) {
+            const foundBurgerIndex = orderCopy.burgers.findIndex(b => b.tempId === selectedItem.tempId);
+            if (foundBurgerIndex > -1) {
+                orderCopy.burgers = orderCopy.burgers.slice(0, foundBurgerIndex).concat(orderCopy.burgers.slice(foundBurgerIndex + 1))
+                const orderSummaryIndex = orderSummaryCopy.findIndex(b => b.tempId === selectedItem.tempId);
+                orderSummaryCopy = orderSummaryCopy.slice(0, orderSummaryIndex).concat(orderCopy.burgers.slice(orderSummaryIndex + 1))
+            } else {
+                const foundComboIndex = orderCopy.combos.findIndex(b => b.tempId === selectedItem.tempId);
+                orderCopy.combos = orderCopy.combos.slice(0, foundComboIndex).concat(orderCopy.combos.slice(foundComboIndex + 1))
+                const orderSummaryIndex = orderSummaryCopy.findIndex(b => b.tempId === selectedItem.tempId);
+                orderSummaryCopy = orderSummaryCopy.slice(0, orderSummaryIndex).concat(orderCopy.combos.slice(orderSummaryIndex + 1))
+            }
         }
         setOrderSummary(orderSummaryCopy);
         setOrder(orderCopy);
