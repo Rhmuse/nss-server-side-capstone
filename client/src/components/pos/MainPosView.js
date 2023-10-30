@@ -47,6 +47,20 @@ const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder, 
         setOrder(orderCopy);
     }
 
+    const handleCancel = () => {
+        setOrder({
+            order: {
+                orderTypeId: "",
+                employeeId: loggedInUser.id
+            },
+            drinks: [],
+            burgers: [],
+            sides: [],
+            combos: [],
+        });
+        setOrderSummary([]);
+    }
+
     return (
         <div id="mainPosViewContainer">
             <Row id='numbersRow'>
@@ -105,7 +119,7 @@ const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder, 
                 </Col>
                 <Col md lg="2" id="utilityCol">
                     <Row><Button>Here/ToGo</Button></Row>
-                    <Row><Button>Cancel Order</Button></Row>
+                    <Row><Button onClick={() => handleCancel()}>Cancel Order</Button></Row>
                     {loggedInUser.roles.includes("Admin") && <Row><Button onClick={() => navigate('admintools')}>Admin Tools</Button></Row>}
                 </Col>
             </Row>
