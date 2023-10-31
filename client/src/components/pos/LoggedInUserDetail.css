@@ -1,0 +1,8 @@
+#detailsCol {
+	font-weight: bold;
+	font-size: large;
+}
+
+#detailsCol .row .col .row {
+	padding-bottom: 0.5rem;
+}

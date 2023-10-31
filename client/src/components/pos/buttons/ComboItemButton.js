@@ -1,11 +1,10 @@
 import { Button } from 'react-bootstrap'
-import Utility from '../../../utility';
+import { capitalizeEveryFirstLetter } from '../../../utility';
 
 import "./posButton.css";
 import "./ComboItemButton.css";
 
 const MEDIUM_SIZE = "3baba7e3-f4ca-42bf-9092-929e013bd15f";
-const utility = new Utility();
 
 const ComboItemButton = ({ item, type, comboItems, setComboItems }) => {
 
@@ -48,8 +47,8 @@ const ComboItemButton = ({ item, type, comboItems, setComboItems }) => {
         <>
             {
                 comboItems.drink.drinkId === item.id || comboItems.side.sideId === item.id
-                    ? <Button className="posButton selectedComboItem" onClick={() => { handleAddItem(type) }}>{utility.capitalizeEveryFirstLetter(item.name)}</Button>
-                    : <Button className="posButton" onClick={() => { handleAddItem(type) }}>{utility.capitalizeEveryFirstLetter(item.name)}</Button>
+                    ? <Button className="posButton selectedComboItem" onClick={() => { handleAddItem(type) }}>{capitalizeEveryFirstLetter(item.name)}</Button>
+                    : <Button className="posButton" onClick={() => { handleAddItem(type) }}>{capitalizeEveryFirstLetter(item.name)}</Button>
             }
         </>
     )

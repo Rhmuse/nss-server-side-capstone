@@ -1,8 +1,12 @@
 #mainPosViewContainer {
 	border: rgba(0, 0, 0, 0.471) solid 0.5px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
 }
 
 /* First Row */
+
 #numbersRow .col {
 	display: flex;
 	justify-content: center;
@@ -17,6 +21,7 @@
 }
 
 /* Second Row */
+
 #categoriesRow .col {
 	display: flex;
 	justify-content: space-evenly;

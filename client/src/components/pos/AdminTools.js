@@ -6,14 +6,12 @@ import { deleteSide } from '../../managers/sidesManager';
 import { deleteBurger } from '../../managers/burgersManger';
 import { deleteCombo } from '../../managers/combosManager';
 import { deleteTopping } from '../../managers/toppingsManager';
-import Utility from '../../utility';
+import { capitalizeEveryFirstLetter } from '../../utility';
 import currency from 'currency.js';
 import CategorySelect from './CategorySelect';
 
 import './AdminTools.css';
 import { deleteSize } from '../../managers/sizesManager';
-
-const utility = new Utility();
 
 const AdminTools = ({ menuItems, loadMenuItems, selectedCategory, setSelectedCategory }) => {
     const navigate = useNavigate();
@@ -83,7 +81,7 @@ const AdminTools = ({ menuItems, loadMenuItems, selectedCategory, setSelectedCat
                 <Col>
                     <Button onClick={() => {
                         navigate(`${selectedCategory}/add`)
-                    }}>New {utility.capitalizeEveryFirstLetter(selectedCategory).slice(0, -1)}</Button>
+                    }}>New {capitalizeEveryFirstLetter(selectedCategory).slice(0, -1)}</Button>
                 </Col>
                 <Col>
                     <Button onClick={() => { navigate("/") }}>Return to POS</Button>
@@ -106,7 +104,7 @@ const AdminTools = ({ menuItems, loadMenuItems, selectedCategory, setSelectedCat
                                 itemList.map(i => {
                                     return (
                                         <tr key={i.id}>
-                                            <td>{utility.capitalizeEveryFirstLetter(i.name)}</td>
+                                            <td>{capitalizeEveryFirstLetter(i.name)}</td>
                                             <td>{i.id}</td>
                                             <td>{selectedCategory === "combos" ? `${currency(parseInt(i.discount) * -1).format()}` : currency(i.price).format()}</td>
                                             <td><Button onClick={() => {

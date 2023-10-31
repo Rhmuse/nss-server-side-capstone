@@ -3,10 +3,9 @@ import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import { updateBurger } from '../../../../managers/burgersManger';
 import currency from 'currency.js';
-import Utility from '../../../../utility';
+import { capitalizeEveryFirstLetter } from '../../../../utility';
 import CategorySelect from '../../CategorySelect';
 
-const utility = new Utility();
 const EditBurgerForm = ({ menuItems, setSelectedCategory }) => {
     const navigate = useNavigate();
     const { id } = useParams();
@@ -111,7 +110,7 @@ const EditBurgerForm = ({ menuItems, setSelectedCategory }) => {
                                         setCheckedState(checkedStateCopy);
                                         setBurger(burgerCopy);
 
-                                    }} checked={checkedState[index]} inline value={id} type="checkbox" key={`topping-${id}`} label={`${utility.capitalizeEveryFirstLetter(name)} ${currency(price).format()} ${isDeleted ? "(Deleted)" : ""}`} />
+                                    }} checked={checkedState[index]} inline value={id} type="checkbox" key={`topping-${id}`} label={`${capitalizeEveryFirstLetter(name)} ${currency(price).format()} ${isDeleted ? "(Deleted)" : ""}`} />
                                 )
                             })
                         }

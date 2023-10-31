@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import currency from 'currency.js';
-import Utility from '../../utility';
+import { capitalizeEveryFirstLetter } from '../../utility';
 
 import "./OrderSummary.css";
 
 const TAX = .08;
-
-const utility = new Utility();
 
 const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder, setSelectedItem, selectedItem, orderSummary, setOrderSummary }) => {
     const [subTotal, setSubTotal] = useState(0);
@@ -104,7 +102,7 @@ const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder, setSelect
                     <Row className='orderItem selectedItem' onClick={(e) => handleClick(e, i)}>
                         <Col className='orderItemCol' sm md lg xl="1">{i.quantity}</Col>
                         <Col className='orderItemCol' sm md lg xl="2">{parseSizeId(i.sizeId)}</Col>
-                        <Col className='orderItemCol' >{utility.capitalizeEveryFirstLetter(i.name)}</Col>
+                        <Col className='orderItemCol' >{capitalizeEveryFirstLetter(i.name)}</Col>
                         <Col className='orderSummaryMoneyCol orderItemCol' sm md lg xl="3">{currency(i.price * i.quantity).format()}</Col>
                     </Row>
                     {
@@ -114,7 +112,7 @@ const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder, setSelect
                                     <Row key={`comboItem-${item.id}`} className='comboSubItem'>
                                         <Col className='orderItemCol' sm md lg xl="1">&#x21B3;</Col>
                                         <Col className='orderItemCol' sm md lg xl="2">{parseSizeId(item.sizeId)}</Col>
-                                        <Col className='orderItemCol' >{utility.capitalizeEveryFirstLetter(item.name)}</Col>
+                                        <Col className='orderItemCol' >{capitalizeEveryFirstLetter(item.name)}</Col>
                                         <Col className='orderSummaryMoneyCol orderItemCol' sm md lg xl="3"></Col>
                                     </Row>
                                 )
@@ -129,7 +127,7 @@ const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder, setSelect
                     <Row className='orderItem' onClick={(e) => handleClick(e, i)}>
                         <Col sm md lg xl="1">{i.quantity}</Col>
                         <Col sm md lg xl="2">{parseSizeId(i.sizeId)}</Col>
-                        <Col>{utility.capitalizeEveryFirstLetter(i.name)}</Col>
+                        <Col>{capitalizeEveryFirstLetter(i.name)}</Col>
                         <Col className='orderSummaryMoneyCol' sm md lg xl="3">{currency(i.price * i.quantity).format()}</Col>
                     </Row>
                     {
@@ -139,7 +137,7 @@ const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder, setSelect
                                     <Row key={`comboItem-${item.id}`} className='comboSubItem'>
                                         <Col className='orderItemCol' sm md lg xl="1">&#x21B3;</Col>
                                         <Col className='orderItemCol' sm md lg xl="2">{parseSizeId(item.sizeId)}</Col>
-                                        <Col className='orderItemCol' >{utility.capitalizeEveryFirstLetter(item.name)}</Col>
+                                        <Col className='orderItemCol' >{capitalizeEveryFirstLetter(item.name)}</Col>
                                         <Col className='orderSummaryMoneyCol orderItemCol' sm md lg xl="3"></Col>
                                     </Row>
                                 )

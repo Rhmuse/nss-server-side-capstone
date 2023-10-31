@@ -1,11 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import Utility from '../../../../utility';
+import { capitalizeEveryFirstLetter } from '../../../../utility';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { useState } from 'react';
 import CategorySelect from '../../CategorySelect';
 import { addCombo } from '../../../../managers/combosManager';
-
-const utility = new Utility();
 
 const AddComboForm = ({ menuItems, setSelectedCategory }) => {
     const navigate = useNavigate();
@@ -67,7 +65,7 @@ const AddComboForm = ({ menuItems, setSelectedCategory }) => {
                             {
                                 menuItems.burgers.map(b => {
                                     return (
-                                        <option key={`${b.id}-option`} value={b.id}>{utility.capitalizeEveryFirstLetter(b.name)}</option>
+                                        <option key={`${b.id}-option`} value={b.id}>{capitalizeEveryFirstLetter(b.name)}</option>
                                     )
                                 })
                             }

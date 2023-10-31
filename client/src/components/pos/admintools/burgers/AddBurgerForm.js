@@ -2,10 +2,8 @@ import { useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { addBurger } from '../../../../managers/burgersManger';
-import Utility from '../../../../utility';
+import { capitalizeEveryFirstLetter } from '../../../../utility';
 import CategorySelect from '../../CategorySelect';
-
-const utility = new Utility();
 
 const AddBurgerForm = ({ menuItems, setSelectedCategory }) => {
     const navigate = useNavigate();
@@ -85,7 +83,7 @@ const AddBurgerForm = ({ menuItems, setSelectedCategory }) => {
                                         setCheckedState(checkedStateCopy);
                                         setNewBurger(newBurgerCopy);
 
-                                    }} checked={checkedState[index]} inline value={id} type="checkbox" key={`topping-${id}`} label={utility.capitalizeEveryFirstLetter(name)} />
+                                    }} checked={checkedState[index]} inline value={id} type="checkbox" key={`topping-${id}`} label={capitalizeEveryFirstLetter(name)} />
                                 )
                             })
                         }
