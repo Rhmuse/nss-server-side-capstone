@@ -28,3 +28,18 @@
 .orderItemCol {
 	pointer-events: none;
 }
+
+.comboSubItem {
+	pointer-events: all;
+}
+
+.comboSubItem :hover {
+	pointer-events: all;
+	cursor: pointer;
+}
+
+.comboSubItemCol {
+	font-size: small;
+	font-weight: bold;
+	pointer-events: none;
+}
