@@ -1,4 +1,4 @@
-import { Button, Col, Container, Modal, Row } from 'react-bootstrap';
+import { Button, Col, Modal, Row } from 'react-bootstrap';
 import { capitalizeEveryFirstLetter } from '../../utility';
 import ItemButton from './buttons/ItemButton';
 import NumberButton from './buttons/NumberButton';

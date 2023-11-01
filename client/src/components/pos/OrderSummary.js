@@ -74,14 +74,14 @@ const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder, setSelect
     const handleClick = (e, item) => {
         e.preventDefault();
         if (selectedItemMatches(item)) {
-            if (e.target.className = "comboSubItem row selectedItem") {
+            if (e.target.className === "comboSubItem row selectedItem") {
                 e.target.className = "comboSubItem row"
             } else {
                 e.target.className = 'orderItem row'
             }
             setSelectedItem({});
         } else {
-            if (e.target.className = "comboSubItem row") {
+            if (e.target.className === "comboSubItem row") {
                 e.target.className = "comboSubItem row selectedItem"
             } else {
                 e.target.className = 'orderItem selectedItem row';
