@@ -6,7 +6,7 @@ public class Order
     public Guid OrderTypeId { get; set; }
     public Guid? CustomerId { get; set; }
     public Guid EmployeeId { get; set; }
-    public DateTime OrderTime { get; set; }
+    public DateTime OrderTime { get; set; } = DateTime.Now;
     public OrderType? OrderType { get; set; }
     public UserProfile? Customer { get; set; }
     public UserProfile? Employee { get; set; }

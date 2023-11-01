@@ -1,13 +1,14 @@
-import { Button, Col, Container, Modal, Row } from 'react-bootstrap';
+import { Button, Col, Modal, Row } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { capitalizeEveryFirstLetter } from '../../utility';
+import { postOrder } from '../../managers/orderManager';
 import ItemButton from './buttons/ItemButton';
 import NumberButton from './buttons/NumberButton';
 import SizeButton from './buttons/SizeButton';
+import BurgerModButton from './buttons/BurgerModButton';
 
 import "./MainPosView.css";
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import BurgerModButton from './buttons/BurgerModButton';
 
 const numberArr = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
@@ -57,7 +58,7 @@ const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder, 
     const handleCancel = () => {
         setOrder({
             order: {
-                orderTypeId: "",
+                orderTypeId: "f859731c-a421-493e-bc41-e7f16fbcc530",
                 employeeId: loggedInUser.id
             },
             drinks: [],
@@ -76,6 +77,21 @@ const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder, 
             }
             handleShow();
         }
+    }
+
+    const handleCompleteOrder = () => {
+        postOrder(order).then(() => {
+            setOrder({
+                order: {
+                    orderTypeId: "f859731c-a421-493e-bc41-e7f16fbcc530",
+                    employeeId: loggedInUser.id,
+                },
+                drinks: [],
+                burgers: [],
+                sides: [],
+                combos: [],
+            });
+        });
     }
 
     return (
@@ -146,7 +162,7 @@ const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder, 
                     <Row><Button className='posButton' onClick={() => { handleDelete() }}>Delete</Button></Row>
                 </Col>
                 <Col></Col>
-                <Col id='completeCol' md lg="2"><Button className='posButton'>Complete Order</Button></Col>
+                <Col id='completeCol' md lg="2"><Button onClick={() => handleCompleteOrder()} className='posButton'>Complete Order</Button></Col>
             </Row>
             <Modal show={show} onHide={handleClose} size='xl' id="modifyModal">
                 <Modal.Header closeButton>
@@ -157,7 +173,6 @@ const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder, 
                         <Col className='burgerModToppingCol'>
                             {
                                 selectedItem?.burgerToppings?.map(t => {
-                                    console.log(t);
                                     return (
                                         <BurgerModButton key={`topping-button-${t.toppingId}`} topping={t.topping} order={order} setOrder={setOrder} selected={false} type="no" selectedItem={selectedItem} menuItems={menuItems} />
                                     )
@@ -168,7 +183,7 @@ const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder, 
                             {
                                 menuItems.toppings.map(t => {
                                     return (
-                                        <BurgerModButton key={`topping-button-${t.toppingid}`} topping={t} order={order} setOrder={setOrder} selected={false} type="extra" selectedItem={selectedItem} menuItems={menuItems} />
+                                        <BurgerModButton key={`topping-button-${t.id}-extra`} topping={t} order={order} setOrder={setOrder} selected={false} type="extra" selectedItem={selectedItem} menuItems={menuItems} />
                                     )
                                 })
                             }
@@ -177,7 +192,7 @@ const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder, 
                             {
                                 menuItems.toppings.map(t => {
                                     return (
-                                        <BurgerModButton key={`topping-button-${t.id}`} topping={t} order={order} setOrder={setOrder} selected={false} type="add" selectedItem={selectedItem} menuItems={menuItems} />
+                                        <BurgerModButton key={`topping-button-${t.id}-add`} topping={t} order={order} setOrder={setOrder} selected={false} type="add" selectedItem={selectedItem} menuItems={menuItems} />
                                     )
                                 })
                             }

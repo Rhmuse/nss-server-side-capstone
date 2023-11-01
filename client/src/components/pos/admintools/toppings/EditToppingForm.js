@@ -7,7 +7,6 @@ import { updateTopping } from '../../../../managers/toppingsManager';
 const EditToppingForm = ({ menuItems, setSelectedCategory }) => {
     const navigate = useNavigate();
     const { id } = useParams();
-    console.log(id);
     const [topping, setTopping] = useState(
         {
             name: "",

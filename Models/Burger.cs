@@ -18,7 +18,14 @@ public class Burger
                 float total = 0F;
                 BurgerToppings.ForEach(t =>
                 {
-                    total += t.Topping.Price;
+                    if (t.Extra)
+                    {
+                        total += t.Topping.Price * 2;
+                    }
+                    else
+                    {
+                        total += t.Topping.Price;
+                    }
                 });
                 return total;
             }

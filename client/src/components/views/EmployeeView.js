@@ -38,7 +38,7 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
 
     const [order, setOrder] = useState({
         order: {
-            orderTypeId: "",
+            orderTypeId: "f859731c-a421-493e-bc41-e7f16fbcc530",
             employeeId: loggedInUser.id
         },
         drinks: [],

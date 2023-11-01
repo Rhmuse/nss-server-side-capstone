@@ -145,7 +145,7 @@ const ItemButton = ({ item, type, order, setOrder, itemBuilder, setSelectedItem,
                     </Row>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick={() => {
+                    <Button className='posButton' onClick={() => {
                         handleClose();
                         handleAddCombo();
                     }}>

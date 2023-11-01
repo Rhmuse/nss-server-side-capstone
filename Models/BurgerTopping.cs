@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace KrustyKrab.Models;
 
 public class BurgerTopping
