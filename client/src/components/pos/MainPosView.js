@@ -142,33 +142,51 @@ const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder, 
             </Row>
             <Row id="bottomRow">
                 <Col md lg="2" id='modDeleteCol'>
-                    <Row><Button className='posButton' onClick={() => { handleModify() }}>Burger Modify</Button></Row>
+                    <Row><Button className='posButton' onClick={() => { handleModify() }}>Modify</Button></Row>
                     <Row><Button className='posButton' onClick={() => { handleDelete() }}>Delete</Button></Row>
                 </Col>
                 <Col></Col>
                 <Col id='completeCol' md lg="2"><Button className='posButton'>Complete Order</Button></Col>
             </Row>
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose} size='xl' id="modifyModal">
                 <Modal.Header closeButton>
                     <Modal.Title>Modify {capitalizeEveryFirstLetter(selectedItem.burger ? selectedItem.burger.name : selectedItem.name)} </Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
-                    <Container>
-                        {
-                            menuItems.toppings.map(t => {
-                                return (
-                                    <BurgerModButton topping={t} key={`topping-${t.id}`} />
-                                )
-                            })
-                        }
-                    </Container>
+                <Modal.Body id='burgerModToppingsContainer'>
+                    <Row>
+                        <Col className='burgerModToppingCol'>
+                            {
+                                selectedItem?.burgerToppings?.map(t => {
+                                    console.log(t);
+                                    return (
+                                        <BurgerModButton key={`topping-button-${t.toppingId}`} topping={t.topping} order={order} setOrder={setOrder} selected={false} type="no" selectedItem={selectedItem} menuItems={menuItems} />
+                                    )
+                                })
+                            }
+                        </Col>
+                        <Col className='burgerModToppingCol'>
+                            {
+                                menuItems.toppings.map(t => {
+                                    return (
+                                        <BurgerModButton key={`topping-button-${t.toppingid}`} topping={t} order={order} setOrder={setOrder} selected={false} type="extra" selectedItem={selectedItem} menuItems={menuItems} />
+                                    )
+                                })
+                            }
+                        </Col>
+                        <Col className='burgerModToppingCol'>
+                            {
+                                menuItems.toppings.map(t => {
+                                    return (
+                                        <BurgerModButton key={`topping-button-${t.id}`} topping={t} order={order} setOrder={setOrder} selected={false} type="add" selectedItem={selectedItem} menuItems={menuItems} />
+                                    )
+                                })
+                            }
+                        </Col>
+                    </Row>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={handleClose}>
-                        Save Changes
+                    <Button className='posButton' onClick={handleClose}>
+                        Done
                     </Button>
                 </Modal.Footer>
             </Modal>

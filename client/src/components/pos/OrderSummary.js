@@ -22,7 +22,7 @@ const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder, setSelect
             subTotal += c.price;
         })
         order.burgers.forEach(b => {
-            subTotal += b.price;
+            subTotal += b.price * b.quantity;
         })
         setSubTotal(subTotal);
 
@@ -127,6 +127,20 @@ const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder, setSelect
                             })
                             : ""
                     }
+                    {
+                        i.isModified
+                            ? i.modifications.map(mod => {
+                                return (
+                                    <Row key={`modification-${mod.id}`}>
+                                        <Col className='comboSubItemCol' sm md lg xl="1">-</Col>
+                                        <Col className='comboSubItemCol' sm md lg xl="2">{capitalizeEveryFirstLetter(mod.modification)}</Col>
+                                        <Col className='comboSubItemCol' >{capitalizeEveryFirstLetter(mod.topping.name)}</Col>
+                                        <Col className='orderSummaryMoneyCol comboSubItemCol' sm md lg xl="3"></Col>
+                                    </Row>
+                                )
+                            })
+                            : ""
+                    }
                 </div>
             )
         } else {
@@ -146,6 +160,20 @@ const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder, setSelect
                                         <Col className='comboSubItemCol' sm md lg xl="1"></Col>
                                         <Col className='comboSubItemCol' sm md lg xl="2">{parseSizeId(item.sizeId)}</Col>
                                         <Col className='comboSubItemCol' >{capitalizeEveryFirstLetter(item.name)}</Col>
+                                        <Col className='orderSummaryMoneyCol comboSubItemCol' sm md lg xl="3"></Col>
+                                    </Row>
+                                )
+                            })
+                            : ""
+                    }
+                    {
+                        i.isModified
+                            ? i.modifications.map(mod => {
+                                return (
+                                    <Row key={`modification-${mod.id}`}>
+                                        <Col className='comboSubItemCol' sm md lg xl="1">-</Col>
+                                        <Col className='comboSubItemCol' sm md lg xl="2">{capitalizeEveryFirstLetter(mod.modification)}</Col>
+                                        <Col className='comboSubItemCol' >{capitalizeEveryFirstLetter(mod.topping.name)}</Col>
                                         <Col className='orderSummaryMoneyCol comboSubItemCol' sm md lg xl="3"></Col>
                                     </Row>
                                 )

@@ -73,7 +73,8 @@ const ItemButton = ({ item, type, order, setOrder, itemBuilder, setSelectedItem,
             copy.burgers[index].quantity = parseInt(copy.burgers[index].quantity) + parseInt(itemBuilder.quantity);
         } else {
             if (!itemBuilder.quantity) itemBuilder.quantity = 1;
-            let newBurger = { id: item.id, quantity: itemBuilder.quantity, name: item.name, price: item.price, tempId: item.id + tempIdGenerator.next().value, isModified: false }
+            const foundBurger = menuItems.burgers.find(b => b.id === item.id);
+            let newBurger = { id: item.id, quantity: itemBuilder.quantity, name: item.name, price: item.price, tempId: item.id + tempIdGenerator.next().value, isModified: false, burgerToppings: [...foundBurger.burgerToppings] }
             copy.burgers.push(newBurger);
         }
         setOrder(copy);
