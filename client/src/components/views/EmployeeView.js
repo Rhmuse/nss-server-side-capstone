@@ -26,6 +26,8 @@ import { getAllSizes } from '../../managers/sizesManager';
 import { getAllBurgers } from '../../managers/burgersManger';
 import { getAllToppings } from '../../managers/toppingsManager';
 import "./EmployeeView.css";
+import { getAllOrders } from '../../managers/orderManager';
+import { getAllOrderTypes } from '../../managers/orderTypesManager';
 
 
 const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
@@ -35,10 +37,16 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
         quantity: "",
         sizeId: "",
     });
+    const [orders, setOrders] = useState([]);
+
+    useEffect(() => {
+        loadMenuItems();
+        loadOrders();
+    }, []);
 
     const [order, setOrder] = useState({
         order: {
-            orderTypeId: "f859731c-a421-493e-bc41-e7f16fbcc530",
+            orderTypeId: "",
             employeeId: loggedInUser.id
         },
         drinks: [],
@@ -55,28 +63,30 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
             sizes: [],
             burgers: [],
             toppings: [],
+            orderTypes: [],
         }
     );
 
     const [selectedItem, setSelectedItem] = useState({});
 
-    useEffect(() => {
-        loadMenuItems();
-    }, []);
 
     const loadMenuItems = () => {
         let menuItems = {};
-        Promise.all([getAllDrinks(), getAllSides(), getAllCombos(), getAllSizes(), getAllBurgers(), getAllToppings()]).then(res => {
+        Promise.all([getAllDrinks(), getAllSides(), getAllCombos(), getAllSizes(), getAllBurgers(), getAllToppings(), getAllOrderTypes()]).then(res => {
             menuItems.drinks = res[0];
             menuItems.sides = res[1];
             menuItems.combos = res[2];
             menuItems.sizes = res[3];
             menuItems.burgers = res[4];
             menuItems.toppings = res[5];
+            menuItems.orderTypes = res[6];
             setMenuItems(menuItems);
         })
     };
 
+    const loadOrders = () => {
+        getAllOrders().then(setOrders)
+    }
     return (
         <Routes>
             <Route path="/">
@@ -97,7 +107,7 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                                     <Col id='employeeViewRightCol'>
                                         <LoggedInUserDetails loggedInUser={loggedInUser} />
                                         <Row id='mainPosViewRow'>
-                                            <MainPosView orderSummary={orderSummary} setOrderSummary={setOrderSummary} setSelectedItem={setSelectedItem} selectedItem={selectedItem} menuItems={menuItems} order={order} setOrder={setOrder} setItemBuilder={setItemBuilder} itemBuilder={itemBuilder} loggedInUser={loggedInUser} />
+                                            <MainPosView orderSummary={orderSummary} setOrderSummary={setOrderSummary} setSelectedItem={setSelectedItem} selectedItem={selectedItem} menuItems={menuItems} order={order} setOrder={setOrder} setItemBuilder={setItemBuilder} itemBuilder={itemBuilder} loggedInUser={loggedInUser} loadOrders={loadOrders} />
                                         </Row>
                                     </Col>
                                 </Row>

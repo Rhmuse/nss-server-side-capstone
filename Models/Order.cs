@@ -13,4 +13,5 @@ public class Order
     public List<Burger>? Burgers { get; set; }
     public List<OrderDrink>? Drinks { get; set; }
     public List<OrderSide>? Sides { get; set; }
+    public List<ComboItem>? ComboItems { get; set; }
 }

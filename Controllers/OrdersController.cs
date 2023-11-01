@@ -1,6 +1,7 @@
 using KrustyKrab.Data;
 using KrustyKrab.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace KrustyKrab.Controllers;
 
@@ -18,7 +19,17 @@ public class OrdersController : ControllerBase
     [HttpGet]
     public IActionResult Get()
     {
-        var orders = _dbContext.Orders;
+        var orders = _dbContext.Orders
+            .Include(o => o.Burgers)
+            .ThenInclude(b => b.BurgerToppings)
+            .ThenInclude(bt => bt.Topping)
+            .Include(o => o.Sides)
+            .ThenInclude(s => s.Side)
+            .Include(o => o.Drinks)
+            .ThenInclude(d => d.Drink)
+            .Include(o => o.ComboItems)
+            .Include(o => o.OrderType)
+            .ToList();
         return Ok(orders);
     }
 
@@ -38,6 +49,7 @@ public class OrdersController : ControllerBase
 
             };
             _dbContext.OrderDrinks.Add(newOrderDrink);
+            System.Console.WriteLine("stop");
         });
 
         orderDto.OrderSideDtos.ForEach(s =>

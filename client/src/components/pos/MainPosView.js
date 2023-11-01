@@ -12,7 +12,7 @@ import "./MainPosView.css";
 
 const numberArr = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
-const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder, setSelectedItem, selectedItem, setOrderSummary, orderSummary, loggedInUser }) => {
+const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder, setSelectedItem, selectedItem, setOrderSummary, orderSummary, loggedInUser, loadOrders }) => {
     const navigate = useNavigate();
 
     const [show, setShow] = useState(false);
@@ -56,9 +56,10 @@ const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder, 
     }
 
     const handleCancel = () => {
+        const mediumOrderType = menuItems.orderTypes.find(ot => ot.name === "here");
         setOrder({
             order: {
-                orderTypeId: "f859731c-a421-493e-bc41-e7f16fbcc530",
+                orderTypeId: mediumOrderType.id,
                 employeeId: loggedInUser.id
             },
             drinks: [],
@@ -80,17 +81,24 @@ const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder, 
     }
 
     const handleCompleteOrder = () => {
+        const mediumOrderType = menuItems.orderTypes.find(ot => ot.name === "here");
+        if (order.orderTypeId = "") {
+            const orderCopy = { ...order };
+            orderCopy.orderTypeId = mediumOrderType.id;
+        }
         postOrder(order).then(() => {
-            setOrder({
-                order: {
-                    orderTypeId: "f859731c-a421-493e-bc41-e7f16fbcc530",
-                    employeeId: loggedInUser.id,
-                },
-                drinks: [],
-                burgers: [],
-                sides: [],
-                combos: [],
-            });
+            loadOrders();
+            // setOrder({
+            //     order: {
+            //         orderTypeId: "f859731c-a421-493e-bc41-e7f16fbcc530",
+            //         employeeId: loggedInUser.id,
+            //     },
+            //     drinks: [],
+            //     burgers: [],
+            //     sides: [],
+            //     combos: [],
+            // });
+            // setOrderSummary([]);
         });
     }
 

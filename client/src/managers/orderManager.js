@@ -1,5 +1,9 @@
 const _API_URL = "/api/orders";
 
+export const getAllOrders = () => {
+    return fetch(_API_URL).then(res => res.json());
+}
+
 export const postOrder = (order) => {
     const orderCopy = {
         order: order.order,
