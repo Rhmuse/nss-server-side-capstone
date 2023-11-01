@@ -2,6 +2,7 @@
 	border: 1px solid black;
 	height: 100%;
 	display: flex;
+	background-color: rgba(80, 229, 255, 0.5);
 	flex-direction: column;
 	justify-content: space-between;
 }
@@ -25,5 +26,20 @@
 }
 
 .orderItemCol {
+	pointer-events: none;
+}
+
+.comboSubItem {
+	pointer-events: all;
+}
+
+.comboSubItem :hover {
+	pointer-events: all;
+	cursor: pointer;
+}
+
+.comboSubItemCol {
+	font-size: small;
+	font-weight: bold;
 	pointer-events: none;
 }

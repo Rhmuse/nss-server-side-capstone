@@ -1,8 +1,7 @@
 import { Form } from 'react-bootstrap';
-import Utility from '../../utility';
+import { capitalizeEveryFirstLetter } from '../../utility';
 import { useNavigate } from 'react-router-dom';
 
-const utility = new Utility()
 const CategorySelect = ({ menuItems, setSelectedCategory }) => {
     const navigate = useNavigate();
     let categoryArr = [];
@@ -15,7 +14,7 @@ const CategorySelect = ({ menuItems, setSelectedCategory }) => {
             {
                 categoryArr.map(c => {
                     return (
-                        <option key={`${c}-option`} value={c}>{utility.capitalizeEveryFirstLetter(c)}</option>
+                        <option key={`${c}-option`} value={c}>{capitalizeEveryFirstLetter(c)}</option>
                     )
                 })
             }

@@ -1,7 +1,6 @@
 import { Button } from 'react-bootstrap'
-import Utility from '../../../utility';
+import { capitalizeEveryFirstLetter } from '../../../utility';
 
-const utility = new Utility();
 const SizeButton = ({ size, setItemBuilder, itemBuilder }) => {
     const handleClick = () => {
         const copy = { ...itemBuilder }
@@ -10,8 +9,8 @@ const SizeButton = ({ size, setItemBuilder, itemBuilder }) => {
     }
 
     return (
-        <Button onClick={() => { handleClick() }}>
-            {utility.capitalizeEveryFirstLetter(size.name)}
+        <Button className='posButton' onClick={() => { handleClick() }}>
+            {capitalizeEveryFirstLetter(size.name)}
         </Button>
     )
 }

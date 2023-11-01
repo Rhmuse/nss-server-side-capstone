@@ -8,7 +8,7 @@ const NumberButton = ({ value, setItemBuilder, itemBuilder }) => {
     }
 
     return (
-        <Button onClick={() => handleClick()}>
+        <Button className="posButton" onClick={() => handleClick()}>
             {value}
         </Button>
     )

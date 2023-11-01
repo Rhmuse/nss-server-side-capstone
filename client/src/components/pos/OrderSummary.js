@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import currency from 'currency.js';
-import Utility from '../../utility';
+import { capitalizeEveryFirstLetter } from '../../utility';
 
 import "./OrderSummary.css";
 
 const TAX = .08;
-
-const utility = new Utility();
 
 const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder, setSelectedItem, selectedItem, orderSummary, setOrderSummary }) => {
     const [subTotal, setSubTotal] = useState(0);
@@ -24,7 +22,7 @@ const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder, setSelect
             subTotal += c.price;
         })
         order.burgers.forEach(b => {
-            subTotal += b.price;
+            subTotal += b.price * b.quantity;
         })
         setSubTotal(subTotal);
 
@@ -76,10 +74,18 @@ const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder, setSelect
     const handleClick = (e, item) => {
         e.preventDefault();
         if (selectedItemMatches(item)) {
-            e.target.className = 'orderItem'
+            if (e.target.className = "comboSubItem row selectedItem") {
+                e.target.className = "comboSubItem row"
+            } else {
+                e.target.className = 'orderItem row'
+            }
             setSelectedItem({});
         } else {
-            e.target.className = 'orderItem selectedItem';
+            if (e.target.className = "comboSubItem row") {
+                e.target.className = "comboSubItem row selectedItem"
+            } else {
+                e.target.className = 'orderItem selectedItem row';
+            }
             setSelectedItem(item)
         }
     };
@@ -104,18 +110,32 @@ const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder, setSelect
                     <Row className='orderItem selectedItem' onClick={(e) => handleClick(e, i)}>
                         <Col className='orderItemCol' sm md lg xl="1">{i.quantity}</Col>
                         <Col className='orderItemCol' sm md lg xl="2">{parseSizeId(i.sizeId)}</Col>
-                        <Col className='orderItemCol' >{utility.capitalizeEveryFirstLetter(i.name)}</Col>
+                        <Col className='orderItemCol' >{capitalizeEveryFirstLetter(i.name)}</Col>
                         <Col className='orderSummaryMoneyCol orderItemCol' sm md lg xl="3">{currency(i.price * i.quantity).format()}</Col>
                     </Row>
                     {
                         i.items
                             ? i.items.map(item => {
                                 return (
-                                    <Row key={`comboItem-${item.id}`} className='comboSubItem'>
-                                        <Col className='orderItemCol' sm md lg xl="1">&#x21B3;</Col>
-                                        <Col className='orderItemCol' sm md lg xl="2">{parseSizeId(item.sizeId)}</Col>
-                                        <Col className='orderItemCol' >{utility.capitalizeEveryFirstLetter(item.name)}</Col>
-                                        <Col className='orderSummaryMoneyCol orderItemCol' sm md lg xl="3"></Col>
+                                    <Row key={`comboItem-${item.id}`} className='comboSubItem' onClick={(e) => handleClick(e, i)}>
+                                        <Col className='comboSubItemCol' sm md lg xl="1"></Col>
+                                        <Col className='comboSubItemCol' sm md lg xl="2">{parseSizeId(item.sizeId)}</Col>
+                                        <Col className='comboSubItemCol' >{capitalizeEveryFirstLetter(item.name)}</Col>
+                                        <Col className='orderSummaryMoneyCol comboSubItemCol' sm md lg xl="3"></Col>
+                                    </Row>
+                                )
+                            })
+                            : ""
+                    }
+                    {
+                        i.isModified
+                            ? i.modifications.map(mod => {
+                                return (
+                                    <Row key={`modification-${mod.id}`}>
+                                        <Col className='comboSubItemCol' sm md lg xl="1">-</Col>
+                                        <Col className='comboSubItemCol' sm md lg xl="2">{capitalizeEveryFirstLetter(mod.modification)}</Col>
+                                        <Col className='comboSubItemCol' >{capitalizeEveryFirstLetter(mod.topping.name)}</Col>
+                                        <Col className='orderSummaryMoneyCol comboSubItemCol' sm md lg xl="3"></Col>
                                     </Row>
                                 )
                             })
@@ -129,18 +149,32 @@ const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder, setSelect
                     <Row className='orderItem' onClick={(e) => handleClick(e, i)}>
                         <Col sm md lg xl="1">{i.quantity}</Col>
                         <Col sm md lg xl="2">{parseSizeId(i.sizeId)}</Col>
-                        <Col>{utility.capitalizeEveryFirstLetter(i.name)}</Col>
+                        <Col>{capitalizeEveryFirstLetter(i.name)}</Col>
                         <Col className='orderSummaryMoneyCol' sm md lg xl="3">{currency(i.price * i.quantity).format()}</Col>
                     </Row>
                     {
                         i.items
                             ? i.items.map(item => {
                                 return (
-                                    <Row key={`comboItem-${item.id}`} className='comboSubItem'>
-                                        <Col className='orderItemCol' sm md lg xl="1">&#x21B3;</Col>
-                                        <Col className='orderItemCol' sm md lg xl="2">{parseSizeId(item.sizeId)}</Col>
-                                        <Col className='orderItemCol' >{utility.capitalizeEveryFirstLetter(item.name)}</Col>
-                                        <Col className='orderSummaryMoneyCol orderItemCol' sm md lg xl="3"></Col>
+                                    <Row key={`comboItem-${item.id}`} className='comboSubItem' onClick={(e) => handleClick(e, i)}>
+                                        <Col className='comboSubItemCol' sm md lg xl="1"></Col>
+                                        <Col className='comboSubItemCol' sm md lg xl="2">{parseSizeId(item.sizeId)}</Col>
+                                        <Col className='comboSubItemCol' >{capitalizeEveryFirstLetter(item.name)}</Col>
+                                        <Col className='orderSummaryMoneyCol comboSubItemCol' sm md lg xl="3"></Col>
+                                    </Row>
+                                )
+                            })
+                            : ""
+                    }
+                    {
+                        i.isModified
+                            ? i.modifications.map(mod => {
+                                return (
+                                    <Row key={`modification-${mod.id}`}>
+                                        <Col className='comboSubItemCol' sm md lg xl="1">-</Col>
+                                        <Col className='comboSubItemCol' sm md lg xl="2">{capitalizeEveryFirstLetter(mod.modification)}</Col>
+                                        <Col className='comboSubItemCol' >{capitalizeEveryFirstLetter(mod.topping.name)}</Col>
+                                        <Col className='orderSummaryMoneyCol comboSubItemCol' sm md lg xl="3"></Col>
                                     </Row>
                                 )
                             })

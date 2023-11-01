@@ -1,18 +1,24 @@
-import { Button, Col, Row } from 'react-bootstrap';
-import Utility from '../../utility';
+import { Button, Col, Container, Modal, Row } from 'react-bootstrap';
+import { capitalizeEveryFirstLetter } from '../../utility';
 import ItemButton from './buttons/ItemButton';
 import NumberButton from './buttons/NumberButton';
 import SizeButton from './buttons/SizeButton';
 
 import "./MainPosView.css";
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import BurgerModButton from './buttons/BurgerModButton';
 
 const numberArr = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
-const utility = new Utility();
-
 const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder, setSelectedItem, selectedItem, setOrderSummary, orderSummary, loggedInUser }) => {
     const navigate = useNavigate();
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     const handleDelete = () => {
         const orderCopy = { ...order };
         let orderSummaryCopy = [...orderSummary];
@@ -43,6 +49,7 @@ const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder, 
                 orderSummaryCopy = orderSummaryCopy.slice(0, orderSummaryIndex).concat(orderCopy.combos.slice(orderSummaryIndex + 1))
             }
         }
+        setSelectedItem({});
         setOrderSummary(orderSummaryCopy);
         setOrder(orderCopy);
     }
@@ -59,6 +66,16 @@ const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder, 
             combos: [],
         });
         setOrderSummary([]);
+    }
+
+    const handleModify = () => {
+        if (selectedItem.tempId) {
+            if (selectedItem.burger) {
+                handleShow();
+                return;
+            }
+            handleShow();
+        }
     }
 
     return (
@@ -118,19 +135,61 @@ const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder, 
                     </Row>
                 </Col>
                 <Col md lg="2" id="utilityCol">
-                    <Row><Button>Here/ToGo</Button></Row>
-                    <Row><Button onClick={() => handleCancel()}>Cancel Order</Button></Row>
-                    {loggedInUser.roles.includes("Admin") && <Row><Button onClick={() => navigate('admintools')}>Admin Tools</Button></Row>}
+                    <Row><Button className='posButton'>Here/ToGo</Button></Row>
+                    <Row><Button className='posButton' onClick={() => handleCancel()}>Cancel Order</Button></Row>
+                    {loggedInUser.roles.includes("Admin") && <Row><Button className='posButton' onClick={() => navigate('admintools')}>Admin Tools</Button></Row>}
                 </Col>
             </Row>
             <Row id="bottomRow">
                 <Col md lg="2" id='modDeleteCol'>
-                    <Row><Button>Burger Modify</Button></Row>
-                    <Row><Button onClick={() => { handleDelete() }}>Delete</Button></Row>
+                    <Row><Button className='posButton' onClick={() => { handleModify() }}>Modify</Button></Row>
+                    <Row><Button className='posButton' onClick={() => { handleDelete() }}>Delete</Button></Row>
                 </Col>
                 <Col></Col>
-                <Col id='completeCol' md lg="2"><Button>Complete Order</Button></Col>
+                <Col id='completeCol' md lg="2"><Button className='posButton'>Complete Order</Button></Col>
             </Row>
+            <Modal show={show} onHide={handleClose} size='xl' id="modifyModal">
+                <Modal.Header closeButton>
+                    <Modal.Title>Modify {capitalizeEveryFirstLetter(selectedItem.burger ? selectedItem.burger.name : selectedItem.name)} </Modal.Title>
+                </Modal.Header>
+                <Modal.Body id='burgerModToppingsContainer'>
+                    <Row>
+                        <Col className='burgerModToppingCol'>
+                            {
+                                selectedItem?.burgerToppings?.map(t => {
+                                    console.log(t);
+                                    return (
+                                        <BurgerModButton key={`topping-button-${t.toppingId}`} topping={t.topping} order={order} setOrder={setOrder} selected={false} type="no" selectedItem={selectedItem} menuItems={menuItems} />
+                                    )
+                                })
+                            }
+                        </Col>
+                        <Col className='burgerModToppingCol'>
+                            {
+                                menuItems.toppings.map(t => {
+                                    return (
+                                        <BurgerModButton key={`topping-button-${t.toppingid}`} topping={t} order={order} setOrder={setOrder} selected={false} type="extra" selectedItem={selectedItem} menuItems={menuItems} />
+                                    )
+                                })
+                            }
+                        </Col>
+                        <Col className='burgerModToppingCol'>
+                            {
+                                menuItems.toppings.map(t => {
+                                    return (
+                                        <BurgerModButton key={`topping-button-${t.id}`} topping={t} order={order} setOrder={setOrder} selected={false} type="add" selectedItem={selectedItem} menuItems={menuItems} />
+                                    )
+                                })
+                            }
+                        </Col>
+                    </Row>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button className='posButton' onClick={handleClose}>
+                        Done
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </ div>
     )
 }

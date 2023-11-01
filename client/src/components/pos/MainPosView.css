@@ -1,8 +1,12 @@
 #mainPosViewContainer {
 	border: rgba(0, 0, 0, 0.471) solid 0.5px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
 }
 
 /* First Row */
+
 #numbersRow .col {
 	display: flex;
 	justify-content: center;
@@ -17,6 +21,7 @@
 }
 
 /* Second Row */
+
 #categoriesRow .col {
 	display: flex;
 	justify-content: space-evenly;
@@ -109,4 +114,41 @@
 
 #completeCol button {
 	padding: 0.5rem 2rem;
+}
+
+#burgerModToppingsContainer {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	height: 45vh;
+	width: auto;
+}
+
+.burgerModToppingCol {
+	display: flex;
+	flex-wrap: wrap;
+	height: 100%;
+	flex-direction: row;
+}
+
+#burgerModToppingsContainer button {
+	margin: 0.2rem;
+	font-size: 1rem;
+}
+
+.modal-content {
+	background-color: rgba(80, 229, 255, 0.75);
+}
+
+.modal-header {
+	background-color: rgba(80, 229, 255, 0.8);
+}
+
+.modal-footer {
+	background-color: rgba(80, 229, 255, 0.8);
+}
+
+.modal-footer button {
+	height: 6rem;
+	width: 9rem;
 }

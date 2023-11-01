@@ -1,13 +1,12 @@
 import { Button, Col, Modal, Row } from 'react-bootstrap';
 import ComboItemButton from './ComboItemButton';
-import Utility from '../../../utility';
+import { capitalizeEveryFirstLetter } from '../../../utility';
 
 import "./posButton.css";
 import { useState } from 'react';
 
 const MEDIUM_SIZE = "3baba7e3-f4ca-42bf-9092-929e013bd15f";
 
-const utility = new Utility();
 const generator = function* () {
     let i = 1;
     while (true) {
@@ -74,7 +73,8 @@ const ItemButton = ({ item, type, order, setOrder, itemBuilder, setSelectedItem,
             copy.burgers[index].quantity = parseInt(copy.burgers[index].quantity) + parseInt(itemBuilder.quantity);
         } else {
             if (!itemBuilder.quantity) itemBuilder.quantity = 1;
-            let newBurger = { id: item.id, quantity: itemBuilder.quantity, name: item.name, price: item.price, tempId: item.id + tempIdGenerator.next().value, isModified: false }
+            const foundBurger = menuItems.burgers.find(b => b.id === item.id);
+            let newBurger = { id: item.id, quantity: itemBuilder.quantity, name: item.name, price: item.price, tempId: item.id + tempIdGenerator.next().value, isModified: false, burgerToppings: [...foundBurger.burgerToppings] }
             copy.burgers.push(newBurger);
         }
         setOrder(copy);
@@ -115,10 +115,10 @@ const ItemButton = ({ item, type, order, setOrder, itemBuilder, setSelectedItem,
 
     return (
         <>
-            <Button className="posButton" onClick={() => { handleAddItem(type) }}>{utility.capitalizeEveryFirstLetter(item.name)}</Button>
+            <Button className="posButton" onClick={() => { handleAddItem(type) }}>{capitalizeEveryFirstLetter(item.name)}</Button>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>{utility.capitalizeEveryFirstLetter(item.name)}</Modal.Title>
+                    <Modal.Title>{capitalizeEveryFirstLetter(item.name)}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Row>
