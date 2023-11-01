@@ -7,7 +7,6 @@ import { updateDrink } from '../../../../managers/drinksManager';
 const EditDrinkForm = ({ menuItems, setSelectedCategory }) => {
     const navigate = useNavigate();
     const { id } = useParams();
-    console.log(id);
     const [drink, setDrink] = useState(
         {
             name: "",

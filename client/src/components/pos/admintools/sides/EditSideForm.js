@@ -7,7 +7,6 @@ import { updateSide } from '../../../../managers/sidesManager';
 const EditSideForm = ({ menuItems, setSelectedCategory }) => {
     const navigate = useNavigate();
     const { id } = useParams();
-    console.log(id);
     const [side, setSide] = useState(
         {
             name: "",

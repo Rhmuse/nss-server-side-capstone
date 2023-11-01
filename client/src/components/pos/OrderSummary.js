@@ -117,7 +117,7 @@ const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder, setSelect
                         i.items
                             ? i.items.map(item => {
                                 return (
-                                    <Row key={`comboItem-${item.id}`} className='comboSubItem' onClick={(e) => handleClick(e, i)}>
+                                    <Row key={`comboItem-${item.name}-${i.id}`} className='comboSubItem' onClick={(e) => handleClick(e, i)}>
                                         <Col className='comboSubItemCol' sm md lg xl="1"></Col>
                                         <Col className='comboSubItemCol' sm md lg xl="2">{parseSizeId(item.sizeId)}</Col>
                                         <Col className='comboSubItemCol' >{capitalizeEveryFirstLetter(item.name)}</Col>
@@ -131,7 +131,7 @@ const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder, setSelect
                         i.isModified
                             ? i.modifications.map(mod => {
                                 return (
-                                    <Row key={`modification-${mod.id}`}>
+                                    <Row key={`modification-${mod.topping.id}-${i.id}`}>
                                         <Col className='comboSubItemCol' sm md lg xl="1">-</Col>
                                         <Col className='comboSubItemCol' sm md lg xl="2">{capitalizeEveryFirstLetter(mod.modification)}</Col>
                                         <Col className='comboSubItemCol' >{capitalizeEveryFirstLetter(mod.topping.name)}</Col>
@@ -156,7 +156,7 @@ const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder, setSelect
                         i.items
                             ? i.items.map(item => {
                                 return (
-                                    <Row key={`comboItem-${item.id}`} className='comboSubItem' onClick={(e) => handleClick(e, i)}>
+                                    <Row key={`comboItem-${item.name}-${i.id}`} className='comboSubItem' onClick={(e) => handleClick(e, i)}>
                                         <Col className='comboSubItemCol' sm md lg xl="1"></Col>
                                         <Col className='comboSubItemCol' sm md lg xl="2">{parseSizeId(item.sizeId)}</Col>
                                         <Col className='comboSubItemCol' >{capitalizeEveryFirstLetter(item.name)}</Col>
@@ -170,7 +170,7 @@ const OrderSummary = ({ order, menuItems, itemBuilder, setItemBuilder, setSelect
                         i.isModified
                             ? i.modifications.map(mod => {
                                 return (
-                                    <Row key={`modification-${mod.id}`}>
+                                    <Row key={`modification-${mod.topping.id}-${i.id}`}>
                                         <Col className='comboSubItemCol' sm md lg xl="1">-</Col>
                                         <Col className='comboSubItemCol' sm md lg xl="2">{capitalizeEveryFirstLetter(mod.modification)}</Col>
                                         <Col className='comboSubItemCol' >{capitalizeEveryFirstLetter(mod.topping.name)}</Col>
