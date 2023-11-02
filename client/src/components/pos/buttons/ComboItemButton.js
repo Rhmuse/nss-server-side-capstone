@@ -4,14 +4,13 @@ import { capitalizeEveryFirstLetter } from '../../../utility';
 import "./posButton.css";
 import "./ComboItemButton.css";
 
-const MEDIUM_SIZE = "3baba7e3-f4ca-42bf-9092-929e013bd15f";
-
-const ComboItemButton = ({ item, type, comboItems, setComboItems }) => {
+const ComboItemButton = ({ item, type, comboItems, setComboItems, menuItems }) => {
 
     const handleAddDrink = () => {
+        const mediumSize = menuItems.sizes.find(s => s.name === "medium");
         let copy = { ...comboItems };
         copy.drink = {
-            sizeId: MEDIUM_SIZE,
+            sizeId: mediumSize.id,
             drinkId: item.id,
             name: item.name,
             price: item.price
@@ -20,9 +19,10 @@ const ComboItemButton = ({ item, type, comboItems, setComboItems }) => {
     }
 
     const handleAddSide = () => {
+        const mediumSize = menuItems.sizes.find(s => s.name === "medium");
         let copy = { ...comboItems };
         copy.side = {
-            sizeId: MEDIUM_SIZE,
+            sizeId: mediumSize.id,
             sideId: item.id,
             name: item.name,
             price: item.price

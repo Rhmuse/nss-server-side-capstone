@@ -56,10 +56,10 @@ const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder, 
     }
 
     const handleCancel = () => {
-        const mediumOrderType = menuItems.orderTypes.find(ot => ot.name === "here");
+        const hereOrderType = menuItems.orderTypes.find(ot => ot.name === "here");
         setOrder({
             order: {
-                orderTypeId: mediumOrderType.id,
+                orderTypeId: hereOrderType.id,
                 employeeId: loggedInUser.id
             },
             drinks: [],

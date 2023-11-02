@@ -1,5 +1,5 @@
 const PreviousOrdersList = () => {
-    return <>Previous Orders List</>
+    return <></>
 }
 
 export default PreviousOrdersList;

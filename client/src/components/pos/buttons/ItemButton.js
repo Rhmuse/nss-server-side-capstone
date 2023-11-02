@@ -5,8 +5,6 @@ import { capitalizeEveryFirstLetter } from '../../../utility';
 import "./posButton.css";
 import { useState } from 'react';
 
-const MEDIUM_SIZE = "3baba7e3-f4ca-42bf-9092-929e013bd15f";
-
 const generator = function* () {
     let i = 1;
     while (true) {
@@ -34,8 +32,9 @@ const ItemButton = ({ item, type, order, setOrder, itemBuilder, setSelectedItem,
     }
 
     const handleAddDrink = () => {
+        const mediumSize = menuItems.sizes.find(s => s.name === "medium");
         let copy = { ...order };
-        if (!itemBuilder.sizeId) itemBuilder.sizeId = MEDIUM_SIZE;
+        if (!itemBuilder.sizeId) itemBuilder.sizeId = mediumSize.id;
         const index = copy.drinks.findIndex(d => d.drinkId === item.id && d.sizeId === itemBuilder.sizeId)
         if (index >= 0) {
             if (!itemBuilder.quantity) itemBuilder.quantity = 1;
@@ -50,8 +49,9 @@ const ItemButton = ({ item, type, order, setOrder, itemBuilder, setSelectedItem,
     }
 
     const handleAddSide = () => {
+        const mediumSize = menuItems.sizes.find(s => s.name === "medium");
         let copy = { ...order };
-        if (!itemBuilder.sizeId) itemBuilder.sizeId = MEDIUM_SIZE;
+        if (!itemBuilder.sizeId) itemBuilder.sizeId = mediumSize.id;
         const index = copy.sides.findIndex(s => s.sideId === item.id && s.sizeId === itemBuilder.sizeId)
         if (index >= 0) {
             if (!itemBuilder.quantity) itemBuilder.quantity = 1;
@@ -127,7 +127,7 @@ const ItemButton = ({ item, type, order, setOrder, itemBuilder, setSelectedItem,
                             {
                                 menuItems.drinks.map(d => {
                                     return (
-                                        <ComboItemButton key={d.id} item={d} order={order} setOrder={setOrder} comboItems={comboItems} setComboItems={setComboItems} type="drink" />
+                                        <ComboItemButton key={d.id} menuItems={menuItems} item={d} order={order} setOrder={setOrder} comboItems={comboItems} setComboItems={setComboItems} type="drink" />
                                     )
                                 })
                             }
@@ -137,7 +137,7 @@ const ItemButton = ({ item, type, order, setOrder, itemBuilder, setSelectedItem,
                             {
                                 menuItems.sides.map(s => {
                                     return (
-                                        <ComboItemButton key={s.id} item={s} order={order} setOrder={setOrder} comboItems={comboItems} setComboItems={setComboItems} type="side" />
+                                        <ComboItemButton key={s.id} menuItems={menuItems} item={s} order={order} setOrder={setOrder} comboItems={comboItems} setComboItems={setComboItems} type="side" />
                                     )
                                 })
                             }
