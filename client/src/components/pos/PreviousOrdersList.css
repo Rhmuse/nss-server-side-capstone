@@ -1,0 +1,14 @@
+.orderListId {
+	border-bottom: solid black 1px;
+	font-weight: bold;
+}
+
+.orderListDetails {
+	border-bottom: solid black 2px;
+	font-weight: bold;
+}
+
+#previousOrdersContainer {
+	background-color: rgba(80, 229, 255, 0.5);
+	height: 100%;
+}

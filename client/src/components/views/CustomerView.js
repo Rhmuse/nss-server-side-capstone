@@ -9,7 +9,7 @@ const CustomerView = ({ loggedInUser, setLoggedInUser }) => {
                 <Route
                     index
                     element={
-                        <>home</>
+                        <></>
                     }
                 />
                 <Route

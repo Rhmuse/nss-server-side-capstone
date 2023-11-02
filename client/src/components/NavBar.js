@@ -1,6 +1,8 @@
 import { NavLink as RRNavLink } from "react-router-dom";
 import { logout } from "../managers/authManager";
 import { Button, Nav, Navbar } from 'react-bootstrap';
+import "./Navbar.css";
+
 
 export default function NavBar({ loggedInUser, setLoggedInUser }) {
   return (
@@ -8,28 +10,18 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
       <Navbar fixed="true" expand="lg">
         <Navbar.Brand className="mr-auto" tag={RRNavLink} to="/">
           <img
-            src=""
+            src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.pngkey.com%2Fpng%2Ffull%2F190-1905067_krabby-patty-png.png&f=1&nofb=1&ipt=d382e63fb7dedc0aad73c7997355764d1d205ccba7b450996d853a3d53b6be72&ipo=images"
             alt="Krusty Krab Logo"
-            height={50}
+            height={200}
             style={{ marginRight: "8px" }}
           />
-          Krusty Krab
         </Navbar.Brand>
         {loggedInUser ? (
           <>
             <Nav>
-              <Nav.Item>
-                <Nav.Link as={RRNavLink} to="/">
-                  Home
-                </Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link as={RRNavLink} to="/menu">
-                  Menu
-                </Nav.Link>
-              </Nav.Item>
             </Nav>
             <Button
+              className='loginButton'
               color="primary"
               onClick={(e) => {
                 e.preventDefault();
@@ -45,7 +37,7 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
           <Nav navbar>
             <Nav.Item>
               <Nav.Link as={RRNavLink} to="/login">
-                <Button color="primary">Login</Button>
+                <Button className='loginButton' color="primary">Login</Button>
               </Nav.Link>
             </Nav.Item>
           </Nav>

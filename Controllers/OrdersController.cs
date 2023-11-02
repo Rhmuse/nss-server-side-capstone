@@ -23,17 +23,31 @@ public class OrdersController : ControllerBase
             .Include(o => o.Burgers)
             .ThenInclude(b => b.BurgerToppings)
             .ThenInclude(bt => bt.Topping)
-            .Include(o => o.Sides)
+            .Include(o => o.OrderSides)
             .ThenInclude(s => s.Side)
-            .Include(o => o.Drinks)
+            .Include(o => o.OrderSides)
+            .ThenInclude(s => s.Size)
+            .Include(o => o.OrderDrinks)
             .ThenInclude(d => d.Drink)
+            .Include(o => o.OrderDrinks)
+            .ThenInclude(od => od.Size)
             .Include(o => o.OrderType)
             .Include(o => o.OrderCombos)
             .ThenInclude(oc => oc.OrderDrink)
+            .ThenInclude(od => od.Drink)
+            .Include(o => o.OrderCombos)
+            .ThenInclude(oc => oc.OrderDrink)
+            .ThenInclude(oc => oc.Size)
             .Include(o => o.OrderCombos)
             .ThenInclude(oc => oc.OrderSide)
+            .ThenInclude(s => s.Side)
+            .Include(o => o.OrderCombos)
+            .ThenInclude(oc => oc.OrderSide)
+            .ThenInclude(s => s.Size)
             .Include(o => o.OrderCombos)
             .ThenInclude(oc => oc.Burger)
+            .Include(o => o.Employee)
+            .OrderByDescending(o => o.OrderTime)
             .ToList();
         return Ok(orders);
     }
@@ -54,7 +68,6 @@ public class OrdersController : ControllerBase
 
             };
             _dbContext.OrderDrinks.Add(newOrderDrink);
-            System.Console.WriteLine("stop");
         });
 
         orderDto.OrderSideDtos.ForEach(s =>
@@ -126,6 +139,7 @@ public class OrdersController : ControllerBase
             Burger newBurger = new()
             {
                 OrderId = orderDto.Order.Id,
+                OrderComboId = newOrderCombo.Id,
                 Quantity = c.Quantity,
                 IsInCombo = true,
             };

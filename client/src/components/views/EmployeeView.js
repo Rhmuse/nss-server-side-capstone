@@ -28,6 +28,8 @@ import { getAllToppings } from '../../managers/toppingsManager';
 import "./EmployeeView.css";
 import { getAllOrders } from '../../managers/orderManager';
 import { getAllOrderTypes } from '../../managers/orderTypesManager';
+import OrdersList from '../pos/admintools/orders/OrdersList';
+import OrderDetails from '../pos/admintools/orders/OrderDetails';
 
 
 const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
@@ -100,12 +102,12 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                                         <Row id="orderSummaryRow">
                                             <OrderSummary orderSummary={orderSummary} setOrderSummary={setOrderSummary} selectedItem={selectedItem} setSelectedItem={setSelectedItem} menuItems={menuItems} order={order} itemBuilder={itemBuilder} setItemBuilder={setItemBuilder} />
                                         </Row>
-                                        <Row>
-                                            <PreviousOrdersList />
+                                        <Row id='previousOrdersContainerRow'>
+                                            <PreviousOrdersList orders={orders} />
                                         </Row>
                                     </Col>
                                     <Col id='employeeViewRightCol'>
-                                        <LoggedInUserDetails loggedInUser={loggedInUser} />
+                                        <LoggedInUserDetails loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
                                         <Row id='mainPosViewRow'>
                                             <MainPosView orderSummary={orderSummary} setOrderSummary={setOrderSummary} setSelectedItem={setSelectedItem} selectedItem={selectedItem} menuItems={menuItems} order={order} setOrder={setOrder} setItemBuilder={setItemBuilder} itemBuilder={itemBuilder} loggedInUser={loggedInUser} loadOrders={loadOrders} />
                                         </Row>
@@ -235,6 +237,23 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                             <Container>
                                 <LoggedInUserDetails loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
                                 <EditToppingForm loadMenuItems={loadMenuItems} setSelectedCategory={setSelectedCategory} menuItems={menuItems} />
+                            </Container>
+                        </AuthorizedRoute>
+                    } />
+                    {/* Orders */}
+                    <Route path='orders' element={
+                        <AuthorizedRoute loggedInUser={loggedInUser}>
+                            <Container>
+                                <LoggedInUserDetails loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
+                                <OrdersList orders={orders} menuItems={menuItems} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
+                            </Container>
+                        </AuthorizedRoute>
+                    } />
+                    <Route path='orders/:orderId' element={
+                        <AuthorizedRoute loggedInUser={loggedInUser}>
+                            <Container>
+                                <LoggedInUserDetails loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
+                                <OrderDetails orders={orders} menuItems={menuItems} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
                             </Container>
                         </AuthorizedRoute>
                     } />
