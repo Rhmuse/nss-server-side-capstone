@@ -48,8 +48,6 @@ const BurgerModButton = ({ topping, order, setOrder, selectedItem, type, selecte
         )
     } else if (type === "extra") {
         if (topping.name === "bun") return;
-        const foundBurger = menuItems.burgers.find(b => b.id === selectedItem.id)
-        if (foundBurger.burgerToppings.find(bt => bt.toppingId === topping.id)) return;
         return (
             <Button onClick={() => { handleClick() }} className={`posButton selectedTopping toppingEx burgerModButton`}>Ex {capitalizeEveryFirstLetter(topping.name)}</Button>
         )

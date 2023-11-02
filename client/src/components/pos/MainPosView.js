@@ -88,17 +88,17 @@ const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder, 
         }
         postOrder(orderCopy).then(() => {
             loadOrders();
-            // setOrder({
-            //     order: {
-            //         orderTypeId: "f859731c-a421-493e-bc41-e7f16fbcc530",
-            //         employeeId: loggedInUser.id,
-            //     },
-            //     drinks: [],
-            //     burgers: [],
-            //     sides: [],
-            //     combos: [],
-            // });
-            // setOrderSummary([]);
+            setOrder({
+                order: {
+                    orderTypeId: "f859731c-a421-493e-bc41-e7f16fbcc530",
+                    employeeId: loggedInUser.id,
+                },
+                drinks: [],
+                burgers: [],
+                sides: [],
+                combos: [],
+            });
+            setOrderSummary([]);
         });
     }
 
@@ -182,7 +182,7 @@ const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder, 
                             {
                                 selectedItem?.burgerToppings?.map(t => {
                                     return (
-                                        <BurgerModButton key={`topping-button-${t.toppingId}`} topping={t.topping} order={order} setOrder={setOrder} selected={false} type="no" selectedItem={selectedItem} menuItems={menuItems} />
+                                        <BurgerModButton key={`topping-button-${t.toppingId}-no`} topping={t.topping} order={order} setOrder={setOrder} selected={false} type="no" selectedItem={selectedItem} menuItems={menuItems} />
                                     )
                                 })
                             }
