@@ -67,7 +67,6 @@ public class OrdersController : ControllerBase
 
             };
             _dbContext.OrderDrinks.Add(newOrderDrink);
-            System.Console.WriteLine("stop");
         });
 
         orderDto.OrderSideDtos.ForEach(s =>
