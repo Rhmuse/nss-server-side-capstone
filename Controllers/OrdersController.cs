@@ -138,6 +138,7 @@ public class OrdersController : ControllerBase
             Burger newBurger = new()
             {
                 OrderId = orderDto.Order.Id,
+                OrderComboId = newOrderCombo.Id,
                 Quantity = c.Quantity,
                 IsInCombo = true,
             };

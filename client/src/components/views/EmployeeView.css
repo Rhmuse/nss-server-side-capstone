@@ -33,3 +33,7 @@
 	height: 15%;
 	border: black solid 1px 0px 1px 1px;
 }
+
+#previousOrdersContainerRow {
+	height: 25% !important;
+}

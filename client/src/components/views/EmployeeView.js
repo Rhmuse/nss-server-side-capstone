@@ -100,8 +100,8 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                                         <Row id="orderSummaryRow">
                                             <OrderSummary orderSummary={orderSummary} setOrderSummary={setOrderSummary} selectedItem={selectedItem} setSelectedItem={setSelectedItem} menuItems={menuItems} order={order} itemBuilder={itemBuilder} setItemBuilder={setItemBuilder} />
                                         </Row>
-                                        <Row>
-                                            <PreviousOrdersList />
+                                        <Row id='previousOrdersContainerRow'>
+                                            <PreviousOrdersList orders={orders} />
                                         </Row>
                                     </Col>
                                     <Col id='employeeViewRightCol'>
