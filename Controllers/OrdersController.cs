@@ -27,8 +27,13 @@ public class OrdersController : ControllerBase
             .ThenInclude(s => s.Side)
             .Include(o => o.Drinks)
             .ThenInclude(d => d.Drink)
-            .Include(o => o.ComboItems)
             .Include(o => o.OrderType)
+            .Include(o => o.OrderCombos)
+            .ThenInclude(oc => oc.OrderDrink)
+            .Include(o => o.OrderCombos)
+            .ThenInclude(oc => oc.OrderSide)
+            .Include(o => o.OrderCombos)
+            .ThenInclude(oc => oc.Burger)
             .ToList();
         return Ok(orders);
     }
@@ -87,15 +92,53 @@ public class OrdersController : ControllerBase
 
         orderDto.ComboDtos.ForEach(c =>
         {
-            c.ComboItemDtos.ForEach(ci =>
+            OrderCombo newOrderCombo = new()
             {
-                ComboItem newComboItem = new()
+                ComboId = c.Id,
+                OrderId = orderDto.Order.Id,
+                Quantity = c.Quantity,
+            };
+            _dbContext.OrderCombos.Add(newOrderCombo);
+
+            OrderDrink newOrderDrink = new()
+            {
+                OrderId = orderDto.Order.Id,
+                DrinkId = c.OrderDrinkDto.DrinkId,
+                SizeId = c.OrderDrinkDto.SizeId,
+                OrderComboId = newOrderCombo.Id,
+                Quantity = c.Quantity,
+                IsInCombo = true,
+            };
+            _dbContext.OrderDrinks.Add(newOrderDrink);
+
+            OrderSide newOrderSide = new()
+            {
+                OrderId = orderDto.Order.Id,
+                SideId = c.OrderSideDto.SideId,
+                SizeId = c.OrderSideDto.SizeId,
+                OrderComboId = newOrderCombo.Id,
+                Quantity = c.Quantity,
+                IsInCombo = true,
+
+            };
+            _dbContext.OrderSides.Add(newOrderSide);
+
+            Burger newBurger = new()
+            {
+                OrderId = orderDto.Order.Id,
+                Quantity = c.Quantity,
+                IsInCombo = true,
+            };
+            _dbContext.Burgers.Add(newBurger);
+            c.BurgerDto.BurgerToppingDtos.ForEach(bt =>
+            {
+                BurgerTopping newBurgerTopping = new()
                 {
-                    ComboId = c.Id,
-                    ItemId = ci.OrderItemId,
-                    OrderId = orderDto.Order.Id
+                    BurgerId = newBurger.Id,
+                    ToppingId = bt.ToppingId,
+                    Extra = bt.Extra,
                 };
-                _dbContext.ComboItems.Add(newComboItem);
+                _dbContext.BurgerToppings.Add(newBurgerTopping);
             });
         });
         _dbContext.SaveChanges();

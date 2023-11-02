@@ -113,14 +113,77 @@ export const postOrder = (order) => {
     order.combos.forEach(c => {
         const newComboObj = {
             id: c.id,
-            comboItemDtos: [],
+            orderSideDto: {},
+            orderDrinkDto: {},
+            burgerDto: {},
+            quantity: c.quantity
         }
         c.items.forEach(i => {
-            const newItemObj = {
-                orderItemId: i.sideId,
+            if (i.sideId) {
+                const newSideObj = {
+                    sizeId: i.sizeId,
+                    sideId: i.sideId,
+                    isInCombo: true,
+                    quantity: c.quantity,
+                }
+                newComboObj.orderSideDto = newSideObj;
+            } else if (i.drinkId) {
+                const newDrinkObj = {
+                    sizeId: i.sizeId,
+                    drinkId: i.drinkId,
+                    isInCombo: true,
+                    quantity: c.quantity,
+                }
+                newComboObj.orderDrinkDto = newDrinkObj;
+            } else {
+                const newBurgerObj = {
+                    quantity: c.quantity,
+                    price: i.price,
+                    isModified: false,
+                    burgerToppingDtos: [],
+                }
+                i.burgerToppings.forEach(bt => {
+                    if (i.isModified) {
+                        const foundMod = i.modifications.find(m => m.topping.id === bt.toppingId);
+                        if (foundMod) {
+                            let newBurgerToppingObj;
+                            switch (foundMod.modification) {
+                                case 'no':
+                                    break;
+                                case 'add':
+                                    newBurgerToppingObj = {
+                                        toppingId: foundMod.topping.id,
+                                        extra: false
+                                    }
+                                    newBurgerObj.burgerToppingDtos.push(newBurgerToppingObj);
+                                    break;
+                                case 'extra':
+                                    newBurgerToppingObj = {
+                                        toppingId: foundMod.topping.id,
+                                        extra: true
+                                    }
+                                    newBurgerObj.burgerToppingDtos.push(newBurgerToppingObj);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        } else {
+                            const newBurgerToppingObj = {
+                                toppingId: bt.toppingId,
+                                extra: bt.extra
+                            }
+                            newBurgerObj.burgerToppingDtos.push(newBurgerToppingObj);
+                        }
+                    } else {
+                        const newBurgerToppingObj = {
+                            toppingId: bt.toppingId,
+                            extra: bt.extra
+                        }
+                        newBurgerObj.burgerToppingDtos.push(newBurgerToppingObj);
+                    }
+                    newComboObj.burgerDto = newBurgerObj;
+                })
             }
-            if (i.sizeId) newItemObj.sizeId = i.sizeId;
-            newComboObj.comboItemDtos.push(newItemObj);
         })
         orderCopy.comboDtos.push(newComboObj);
     })

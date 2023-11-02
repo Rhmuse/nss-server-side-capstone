@@ -19,8 +19,8 @@ public class KrustyKrabDbContext : IdentityDbContext<IdentityUser>
     public DbSet<Drink> Drinks { get; set; }
     public DbSet<OrderType> OrderTypes { get; set; }
     public DbSet<Combo> Combos { get; set; }
-    public DbSet<ComboItem> ComboItems { get; set; }
     public DbSet<Size> Sizes { get; set; }
+    public DbSet<OrderCombo> OrderCombos { get; set; }
 
     public KrustyKrabDbContext(DbContextOptions<KrustyKrabDbContext> context, IConfiguration config) : base(context)
     {
@@ -48,6 +48,7 @@ public class KrustyKrabDbContext : IdentityDbContext<IdentityUser>
         Guid firstBurgerId = Guid.NewGuid();
         Guid firstComboBurgerId = Guid.NewGuid();
         Guid secondComboBurgerId = Guid.NewGuid();
+        Guid fourthBurgerId = Guid.NewGuid();
         // Drinks
         Guid drKelpId = Guid.NewGuid();
         Guid dietDrKelpId = Guid.NewGuid();
@@ -57,6 +58,8 @@ public class KrustyKrabDbContext : IdentityDbContext<IdentityUser>
         Guid waterId = Guid.NewGuid();
         // Orders
         Guid firstOrderId = Guid.NewGuid();
+        // OrderCombos
+        Guid firstOrderComboId = Guid.NewGuid();
         // Sides
         Guid coralBitsId = Guid.NewGuid();
         Guid barnacleRingsId = Guid.NewGuid();
@@ -69,8 +72,10 @@ public class KrustyKrabDbContext : IdentityDbContext<IdentityUser>
         Guid pickupId = Guid.NewGuid();
         // OrderDrinks
         Guid orderDrinkId = Guid.NewGuid();
+        Guid orderDrinkId2 = Guid.NewGuid();
         // OrderSide 
         Guid orderSideId = Guid.NewGuid();
+        Guid orderSideId2 = Guid.NewGuid();
         // Toppings
         Guid lettuceId = Guid.NewGuid();
         Guid tomatoId = Guid.NewGuid();
@@ -95,8 +100,6 @@ public class KrustyKrabDbContext : IdentityDbContext<IdentityUser>
            new IdentityRole{ Id = "c3aaeb97-d2ba-4a53-a521-4eea61e59b35", Name = "Admin", NormalizedName = "admin" },
            new IdentityRole{ Id = employeeIRId, Name = "Employee", NormalizedName = "employee"},
         });
-
-
 
         modelBuilder.Entity<IdentityUser>().HasData(new IdentityUser[]
         {
@@ -126,9 +129,10 @@ public class KrustyKrabDbContext : IdentityDbContext<IdentityUser>
 
         modelBuilder.Entity<Burger>().HasData(new Burger[]
         {
-            new Burger{ Id = firstBurgerId, Quantity = 1, OrderId = firstOrderId },
+            new Burger{ Id = firstBurgerId, Quantity = 2, OrderId = firstOrderId },
             new Burger{ Id = firstComboBurgerId, Quantity = 1, Name = "krabby patty" },
-            new Burger{ Id = secondComboBurgerId, Quantity = 1, Name = "double krabby patty" }
+            new Burger{ Id = secondComboBurgerId, Quantity = 1, Name = "double krabby patty" },
+            new Burger{ Id = fourthBurgerId, Quantity = 1, OrderId = firstOrderId, IsInCombo = true, OrderComboId = firstOrderComboId }
         });
 
         modelBuilder.Entity<Combo>().HasData(new Combo[]
@@ -149,6 +153,7 @@ public class KrustyKrabDbContext : IdentityDbContext<IdentityUser>
             new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = secondComboBurgerId, ToppingId = ketchupId },
             new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = secondComboBurgerId, ToppingId = mustardId },
             new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = secondComboBurgerId, ToppingId = bunId },
+            new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = secondComboBurgerId, ToppingId = cheeseId },
             new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstComboBurgerId, ToppingId = secretSauceId },
             new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstComboBurgerId, ToppingId = lettuceId },
             new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstComboBurgerId, ToppingId = tomatoId },
@@ -158,6 +163,7 @@ public class KrustyKrabDbContext : IdentityDbContext<IdentityUser>
             new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstComboBurgerId, ToppingId = ketchupId },
             new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstComboBurgerId, ToppingId = mustardId },
             new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstComboBurgerId, ToppingId = bunId },
+            new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstComboBurgerId, ToppingId = cheeseId },
             new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstBurgerId, ToppingId = secretSauceId },
             new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstBurgerId, ToppingId = lettuceId },
             new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstBurgerId, ToppingId = tomatoId },
@@ -168,6 +174,10 @@ public class KrustyKrabDbContext : IdentityDbContext<IdentityUser>
             new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstBurgerId, ToppingId = ketchupId },
             new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstBurgerId, ToppingId = mustardId },
             new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = firstBurgerId, ToppingId = bunId },
+            new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = fourthBurgerId, ToppingId = pattyId },
+            new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = fourthBurgerId, ToppingId = ketchupId },
+            new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = fourthBurgerId, ToppingId = mustardId },
+            new BurgerTopping{ Id = Guid.NewGuid(), BurgerId = fourthBurgerId, ToppingId = bunId },
         });
 
         modelBuilder.Entity<Drink>().HasData(new Drink[]
@@ -185,14 +195,21 @@ public class KrustyKrabDbContext : IdentityDbContext<IdentityUser>
             new Order{ Id = firstOrderId, CustomerId = patrickUPId, EmployeeId = squidwardUPId, OrderTypeId = hereId }
         });
 
+        modelBuilder.Entity<OrderCombo>().HasData(new OrderCombo[]
+        {
+            new OrderCombo{ Id = firstOrderComboId, ComboId = krabbyPattyComboId, OrderId = firstOrderId, Quantity = 1 }
+        });
+
         modelBuilder.Entity<OrderDrink>().HasData(new OrderDrink[]
         {
-            new OrderDrink{ Id = orderDrinkId, DrinkId = redTidepId, OrderId = firstOrderId, Quantity = 1, SizeId = mediumId }
+            new OrderDrink{ Id = orderDrinkId, DrinkId = redTidepId, OrderId = firstOrderId, Quantity = 1, SizeId = mediumId },
+            new OrderDrink{ Id = orderDrinkId2, DrinkId = drKelpId, OrderId = firstOrderId, Quantity = 1, SizeId = mediumId, IsInCombo = true, OrderComboId = firstOrderComboId }
         });
 
         modelBuilder.Entity<OrderSide>().HasData(new OrderSide[]
         {
-            new OrderSide{ Id = orderSideId, OrderId = firstOrderId, SideId = coralBitsId, Quantity = 1, SizeId = largeId }
+            new OrderSide{ Id = orderSideId, OrderId = firstOrderId, SideId = coralBitsId, Quantity = 1, SizeId = largeId },
+            new OrderSide{ Id = orderSideId2, OrderId = firstOrderId, SideId = kelpFriesId, Quantity = 1, SizeId = largeId, IsInCombo = true, OrderComboId = firstOrderComboId },
         });
 
         modelBuilder.Entity<OrderType>().HasData(new OrderType[]
@@ -224,13 +241,6 @@ public class KrustyKrabDbContext : IdentityDbContext<IdentityUser>
             new Topping{ Id = pattyId, Name = "patty", Price = 1.00F},
             new Topping{ Id = bunId, Name = "bun", Price = .20F},
             new Topping{ Id = cheeseId, Name = "sea cheese", Price = .25F}
-        });
-
-        modelBuilder.Entity<ComboItem>().HasData(new ComboItem[]
-        {
-           new ComboItem{ Id = Guid.NewGuid(), ComboId = doubleKrabbyPattyComboId, ItemId = firstBurgerId, OrderId = firstOrderId },
-           new ComboItem{ Id = Guid.NewGuid(), ComboId = doubleKrabbyPattyComboId, ItemId = orderSideId, OrderId = firstOrderId },
-           new ComboItem{ Id = Guid.NewGuid(), ComboId = doubleKrabbyPattyComboId, ItemId = orderDrinkId,  OrderId = firstOrderId }
         });
 
         modelBuilder.Entity<Size>().HasData(new Size[]

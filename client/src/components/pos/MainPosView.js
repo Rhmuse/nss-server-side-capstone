@@ -82,11 +82,11 @@ const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder, 
 
     const handleCompleteOrder = () => {
         const mediumOrderType = menuItems.orderTypes.find(ot => ot.name === "here");
-        if (order.orderTypeId = "") {
-            const orderCopy = { ...order };
-            orderCopy.orderTypeId = mediumOrderType.id;
+        const orderCopy = { ...order };
+        if (order.order.orderTypeId === "") {
+            orderCopy.order.orderTypeId = mediumOrderType.id;
         }
-        postOrder(order).then(() => {
+        postOrder(orderCopy).then(() => {
             loadOrders();
             // setOrder({
             //     order: {
