@@ -51,7 +51,7 @@ export default function Login({ setLoggedInUser }) {
 
 
 
-        <Button color="primary" onClick={handleSubmit}>
+        <Button color="primary" className='loginButton' onClick={handleSubmit}>
           Login
         </Button>
       </Form>

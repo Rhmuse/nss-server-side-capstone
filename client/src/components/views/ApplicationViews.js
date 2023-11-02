@@ -5,7 +5,7 @@ import NavBar from '../NavBar';
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   if (loggedInUser?.roles?.includes("Employee") || loggedInUser?.roles?.includes("Admin")) {
     return (
-      <EmployeeView loggedInUser={loggedInUser} />
+      <EmployeeView loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
     )
   }
   return (

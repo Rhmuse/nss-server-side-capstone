@@ -107,7 +107,7 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                                         </Row>
                                     </Col>
                                     <Col id='employeeViewRightCol'>
-                                        <LoggedInUserDetails loggedInUser={loggedInUser} />
+                                        <LoggedInUserDetails loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
                                         <Row id='mainPosViewRow'>
                                             <MainPosView orderSummary={orderSummary} setOrderSummary={setOrderSummary} setSelectedItem={setSelectedItem} selectedItem={selectedItem} menuItems={menuItems} order={order} setOrder={setOrder} setItemBuilder={setItemBuilder} itemBuilder={itemBuilder} loggedInUser={loggedInUser} loadOrders={loadOrders} />
                                         </Row>
