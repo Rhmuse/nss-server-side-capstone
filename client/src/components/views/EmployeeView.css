@@ -3,6 +3,7 @@
 	justify-content: center;
 	background-image: url('../../../public/assets/wp2967398.png');
 	background-position: center;
+	background-attachment: fixed;
 	background-repeat: no-repeat;
 	background-size: cover;
 	height: 100vh;

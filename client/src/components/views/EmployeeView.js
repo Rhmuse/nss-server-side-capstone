@@ -28,6 +28,8 @@ import { getAllToppings } from '../../managers/toppingsManager';
 import "./EmployeeView.css";
 import { getAllOrders } from '../../managers/orderManager';
 import { getAllOrderTypes } from '../../managers/orderTypesManager';
+import OrdersList from '../pos/admintools/orders/OrdersList';
+import OrderDetails from '../pos/admintools/orders/OrderDetails';
 
 
 const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
@@ -235,6 +237,23 @@ const EmployeeView = ({ loggedInUser, setLoggedInUser }) => {
                             <Container>
                                 <LoggedInUserDetails loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
                                 <EditToppingForm loadMenuItems={loadMenuItems} setSelectedCategory={setSelectedCategory} menuItems={menuItems} />
+                            </Container>
+                        </AuthorizedRoute>
+                    } />
+                    {/* Orders */}
+                    <Route path='orders' element={
+                        <AuthorizedRoute loggedInUser={loggedInUser}>
+                            <Container>
+                                <LoggedInUserDetails loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
+                                <OrdersList orders={orders} menuItems={menuItems} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
+                            </Container>
+                        </AuthorizedRoute>
+                    } />
+                    <Route path='orders/:orderId' element={
+                        <AuthorizedRoute loggedInUser={loggedInUser}>
+                            <Container>
+                                <LoggedInUserDetails loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
+                                <OrderDetails orders={orders} menuItems={menuItems} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
                             </Container>
                         </AuthorizedRoute>
                     } />

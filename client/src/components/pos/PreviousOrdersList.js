@@ -15,7 +15,7 @@ const PreviousOrdersList = ({ orders }) => {
                 let [formatedTime,] = time.split(".")
                 previousOrdersTemp.push(
                     <Container key={`order-${o.id}`}>
-                        <Row className='orderListId'>&#x2022;{o.id}</Row>
+                        <Row className='orderListId'>&#x2022; {o.id}</Row>
                         <Row className='orderListDetails'>
                             <Col>{date}</Col>
                             <Col>{formatedTime}</Col>

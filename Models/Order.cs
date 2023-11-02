@@ -25,23 +25,23 @@ public class Order
                 float? subTotal = 0F;
                 if (Burgers?.Count > 0) Burgers.ForEach(b =>
                     {
-                        if (!b.IsInCombo) subTotal += b.Price;
+                        if (!b.IsInCombo) subTotal += b.Price * b.Quantity;
                     }
                 );
 
                 if (OrderDrinks?.Count > 0) OrderDrinks.ForEach(d =>
                     {
-                        if (!d.IsInCombo) subTotal += d.Price;
+                        if (!d.IsInCombo) subTotal += d.Price * d.Quantity;
                     }
                 );
 
                 if (OrderSides?.Count > 0) OrderSides.ForEach(s =>
                     {
-                        if (!s.IsInCombo) subTotal += s.Price;
+                        if (!s.IsInCombo) subTotal += s.Price * s.Quantity;
                     }
                 );
 
-                if (OrderCombos?.Count > 0) OrderCombos.ForEach(oc => subTotal += oc.Price);
+                if (OrderCombos?.Count > 0) OrderCombos.ForEach(oc => subTotal += oc.Price * oc.Quantity);
 
                 return subTotal;
             }

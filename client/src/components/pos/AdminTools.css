@@ -1,3 +1,13 @@
 #adminToolsCategoryRow {
 	padding: 1rem;
 }
+
+.adminToolsTable {
+	--bs-table-bg: rgba(80, 229, 255, 0.75) !important;
+	border-color: black;
+}
+
+.adminTools-col3 {
+	display: flex;
+	justify-content: space-evenly;
+}

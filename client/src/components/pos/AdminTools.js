@@ -74,22 +74,24 @@ const AdminTools = ({ menuItems, loadMenuItems, selectedCategory, setSelectedCat
 
     return (
         <Container>
+            <h1>{capitalizeEveryFirstLetter(selectedCategory)}</h1>
             <Row id='adminToolsCategoryRow'>
                 <Col>
                     <CategorySelect menuItems={menuItems} setSelectedCategory={setSelectedCategory} />
                 </Col>
                 <Col>
-                    <Button onClick={() => {
+                    <Button className='posButton' onClick={() => {
                         navigate(`${selectedCategory}/add`)
                     }}>New {capitalizeEveryFirstLetter(selectedCategory).slice(0, -1)}</Button>
                 </Col>
-                <Col>
-                    <Button onClick={() => { navigate("/") }}>Return to POS</Button>
+                <Col className='adminTools-col3'>
+                    <Button className='posButton' onClick={() => { navigate("orders") }}>Orders</Button>
+                    <Button className='posButton' onClick={() => { navigate("/") }}>Return to POS</Button>
                 </Col>
             </Row>
             <Row>
                 <Container>
-                    <Table bordered striped responsive>
+                    <Table bordered striped responsive className='adminToolsTable'>
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -107,10 +109,10 @@ const AdminTools = ({ menuItems, loadMenuItems, selectedCategory, setSelectedCat
                                             <td>{capitalizeEveryFirstLetter(i.name)}</td>
                                             <td>{i.id}</td>
                                             <td>{selectedCategory === "combos" ? `${currency(parseInt(i.discount) * -1).format()}` : currency(i.price).format()}</td>
-                                            <td><Button onClick={() => {
+                                            <td><Button className='posButton' onClick={() => {
                                                 handleEdit(i.id)
                                             }}>Edit</Button></td>
-                                            <td><Button onClick={() => handleDelete(i.id)}>Delete</Button></td>
+                                            <td><Button className='posButton' onClick={() => handleDelete(i.id)}>Delete</Button></td>
                                         </tr>
                                     )
                                 })

@@ -90,7 +90,7 @@ const MainPosView = ({ order, setOrder, menuItems, itemBuilder, setItemBuilder, 
             loadOrders();
             setOrder({
                 order: {
-                    orderTypeId: "f859731c-a421-493e-bc41-e7f16fbcc530",
+                    orderTypeId: mediumOrderType.id,
                     employeeId: loggedInUser.id,
                 },
                 drinks: [],

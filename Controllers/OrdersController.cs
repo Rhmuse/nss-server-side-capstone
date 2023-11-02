@@ -46,6 +46,7 @@ public class OrdersController : ControllerBase
             .ThenInclude(s => s.Size)
             .Include(o => o.OrderCombos)
             .ThenInclude(oc => oc.Burger)
+            .Include(o => o.Employee)
             .OrderByDescending(o => o.OrderTime)
             .ToList();
         return Ok(orders);
